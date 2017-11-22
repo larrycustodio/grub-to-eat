@@ -1,34 +1,51 @@
 const path = require('path');
 
-module.exports = {
-  context: path.join(__dirname, '/src'),
-  devtool: 'source-maps',
-  entry: {
-    javascript: './js/index'
-  },
-
-  output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '/dist'),
-  },
-
-  resolve: {
-    alias: {
-      react: path.join(__dirname, 'node_modules', 'react')
+module.exports = [
+  {
+    name: 'js',
+    entry: {
+      main: ['./src/index']
     },
-    extensions: ['.js', '.jsx']
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader'],
+    context: path.join(__dirname, '/src'),
+    devtool: 'source-maps',
+    output: {
+      filename: 'bundle.js',
+      path: path.join(__dirname, '/dist')
+    },
+
+    resolve: {
+      alias: {
+        react: path.join(__dirname, 'node_modules', 'react')
       },
-      {
-        test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
-      },
-    ],
+      extensions: ['.js', '.jsx']
+    },
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loaders: ['babel-loader']
+        },
+        {
+          test: /\.html$/,
+          loader: 'file?name=[name].[ext]'
+        }
+      ]
+    }
   },
-};
+  {
+    name: 'scss',
+    entry: {
+      styles: ['./src/scss/main.scss']
+    },
+    context: path.join(__dirname, '/src/scss'),
+    output: {
+      filename: 'main.css',
+      path: path.join(__dirname, '/dist/css')
+    },
+    module: {
+      test: /\.scss$/,
+      use: { loaders: ['style', 'css', 'sass'] }
+    }
+  }
+];
