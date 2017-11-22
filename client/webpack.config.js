@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [
   {
@@ -25,6 +26,7 @@ module.exports = [
     },
     module: {
       rules: [
+        // See .babelrc for specified react compiler 
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
@@ -33,23 +35,19 @@ module.exports = [
         {
           test: /\.html$/,
           loader: 'file?name=[name].[ext]'
+        },
+        // Adds sass loaders for scss file imported on index.jsx
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('css-loader!sass-loader')
         }
       ]
-    }
-  },
-  // {
-  //   name: 'scss',
-  //   entry: {
-  //     styles: ['./src/scss/main.scss']
-  //   },
-  //   context: path.join(__dirname, '/src/scss'),
-  //   output: {
-  //     filename: 'main.css',
-  //     path: path.join(__dirname, '/dist/css')
-  //   },
-  //   module: {
-  //     test: /\.scss$/,
-  //     use: { loaders: ['style', 'css', 'sass'] }
-  //   }
-  // }
+    },
+    plugins: [
+      new ExtractTextPlugin('css/main.css', {
+        allChunks: true
+      })
+    ]
+
+  }
 ];
