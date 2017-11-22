@@ -1,0 +1,64 @@
+{
+  "name": "order",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "current": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "menuItems": {
+      "type": [
+        "object"
+      ]
+    },
+    "subTotal": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    },
+    "orderTime": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "deliveryTime": {
+      "type": "number",
+      "required": true,
+      "default": 1800
+    },
+    "address1": {
+      "type": "string",
+      "required": true
+    },
+    "address2": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true
+    },
+    "zipcode": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "Number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
