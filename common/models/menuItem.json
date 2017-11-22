@@ -1,0 +1,29 @@
+{
+    "name": "menuItem",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+      "validateUpsert": true
+    },
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "String"
+      },
+      "price": {
+        "type": "number"
+      },
+      "prepTime": {
+        "type": "number",
+        "defaultFn": "now",
+        "default": 900
+      }
+    },
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
+  }
+  
