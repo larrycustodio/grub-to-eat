@@ -14,7 +14,7 @@ $ cd client
 $ npm i
 ```
 
-Then Run `npm start` to , and open localhost:12345 your internet browser. 
+Then run `npm start` to start the server, and open localhost:12345 in your internet browser
 
 INSERT SCREENSHOT OF APP HERE
 
