@@ -34,5 +34,17 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Order": {
+    "dataSource": "db",
+    "public": true
+  },
+  "MenuItem": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Menu": {
+    "dataSource": "db",
+    "public": true
   }
 }
