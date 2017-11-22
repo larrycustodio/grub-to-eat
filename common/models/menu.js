@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(menu) {
+module.exports = function(Menu) {
 
 };

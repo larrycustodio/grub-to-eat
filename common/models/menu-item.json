@@ -1,13 +1,22 @@
 {
-  "name": "Menu",
+  "name": "MenuItem",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "category": {
+    "name": {
       "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "prepTime": {
+      "type": "number"
     }
   },
   "validations": [],
