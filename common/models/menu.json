@@ -11,7 +11,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "menuItems": {
+      "type": "hasMany",
+      "model": "MenuItem",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
