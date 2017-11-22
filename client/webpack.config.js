@@ -36,15 +36,16 @@ module.exports = [
           test: /\.html$/,
           loader: 'file?name=[name].[ext]'
         },
-        // Adds sass loaders for scss file imported on index.jsx
+        // Add sass loaders for scss file imported on index.jsx
         {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract('css-loader!sass-loader')
         }
       ]
     },
+    // Extracts src/scss/style.scss to dist/css/style.css
     plugins: [
-      new ExtractTextPlugin('css/main.css', {
+      new ExtractTextPlugin('css/style.css', {
         allChunks: true
       })
     ]
