@@ -39,7 +39,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 * [Jonathan Lancaster](https://github.com/jcast90)
 * [Larry Custodio](https://github.com/larrycustodio)
 
-See list of [contributors here](https://github.com/your/project/contributors).
+See list of [contributors here](https://github.com/larrycustodio/grub-to-eat/graphs/contributors).
 
 ## License
 
