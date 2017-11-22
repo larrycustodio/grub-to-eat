@@ -1,11 +1,22 @@
-import React, { Component } from 'react';
+import React from "react";
 
-export default class App extends Component {
-    render(){
-        return (
-            <div>
-                Hello app
-            </div>
-        );
-    }
+import { HashRouter as Router, Route } from "react-router-dom";
+import Login from "./components/Login";
+import SearchDisplay from "./components/SearchDisplay";
+import SearchResults from "./components/SearchResults";
+import RestaurantMenu from "./components/RestaurantMenu";
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div className="container">
+          <Route exact path="/" component={SearchDisplay} />
+          <Route path="/login" component={Login} />
+          <Route path="/results" component={SearchResults} />
+          <Route path="/menu" component={RestaurantMenu} />
+        </div>
+      </Router>
+    );
+  }
 }
