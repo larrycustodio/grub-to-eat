@@ -1,14 +1,15 @@
 {
-  "name": "Customer",
+  "name": "Restaurant",
   "base": "User",
-  "strict": true,
   "idInjection": true,
+  "strict": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
     "email": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "password": {
       "type": "string",
