@@ -38,6 +38,18 @@
     },
     "phone": {
       "type": "string"
+    },
+    "featuredImage": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "hours": {
+      "type": "string"
     }
   },
   "validations": [],
