@@ -6,4 +6,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.static("dist"));
 app.use(express.static("public"));
-(module.exports = app);
+
+app.get('/', (req,res) => res.send('index.html'));
+
+module.exports = app;
