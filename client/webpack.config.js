@@ -2,12 +2,16 @@ const path = require('path');
 
 module.exports = [
   {
-    name: 'js',
-    entry: {
-      main: ['./src/index']
-    },
     context: path.join(__dirname, '/src'),
+    
+    name: 'js',
+  
+    entry: {
+      main: ['./js/index']
+    },
+  
     devtool: 'source-maps',
+  
     output: {
       filename: 'bundle.js',
       path: path.join(__dirname, '/dist')
@@ -33,19 +37,19 @@ module.exports = [
       ]
     }
   },
-  {
-    name: 'scss',
-    entry: {
-      styles: ['./src/scss/main.scss']
-    },
-    context: path.join(__dirname, '/src/scss'),
-    output: {
-      filename: 'main.css',
-      path: path.join(__dirname, '/dist/css')
-    },
-    module: {
-      test: /\.scss$/,
-      use: { loaders: ['style', 'css', 'sass'] }
-    }
-  }
+  // {
+  //   name: 'scss',
+  //   entry: {
+  //     styles: ['./src/scss/main.scss']
+  //   },
+  //   context: path.join(__dirname, '/src/scss'),
+  //   output: {
+  //     filename: 'main.css',
+  //     path: path.join(__dirname, '/dist/css')
+  //   },
+  //   module: {
+  //     test: /\.scss$/,
+  //     use: { loaders: ['style', 'css', 'sass'] }
+  //   }
+  // }
 ];
