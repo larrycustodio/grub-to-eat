@@ -26337,25 +26337,36 @@ class SearchResults extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           { className: "row" },
-          restaurantList.map(restaurant => {
+          restaurantList.map((restaurant, index) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
               { key: restaurant.restaurantName.toLowerCase(),
-                className: "grid grid-result text-center p-2 bg-secondary text-white" },
+                "data-result-index": index,
+                className: "grid" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { className: "grid__image",
+                src: "http://bit.ly/2hZ3y91" }),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h4",
-                { className: "grid-title" },
-                restaurant.restaurantName
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "p",
-                { className: "grid-info" },
-                "Delivery Fee: $3.99"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "p",
-                { className: "grid-info" },
-                "ETA:30 - 40 min"
+                "div",
+                { className: "grid__gradient" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "grid__content text-white text-center" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "h4",
+                    { className: "grid__title" },
+                    restaurant.restaurantName
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "p",
+                    { className: "grid__info info-delivery-fee" },
+                    "Delivery Fee: $3.99"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "p",
+                    { className: "grid__info info-eta" },
+                    "ETA:30 - 40 min"
+                  )
+                )
               )
             );
           })
