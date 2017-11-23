@@ -4,13 +4,13 @@
     "connector": "memory"
   },
   "MongoDB": {
-    "host": "",
-    "port": 0,
+    "host": "ds119306.mlab.com",
+    "port": 19306,
     "url": "",
-    "database": "grubtoeat",
-    "password": "",
+    "database": "heroku_b6gzz16f",
+    "password": "cheeseburger",
     "name": "MongoDB",
-    "user": "",
+    "user": "grubtoeatadmin",
     "connector": "mongodb"
   }
 }
