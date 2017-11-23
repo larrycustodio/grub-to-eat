@@ -21,6 +21,9 @@
     "lastName": {
       "type": "string"
     },
+    "restaurantName": {
+      "type": "string"
+    },
     "address1": {
       "type": "string"
     },
