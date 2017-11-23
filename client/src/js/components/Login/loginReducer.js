@@ -2,4 +2,6 @@ import { types } from "./loginActions";
 
 const defaultState = {};
 
-export default function LoginReducer(state = defaultState, action) {}
+export default function LoginReducer(state = defaultState, action) {
+ return defaultState;
+}

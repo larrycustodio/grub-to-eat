@@ -1,6 +1,13 @@
-body {
-  font-family: sans-serif;
-  font-size: 72px;
-  color: hotpink; }
+.container {
+  margin-top: 75px; }
+
+.navbar {
+  justify-content: initial; }
+  .navbar .login {
+    position: absolute;
+    right: 1em; }
+  .navbar .brand-wrapper {
+    width: 100%;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map*/
