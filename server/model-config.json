@@ -14,46 +14,46 @@
     ]
   },
   "User": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": false
   },
   "Order": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "MenuItem": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "Menu": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "Customer": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   },
   "Restaurant": {
-    "dataSource": "db",
+    "dataSource": "MongoDB",
     "public": true
   }
 }
