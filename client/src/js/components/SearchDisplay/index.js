@@ -3,6 +3,7 @@ import SearchDisplay from "./SearchDisplay";
 
 function mapStoreToProps(store) {
   return {
+    selectedLocation: store.searchDisplay.selectedLocation
   };
 }
 
