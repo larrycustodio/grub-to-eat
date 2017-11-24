@@ -14,15 +14,15 @@
     position: relative;
     transition: all 0.25s ease;
     top: 0;
-    &:hover {
-        box-shadow: 0 7px 9px 0px rgba(121, 121, 121, 0.68);
-        top: -0.25em;
-    }
     @media screen and (min-width: 768px){
         flex: 1 0 49%;
         animation: 0.85s gridShow ease forwards;
     }
     @media screen and (min-width: 1024px){
+        &:hover {
+            box-shadow: 0 7px 9px 0px rgba(121, 121, 121, 0.68);
+            top: -0.25em;
+        }    
         flex: 1 0 32%;
     }
 }

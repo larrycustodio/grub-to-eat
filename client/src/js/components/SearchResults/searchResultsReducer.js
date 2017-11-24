@@ -5,9 +5,15 @@ const defaultState = {
         {'restaurantName': 'Chronic Tacos'},
         {'restaurantName': 'Lucha Libre Taco Shop'},
         {'restaurantName': 'Lolita\'s Taco Shop'},
-        {'restaurantName': 'Habaneros'},
+        {'restaurantName': 'Habaneros Taco Shop'},
         {'restaurantName': 'Filling Mexican Grill'},
-        {'restaurantName': 'Some other restaurant'},        
+        {'restaurantName': 'Questionable Fish Grill'},  
+        {'restaurantName': 'Donuts & Other Places'},        
+        {'restaurantName': 'Mystery Pie Shop'},        
+        {'restaurantName': 'Dorsia'},        
+        {'restaurantName': 'Broadway & Second'},        
+        {'restaurantName': 'Rude Boy\'s Grill Place'},        
+        
     ],
 };
 
