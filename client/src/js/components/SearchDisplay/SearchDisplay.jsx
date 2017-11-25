@@ -1,23 +1,21 @@
 import React from "react";
 import TopNav from "../TopNav";
-
-import { updateLocation } from "./searchDisplayActions";
-
+import {updateSearchLocation} from './searchDisplayActions';
 export default class SearchDisplay extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  handleInputChange(e) {
-    const { dispatch } = this.props;
-    const { value } = e.target;
-    dispatch(updateLocation(value));
+  componentDidMount() {
+    var input = document.getElementById('searchLocationField');
+    var options = {componentRestrictions: {country: 'us'}};
+    new google.maps.places.Autocomplete(input, options);
   }
   handleClick(e) {
-    const { dispatch, selectedLocation } = this.props;
-    dispatch(getRestaurants(selectedLocation));
+    const { dispatch } = this.props;
+    var input = document.getElementById('searchLocationField').value;
+    dispatch(updateSearchLocation(input));
   }
   render() {
     const selectedLocation = this.props.selectedLocation;
@@ -29,6 +27,7 @@ export default class SearchDisplay extends React.Component {
           <p>Get grub right at your door in just a few clicks</p>
           <div className="input-group">
             <input
+              ref="searchField"
               id="searchLocationField"
               onChange={this.handleInputChange}
               value={selectedLocation}

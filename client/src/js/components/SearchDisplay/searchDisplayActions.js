@@ -1,14 +1,11 @@
-import axios from "axios";
-
 export const types = {
-  UPDATE_LOCATION: "UPDATE_LOCATION"
+ UPDATE_SEARCH_LOCATION: 'UPDATE_SEARCH_LOCATION'
 };
-
-export function updateLocation(location) {
-  return {
-    type: types.UPDATE_LOCATION,
-    payload: {
-      location: location
-    }
-  };
+export function updateSearchLocation(input){
+ return {
+  type: types.UPDATE_SEARCH_LOCATION,
+  payload: {
+   location: input
+  }
+ }
 }

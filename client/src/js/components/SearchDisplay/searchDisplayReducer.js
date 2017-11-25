@@ -1,18 +1,18 @@
 import { types } from "./searchDisplayActions";
 
 const defaultState = {
-  selectedLocation: ""
+  searchLocation: ''
 };
 
-export default function LoginReducer(state = defaultState, action) {
+export default function searchDisplayReducer(state = defaultState, action) {
   const { type, payload } = action;
 
-  switch (type) {
-    case types.UPDATE_LOCATION: {
+  switch(type) {
+    case "UPDATE_SEARCH_LOCATION": {
       return {
         ...state,
-        selectedLocation: payload.location
-      };
+        searchLocation: payload.location
+      }
     }
     default: {
       return state;
