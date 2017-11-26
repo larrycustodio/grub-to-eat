@@ -7,7 +7,7 @@ export default class SearchResults extends React.Component {
     super(props)
 
     this.state = {
-      searchLocation: this.props.searchInput
+      searchLocation: this.props.searchInput.searchLocation
     }
   }
   componentWillMount() {
