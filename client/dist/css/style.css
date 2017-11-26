@@ -64,4 +64,11 @@
   background: rgba(189, 189, 189, 0.63);
   border-radius: 1em; }
 
+.login-wrapper .btn {
+  cursor: pointer; }
+
+.login-wrapper .btn-secondary {
+  display: block;
+  margin-top: 10px; }
+
 /*# sourceMappingURL=style.css.map*/
