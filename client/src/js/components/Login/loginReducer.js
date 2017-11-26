@@ -1,7 +1,35 @@
-import { types } from "./loginActions";
+import { types } from './loginActions';
 
-const defaultState = {};
+const defaultState = {
+  customerInfo: []
+};
 
 export default function LoginReducer(state = defaultState, action) {
- return defaultState;
+  const { type, payload } = action;
+
+  switch (type) {
+    case types.POST_CUSTOMER + '_FULFILLED': {
+      if (payload) {
+        return {
+          ...state,
+          customerInfo: payload.user
+        };
+      }
+    }
+    case types.POST_CUSTOMER + '_PENDING': {
+      return state;
+    }
+    case types.POST_RESTAURANT + '_FULFILLED': {
+      if (payload) {
+        return {
+          ...state,
+          customerInfo: payload.user
+        };
+      }
+    }
+    case types.POST_RESTAURANT + '_PENDING': {
+      return state;
+    }
+  }
+  return defaultState;
 }

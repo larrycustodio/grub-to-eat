@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -w",
-    "start": "webpack && node server/index.js"
+    "start": "webpack && nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,9 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "express": "^4.16.2",
+    "faker": "^4.1.0",
     "file-loader": "^1.1.5",
     "lodash": "^4.17.4",
     "lodash-webpack-plugin": "^0.11.4",
@@ -43,7 +45,8 @@
     "sass": "^1.0.0-beta.3",
     "serve-favicon": "^2.4.5",
     "url-loader": "^0.6.2",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "yelp-fusion": "^1.0.4"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

@@ -3,6 +3,8 @@ import SearchResults from "./SearchResults";
 
 function mapStoreToProps(store) {
   return {
+    restaurantList: store.searchResults,
+    searchInput: store.searchDisplay
   };
 }
 
