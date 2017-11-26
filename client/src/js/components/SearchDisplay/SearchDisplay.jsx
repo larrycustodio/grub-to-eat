@@ -1,6 +1,6 @@
 import React from "react";
 import TopNav from "../TopNav";
-import {updateSearchLocation} from './searchDisplayActions';
+import { updateSearchLocation } from "./searchDisplayActions";
 export default class SearchDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -8,13 +8,13 @@ export default class SearchDisplay extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    var input = document.getElementById('searchLocationField');
-    var options = {componentRestrictions: {country: 'us'}};
+    var input = document.getElementById("searchLocationField");
+    var options = { componentRestrictions: { country: "us" } };
     new google.maps.places.Autocomplete(input, options);
   }
   handleClick(e) {
     const { dispatch } = this.props;
-    var input = document.getElementById('searchLocationField').value;
+    var input = document.getElementById("searchLocationField").value;
     dispatch(updateSearchLocation(input));
   }
   render() {
