@@ -1,5 +1,7 @@
 .container {
-    margin-top: 75px;
-   }
+  margin-top: 75px;
+}
 
-   @import 'navbar';
+@import 'navbar';
+@import 'results-grid';
+@import 'login';
