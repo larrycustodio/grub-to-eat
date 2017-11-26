@@ -26216,7 +26216,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     super(props);
     this.state = {
       signUp: true,
-      username: 'jcast90',
+      username: '',
       userType: '',
       firstName: '',
       lastName: '',
@@ -26259,6 +26259,18 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'form-group' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            { htmlFor: 'username' },
+            'User Name'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+            className: 'form-control',
+            id: 'username',
+            type: 'text',
+            value: this.state.username,
+            onChange: this.handleChange('username')
+          }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             { htmlFor: 'firstName' },
@@ -27728,12 +27740,11 @@ function postCustomer(customerInfo) {
   console.log({ username, email, password });
   return {
     type: types.POST_CUSTOMER,
-    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Customers', JSON.stringify({
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Customers', {
       username,
       email,
       password
-    })).then(res => {
-      console.log(res.data);
+    }).then(res => {
       return {
         user: res.data
       };
