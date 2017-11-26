@@ -45,7 +45,8 @@
     "sass": "^1.0.0-beta.3",
     "serve-favicon": "^2.4.5",
     "url-loader": "^0.6.2",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "yelp-fusion": "^1.0.4"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

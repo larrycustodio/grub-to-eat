@@ -3,6 +3,10 @@ const morgan = require('morgan');
 const faker = require('faker');
 const axios = require('axios');
 const herokuAPI = 'https://grubtoeat.herokuapp.com/api';
+const yelp = require('yelp-fusion');
+//ADD YELP API Client ID + Secret on the constants at ln 8 & 9
+const clientId = 'Ts9mXy-CsdlBMR8Ub9RpOg';
+const clientSecret = '1r4iNuYsYsY4Dc6ITMPTeZoyH8fzKPuAVJAQLOTaweYvNaA2SSb4T7OodY6VZPBA';
 
 const app = express();
 
@@ -12,35 +16,22 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) => res.send('index.html'));
 
-// Generates Yelp restaurant data
-app.post('/fake/yelp/:zipCode', (req, res) => {
-    //TODO for yelp wrapper
-    res.send('TBD');
-});
-// Manual fake restaurant creation
-app.post('/fake/:foo/new', (req, res) => {
-    const fakeRestaurant = {
-        'email': faker.internet.email(),
-        'firstName': 'Jane',
-        'lastName': 'Doe',
-        'restaurantName': faker.company.companyName(),
-        'address1': faker.address.streetAddress(),
-        'address2': faker.address.secondaryAddress(),
-        'state': 'CA',
-        'zipcode': `9210${Math.floor(Math.random() * req.params.foo)}`,
-        'city': 'San Diego',
-        'phone': faker.phone.phoneNumber(),
-        'featuredImage': faker.image.food(),
-        'description': faker.company.catchPhrase(),
-        'category': 'American',
-        'hours': '0800-1700',
-        'username': 'restaurantUser' + req.params.foo || Math.floor(Math.random() * 100),
-        'password': 'password'
-    };
-    axios.post(`${herokuAPI}/Restaurants`, fakeRestaurant)
-        .then(success => {
-            res.send(success.data);
+app.get('/api/yelp/:searchParams', (req,res)=>{
+    yelp.accessToken(clientId,clientSecret)
+    .then(successToken=>{
+        const yelpClient = yelp.client(successToken.jsonBody.access_token);
+        yelpClient.search({
+            term: 'food',
+            open_now: true,
+            location: req.params.searchParams || '92101',
+            limit: 20,
+            sort_by: 'distance'
+        }).then(successSearch=>{
+            res.send(successSearch.jsonBody.businesses);
+        }).catch(err=>{
+            res.send(err.message);
         })
-        .catch(console.error);
+    })
 });
+
 module.exports = app;
