@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { postCustomer } from './loginActions';
+import { postCustomer, postRestaurant } from './loginActions';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -37,7 +37,12 @@ export default class Login extends React.Component {
   }
   handleSubmit() {
     const customerInfo = { ...this.state };
-    this.props.dispatch(postCustomer(customerInfo));
+    if (this.state.userType === 'Customer') {
+      this.props.dispatch(postCustomer(customerInfo));
+    }
+    if (this.state.userType === 'Restaurant Owner') {
+      this.props.dispatch(postRestaurant(customerInfo));
+    }
   }
   renderLogin() {
     if (this.state.signUp) {
@@ -133,10 +138,10 @@ export default class Login extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleSelect1">Register as</label>
+            <label htmlFor="registerType">Register as</label>
             <select
               className="form-control"
-              id="exampleSelect1"
+              id="registerType"
               value={this.state.userType}
               onChange={this.handleChange('userType')}
             >
@@ -200,8 +205,8 @@ export default class Login extends React.Component {
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="exampleSelect1">Sign in as</label>
-            <select className="form-control" id="exampleSelect1">
+            <label htmlFor="restaurantOwner">Sign in as</label>
+            <select className="form-control" id="restaurantOwner">
               <option>Restaurant Owner</option>
               <option>Customer</option>
             </select>
