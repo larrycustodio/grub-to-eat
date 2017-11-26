@@ -7,11 +7,11 @@ export default class SearchResults extends React.Component {
     super(props)
 
     this.state = {
-      zipcode: 92101
+      searchLocation: this.props.searchInput
     }
   }
   componentWillMount() {
-    this.props.dispatch(getRestaurantList(this.state.zipcode));
+    this.props.dispatch(getRestaurantList(this.state.searchLocation));
   }
   render() {
     const restaurantList = this.props.restaurantList.list;
