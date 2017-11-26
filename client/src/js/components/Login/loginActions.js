@@ -10,16 +10,12 @@ export function postCustomer(customerInfo) {
   return {
     type: types.POST_CUSTOMER,
     payload: axios
-      .post(
-        'https://grubtoeat.herokuapp.com/api/Customers',
-        JSON.stringify({
-          username,
-          email,
-          password
-        })
-      )
+      .post('https://grubtoeat.herokuapp.com/api/Customers', {
+        username,
+        email,
+        password
+      })
       .then(res => {
-        console.log(res.data);
         return {
           user: res.data
         };

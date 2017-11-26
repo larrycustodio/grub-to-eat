@@ -7,7 +7,7 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       signUp: true,
-      username: 'jcast90',
+      username: '',
       userType: '',
       firstName: '',
       lastName: '',
@@ -45,6 +45,14 @@ export default class Login extends React.Component {
         <form>
           <h3>Sign Up</h3>
           <div className="form-group">
+            <label htmlFor="username">User Name</label>
+            <input
+              className="form-control"
+              id="username"
+              type="text"
+              value={this.state.username}
+              onChange={this.handleChange('username')}
+            />
             <label htmlFor="firstName">First Name</label>
             <input
               className="form-control"
