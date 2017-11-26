@@ -1,13 +1,27 @@
 import React from "react";
 import TopNav from "../TopNav";
-import axios from "axios";
+import { getRestaurantList } from './searchResultsActions';
 
 export default class SearchResults extends React.Component {
   constructor(props) {
     super(props)
+    
+    this.state = {
+      zipcode: 92101
+    }
+  }
+  componentWillMount(){
+    this.props.dispatch(getRestaurantList(this.state.zipcode));
   }
   render() {
-    const restaurantList = this.props.restaurantList.restaurantList;
+    const restaurantList = [
+      {
+        restaurantName:'sample'
+      },
+      {
+        restaurantName: 'test test'
+      }
+    ];
     return (
       <div className='container-fluid'>
         <TopNav />
