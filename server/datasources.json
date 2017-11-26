@@ -2,5 +2,15 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "MongoDB": {
+    "host": "ds119306.mlab.com",
+    "port": 19306,
+    "url": "",
+    "database": "heroku_b6gzz16f",
+    "password": "cheeseburger",
+    "name": "MongoDB",
+    "user": "grubtoeatadmin",
+    "connector": "mongodb"
   }
 }
