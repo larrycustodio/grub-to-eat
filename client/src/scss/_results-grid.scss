@@ -16,15 +16,24 @@
     top: 0;
     @media screen and (min-width: 768px){
         flex: 1 0 49%;
-        animation: 0.85s gridShow ease forwards;
+        opacity: 0;
+        @for $grid-item from 1 through 20 {
+            &:nth-of-type(#{$grid-item}) {
+                animation: 0.85s gridShow ease forwards 0.125s + 0.125s * $grid-item;
+            }
+        }
     }
     @media screen and (min-width: 1024px){
         &:hover {
             box-shadow: 0 7px 9px 0px rgba(121, 121, 121, 0.68);
             top: -0.25em;
+            .grid__gradient {
+                background-color: rgba(4,4,4,0.55);                
+            }
         }    
         flex: 1 0 32%;
     }
+
 }
 
 .grid__image {
@@ -38,6 +47,7 @@
     left: 0;
     top: 0;
     width: 100%;
+    transition: background-color 0.25s ease;
 }
 
 .grid__content {
