@@ -78,7 +78,8 @@
           background-color: rgba(4, 4, 4, 0.55); } }
 
 .grid__image {
-  width: 100%; }
+  width: 100%;
+  max-height: 12.5em; }
 
 .grid__gradient {
   background-color: rgba(4, 4, 4, 0.3);
