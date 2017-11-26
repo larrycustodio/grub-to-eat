@@ -1,22 +1,22 @@
 import { types } from "./searchResultsActions";
 
 const defaultState = {
-    restaurantList: [
-        {'restaurantName': 'Chronic Tacos'},
-        {'restaurantName': 'Lucha Libre Taco Shop'},
-        {'restaurantName': 'Lolita\'s Taco Shop'},
-        {'restaurantName': 'Habaneros Taco Shop'},
-        {'restaurantName': 'Filling Mexican Grill'},
-        {'restaurantName': 'Questionable Fish Grill'},  
-        {'restaurantName': 'Donuts & Other Places'},        
-        {'restaurantName': 'Mystery Pie Shop'},        
-        {'restaurantName': 'Dorsia'},        
-        {'restaurantName': 'Broadway & Second'},        
-        {'restaurantName': 'Rude Boy\'s Grill Place'},        
-        
-    ],
+    list: [],
+    isLoaded: false
 };
 
-export default function LoginReducer(state = defaultState, action) {
- return defaultState; 
+export default function searchResultsReducer(state = defaultState, action) {
+    const { type, payload } = action;
+    switch (type) {
+        case 'GET_RESTAURANTS_PENDING': {
+            return Object.assign({},state);
+        }
+        case 'GET_RESTAURANTS_FULFILLED': {
+            return Object.assign({},{list: payload},{isLoaded:true});
+        }
+        default: {
+            return state;
+        }
+    }
+    return state;
 }

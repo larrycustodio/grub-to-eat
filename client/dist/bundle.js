@@ -27641,8 +27641,7 @@ function mapStoreToProps(store) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__searchResultsActions__ = __webpack_require__(159);
 
 
 
@@ -27650,9 +27649,16 @@ function mapStoreToProps(store) {
 class SearchResults extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      zipcode: 92101
+    };
+  }
+  componentWillMount() {
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__searchResultsActions__["a" /* getRestaurantList */])(this.state.zipcode));
   }
   render() {
-    const restaurantList = this.props.restaurantList.restaurantList;
+    const restaurantList = this.props.restaurantList.list;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
       { className: "container-fluid" },
@@ -27668,8 +27674,9 @@ class SearchResults extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
           { className: "row" },
           restaurantList.map((restaurant, index) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { key: restaurant.restaurantName.toLowerCase(),
+              "a",
+              { key: restaurant.id,
+                href: '#/results/' + restaurant.id,
                 "data-result-index": index,
                 className: "grid" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { className: "grid__image",
@@ -27887,16 +27894,32 @@ function searchDisplayReducer(state = defaultState, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = LoginReducer;
+/* harmony export (immutable) */ __webpack_exports__["a"] = searchResultsReducer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__searchResultsActions__ = __webpack_require__(159);
 
 
 const defaultState = {
-    restaurantList: [{ 'restaurantName': 'Chronic Tacos' }, { 'restaurantName': 'Lucha Libre Taco Shop' }, { 'restaurantName': 'Lolita\'s Taco Shop' }, { 'restaurantName': 'Habaneros Taco Shop' }, { 'restaurantName': 'Filling Mexican Grill' }, { 'restaurantName': 'Questionable Fish Grill' }, { 'restaurantName': 'Donuts & Other Places' }, { 'restaurantName': 'Mystery Pie Shop' }, { 'restaurantName': 'Dorsia' }, { 'restaurantName': 'Broadway & Second' }, { 'restaurantName': 'Rude Boy\'s Grill Place' }]
+    list: [],
+    isLoaded: false
 };
 
-function LoginReducer(state = defaultState, action) {
-    return defaultState;
+function searchResultsReducer(state = defaultState, action) {
+    const { type, payload } = action;
+    switch (type) {
+        case 'GET_RESTAURANTS_PENDING':
+            {
+                return Object.assign({}, state);
+            }
+        case 'GET_RESTAURANTS_FULFILLED':
+            {
+                return Object.assign({}, { list: payload }, { isLoaded: true });
+            }
+        default:
+            {
+                return state;
+            }
+    }
+    return state;
 }
 
 /***/ }),
@@ -27904,8 +27927,21 @@ function LoginReducer(state = defaultState, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const types = {};
-/* unused harmony export types */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+const getRestaurantList = searchParams => {
+    return {
+        type: 'GET_RESTAURANTS',
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/restaurants`).then(success => {
+            return success.data;
+        }).catch(err => {
+            return err;
+        })
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getRestaurantList;
 
 
 /***/ }),
