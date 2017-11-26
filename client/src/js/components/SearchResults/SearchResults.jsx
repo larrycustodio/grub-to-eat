@@ -23,9 +23,9 @@ export default class SearchResults extends React.Component {
           <div className='row'>
             {restaurantList.map((restaurant, index) => {
               return (
-                <div key={restaurant.restaurantName.toLowerCase()}
+                <a key={restaurant.id}
+                  href={'#/results/' + restaurant.id}
                   data-result-index={index}
-                  href='{"/" + restaurant}'
                   className='grid'>
                   <img className='grid__image'
                     src='http://bit.ly/2hZ3y91' />
@@ -36,7 +36,7 @@ export default class SearchResults extends React.Component {
                       <p className='grid__info info-eta'>ETA:30 - 40 min</p>
                     </div>
                   </div>
-                </div>
+                </a>
               )
             })
             }

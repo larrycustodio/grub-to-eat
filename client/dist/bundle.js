@@ -3770,7 +3770,6 @@ const getRestaurantList = searchParams => {
     return {
         type: 'GET_RESTAURANTS',
         payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/restaurants`).then(success => {
-            console.log(success.data);
             return success.data;
         }).catch(err => {
             return err;
@@ -26368,10 +26367,10 @@ class SearchResults extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
           { className: "row" },
           restaurantList.map((restaurant, index) => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { key: restaurant.restaurantName.toLowerCase(),
+              "a",
+              { key: restaurant.id,
+                href: '#/results/' + restaurant.id,
                 "data-result-index": index,
-                href: "{\"/\" + restaurant}",
                 className: "grid" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { className: "grid__image",
                 src: "http://bit.ly/2hZ3y91" }),
@@ -27464,19 +27463,26 @@ const types = {};
 
 
 const defaultState = {
-    list: [{ restaurantName: 'Fillers' }, { restaurantName: 'Taco Shop' }, { restaurantName: 'Echo' }, { restaurantName: 'Restaurant Blanks' }, { restaurantName: 'Some other Place' }],
+    list: [],
     isLoaded: false
 };
 
 function searchResultsReducer(state = defaultState, action) {
-    // const { type, payload } = action;
-    // switch (type) {
-    //     case 'GET_RESTAURANTS': {
-    //         console.log(payload);
-    //     }
-    //     default:
-    //         return state;
-    // }
+    const { type, payload } = action;
+    switch (type) {
+        case 'GET_RESTAURANTS_PENDING':
+            {
+                return Object.assign({}, state);
+            }
+        case 'GET_RESTAURANTS_FULFILLED':
+            {
+                return Object.assign({}, { list: payload }, { isLoaded: true });
+            }
+        default:
+            {
+                return state;
+            }
+    }
     return state;
 }
 
