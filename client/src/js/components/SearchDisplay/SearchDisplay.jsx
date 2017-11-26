@@ -36,9 +36,11 @@ export default class SearchDisplay extends React.Component {
               placeholder="Address..."
             />
             <span className="input-group-btn">
-              <button onClick={this.handleClick} className="btn btn-success">
-                Go!
-              </button>
+              <a href='#/results'>
+                <button onClick={this.handleClick} className="btn btn-success">
+                  Go!
+                </button>
+              </a>
             </span>
           </div>
         </div>
