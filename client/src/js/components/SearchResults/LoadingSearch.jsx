@@ -9,7 +9,7 @@ const LoadingSearch = props => (
             return (
                 <span key={ 'char-' + index }
                 className='loading-char'>
-                { char }
+                {char}
                 </span>
             );
         }) }
