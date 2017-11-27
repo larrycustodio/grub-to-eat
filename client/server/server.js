@@ -5,19 +5,19 @@ const axios = require('axios');
 const herokuAPI = 'https://grubtoeat.herokuapp.com/api';
 const yelp = require('yelp-fusion');
 //ADD YELP API Client ID + Secret on the constants at ln 8 & 9
-const clientId = '';
-const clientSecret = '';
 
-const app = express();
-
+const app = express(); 
 app.use(morgan('dev'));
 app.use(express.static('dist'));
 app.use(express.static('public'));
 
-app.get('/', (req, res) => res.send('index.html'));
+app.get('/', (req, res) => {
+    res.send('index.html');
+});
 
+//Create Yelp Fusion Endpoint
 app.get('/api/yelp/:searchParams', (req,res)=>{
-    yelp.accessToken(clientId,clientSecret)
+    yelp.accessToken(process.env.CLIENT_ID,process.env.CLIENT_SECRET)
     .then(successToken=>{
         const yelpClient = yelp.client(successToken.jsonBody.access_token);
         yelpClient.search({
