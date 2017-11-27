@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -w",
-    "start": "webpack && nodemon server/index.js",
-    "dev": "webpack && CLIENT_ID=Ts9mXy-CsdlBMR8Ub9RpOg CLIENT_SECRET=1r4iNuYsYsY4Dc6ITMPTeZoyH8fzKPuAVJAQLOTaweYvNaA2SSb4T7OodY6VZPBA nodemon server"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
