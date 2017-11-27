@@ -4,7 +4,7 @@ const loadingText = 'Finding grub...';
 
 const LoadingSearch = props => (
     <div id='loading'
-    className='loading-container text-center display-3'>
+    className='loading-container text-center display-4'>
         { loadingText.split('').map((char, index) => {
             return (
                 <span key={ 'char-' + index }
