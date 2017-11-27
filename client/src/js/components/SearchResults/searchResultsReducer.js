@@ -10,7 +10,8 @@ export default function searchResultsReducer(state = defaultState, action) {
     switch (type) {
         case 'GET_RESTAURANTS_PENDING': {
             return {
-                ...state
+                list: [],
+                isLoaded: false
             };
         }
         case 'GET_RESTAURANTS_FULFILLED': {

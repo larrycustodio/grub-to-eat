@@ -6,9 +6,12 @@ import LoadingSearch from './LoadingSearch';
 export default class SearchResults extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchLocation: this.props.searchInput.searchLocation
+    }
   }
   componentWillMount() {
-    this.props.dispatch(getRestaurantList(this.props.searchInput.searchLocation || 92101));
+    this.props.dispatch(getRestaurantList(this.state.searchLocation || 92101));
   }
 
   render() {
@@ -19,14 +22,15 @@ export default class SearchResults extends React.Component {
         <TopNav />
         { isLoaded ? 
         <div className='container'>
-          <div className='row'>
           <h4 className='lead'>
-            Found {list.length} places nearby {this.props.searchInput.searchLocation}!
+            Found {list.length} places near { this.state.searchLocation }!
           </h4>
+          <div className='row'>
             {
               list.map((restaurant, index) => {
                 return (
-                  <a key={restaurant.id}
+                  <a 
+                  key={restaurant.id}
                   href={'#/results/' + restaurant.id}
                   data-result-index={index}
                   className='grid'>
