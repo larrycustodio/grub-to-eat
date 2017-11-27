@@ -6,6 +6,8 @@ const herokuAPI = 'https://grubtoeat.herokuapp.com/api';
 const yelp = require('yelp-fusion');
 //ADD YELP API Client ID + Secret on the constants at ln 8 & 9
 
+const apiKeys = require('./apiKeys.json');
+
 const app = express(); 
 app.use(morgan('dev'));
 app.use(express.static('dist'));
@@ -17,7 +19,7 @@ app.get('/', (req, res) => {
 
 //Create Yelp Fusion Endpoint
 app.get('/api/yelp/:searchParams', (req,res)=>{
-    yelp.accessToken(process.env.CLIENT_ID,process.env.CLIENT_SECRET)
+    yelp.accessToken(apiKeys.clientId,apiKeys.clientSecret)
     .then(successToken=>{
         const yelpClient = yelp.client(successToken.jsonBody.access_token);
         yelpClient.search({
