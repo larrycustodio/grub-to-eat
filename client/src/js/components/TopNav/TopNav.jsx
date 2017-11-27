@@ -1,9 +1,6 @@
 import React from "react";
 
 export default class TopNav extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <nav className="navbar navbar-toggleable-md navbar-dark bg-dark fixed-top">
