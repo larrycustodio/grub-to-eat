@@ -7,9 +7,6 @@ const yelp = require('yelp-fusion');
 //ADD YELP API Client ID + Secret on the constants at ln 8 & 9
 const apiKeys = require('./apiKeys.json');
 
-const app = express();
-
-
 const app = express(); 
 app.use(morgan('dev'));
 app.use(express.static('dist'));
