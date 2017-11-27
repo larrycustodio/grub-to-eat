@@ -1,3 +1,41 @@
+/* * * * *
+Loading View
+* * * * * */
+@keyframes wave {
+    0% {
+      top: 0;
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.35;
+    }
+    30% {
+      top: 0.35em;
+      opacity: 0.75;
+    }
+    100% {
+      top: 0.35em;
+      opacity: 1;
+    }
+  }
+.loading-container {
+    font-weight: 700;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+}
+.loading-char {
+    position: relative;
+    opacity: 0;
+    animation: 1.25s linear wave infinite alternate;
+    @for $char from 1 through 20 {
+        &:nth-of-type(#{$char}){
+          animation-delay: $char * 0.12s;
+        }
+      }      
+}
+/* * * * *
+Results Grid
+* * * * * */
 @keyframes gridShow {
     0% {
         opacity: 0;
