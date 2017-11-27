@@ -5,6 +5,8 @@ const axios = require('axios');
 const herokuAPI = 'https://grubtoeat.herokuapp.com/api';
 const yelp = require('yelp-fusion');
 //ADD YELP API Client ID + Secret on the constants at ln 8 & 9
+const clientId = 'Ts9mXy-CsdlBMR8Ub9RpOg';
+const clientSecret = '1r4iNuYsYsY4Dc6ITMPTeZoyH8fzKPuAVJAQLOTaweYvNaA2SSb4T7OodY6VZPBA';
 const app = express();
 
 app.use(morgan('dev'));
