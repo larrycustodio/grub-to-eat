@@ -10,6 +10,75 @@
     width: 100%;
     text-align: center; }
 
+/* * * * *
+Loading View
+* * * * * */
+@keyframes wave {
+  0% {
+    top: 0;
+    opacity: 0; }
+  20% {
+    opacity: 0.35; }
+  30% {
+    top: 0.35em;
+    opacity: 0.75; }
+  100% {
+    top: 0.35em;
+    opacity: 1; } }
+
+.loading-container {
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  text-transform: uppercase; }
+
+.loading-char {
+  position: relative;
+  opacity: 0;
+  animation: 1.25s linear wave infinite alternate; }
+  .loading-char:nth-of-type(1) {
+    animation-delay: 0.12s; }
+  .loading-char:nth-of-type(2) {
+    animation-delay: 0.24s; }
+  .loading-char:nth-of-type(3) {
+    animation-delay: 0.36s; }
+  .loading-char:nth-of-type(4) {
+    animation-delay: 0.48s; }
+  .loading-char:nth-of-type(5) {
+    animation-delay: 0.6s; }
+  .loading-char:nth-of-type(6) {
+    animation-delay: 0.72s; }
+  .loading-char:nth-of-type(7) {
+    animation-delay: 0.84s; }
+  .loading-char:nth-of-type(8) {
+    animation-delay: 0.96s; }
+  .loading-char:nth-of-type(9) {
+    animation-delay: 1.08s; }
+  .loading-char:nth-of-type(10) {
+    animation-delay: 1.2s; }
+  .loading-char:nth-of-type(11) {
+    animation-delay: 1.32s; }
+  .loading-char:nth-of-type(12) {
+    animation-delay: 1.44s; }
+  .loading-char:nth-of-type(13) {
+    animation-delay: 1.56s; }
+  .loading-char:nth-of-type(14) {
+    animation-delay: 1.68s; }
+  .loading-char:nth-of-type(15) {
+    animation-delay: 1.8s; }
+  .loading-char:nth-of-type(16) {
+    animation-delay: 1.92s; }
+  .loading-char:nth-of-type(17) {
+    animation-delay: 2.04s; }
+  .loading-char:nth-of-type(18) {
+    animation-delay: 2.16s; }
+  .loading-char:nth-of-type(19) {
+    animation-delay: 2.28s; }
+  .loading-char:nth-of-type(20) {
+    animation-delay: 2.4s; }
+
+/* * * * *
+Results Grid
+* * * * * */
 @keyframes gridShow {
   0% {
     opacity: 0;
