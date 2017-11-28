@@ -4031,21 +4031,23 @@ module.exports = Cancel;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = postCustomer;
-/* harmony export (immutable) */ __webpack_exports__["b"] = postRestaurant;
+/* harmony export (immutable) */ __webpack_exports__["b"] = postCustomer;
+/* harmony export (immutable) */ __webpack_exports__["a"] = getCustomer;
+/* harmony export (immutable) */ __webpack_exports__["c"] = postRestaurant;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
 const types = {
   POST_CUSTOMER: 'POST_CUSTOMER',
-  POST_RESTAURANT: 'POST_RESTAURANT'
+  POST_RESTAURANT: 'POST_RESTAURANT',
+  FETCH_CUSTOMER: 'FETCH_CUSTOMER',
+  FETCH_RESTAURANT: 'FETCH_RESTAURANT'
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = types;
+/* harmony export (immutable) */ __webpack_exports__["d"] = types;
 
 function postCustomer(customerInfo) {
   const { username, email, password } = customerInfo;
-  console.log({ username, email, password });
   return {
     type: types.POST_CUSTOMER,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Customers', {
@@ -4059,9 +4061,22 @@ function postCustomer(customerInfo) {
     }).catch(err => console.log(err))
   };
 }
+function getCustomer(customerInfo) {
+  const { username, password } = customerInfo;
+
+  return {
+    type: types.FETCH_CUSTOMER,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Customers/login', {
+      username,
+      password
+    }).then(res => {
+      console.log(res.data);
+      return { userID: res.data.id };
+    })
+  };
+}
 function postRestaurant(customerInfo) {
   const { username, email, password } = customerInfo;
-  console.log({ username, email, password });
   return {
     type: types.POST_RESTAURANT,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Restaurants', {
@@ -26317,6 +26332,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.handleLoginState = this.handleLoginState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
   handleLoginState() {
     this.state.signUp ? this.setState({
@@ -26328,13 +26344,17 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   handleChange(key) {
     return e => this.setState({ [key]: e.target.value });
   }
+  handleLogin() {
+    const customerInfo = _extends({}, this.state);
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["a" /* getCustomer */])(customerInfo));
+  }
   handleSubmit() {
     const customerInfo = _extends({}, this.state);
     if (this.state.userType === 'Customer') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["a" /* postCustomer */])(customerInfo));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["b" /* postCustomer */])(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["b" /* postRestaurant */])(customerInfo));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["c" /* postRestaurant */])(customerInfo));
     }
   }
   renderLogin() {
@@ -26542,19 +26562,15 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             { htmlFor: 'inputEmail', className: 'label name' },
-            'Email'
+            'User Name'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            type: 'email',
+            type: 'text',
             className: 'form-control',
-            id: 'inputEmail',
-            'aria-describedby': 'emailHelp'
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'small',
-            { id: 'emailHelp', className: 'form-text text-muted' },
-            'We\'ll never share your email with anyone else.'
-          )
+            id: 'inputUser',
+            value: this.state.username,
+            onChange: this.handleChange('username')
+          })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
@@ -26568,7 +26584,9 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
             type: 'password',
             className: 'form-control',
             id: 'inputPassword',
-            'aria-describedby': 'passwordHelp'
+            'aria-describedby': 'passwordHelp',
+            value: this.state.password,
+            onChange: this.handleChange('password')
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'small',
@@ -26599,7 +26617,12 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'select',
-            { className: 'form-control', id: 'restaurantOwner' },
+            {
+              className: 'form-control',
+              id: 'restaurantOwner',
+              value: this.state.userType,
+              onChange: this.handleChange('userType')
+            },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'option',
               null,
@@ -26614,7 +26637,11 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
-          { className: 'submit-btn btn btn-primary', type: 'submit' },
+          {
+            className: 'submit-btn btn btn-primary',
+            type: 'submit',
+            onClick: this.handleLogin
+          },
           'Login'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -27576,7 +27603,7 @@ class SearchDisplay extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h1",
           null,
-          "As easy as 3.14"
+          "Get Food While On The Toilet"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "p",
@@ -27891,7 +27918,7 @@ function LoginReducer(state = defaultState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["c" /* types */].POST_CUSTOMER + '_FULFILLED':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_CUSTOMER + '_FULFILLED':
       {
         if (payload) {
           return _extends({}, state, {
@@ -27899,11 +27926,11 @@ function LoginReducer(state = defaultState, action) {
           });
         }
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["c" /* types */].POST_CUSTOMER + '_PENDING':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_CUSTOMER + '_PENDING':
       {
         return state;
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["c" /* types */].POST_RESTAURANT + '_FULFILLED':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_RESTAURANT + '_FULFILLED':
       {
         if (payload) {
           return _extends({}, state, {
@@ -27911,7 +27938,20 @@ function LoginReducer(state = defaultState, action) {
           });
         }
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["c" /* types */].POST_RESTAURANT + '_PENDING':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_RESTAURANT + '_PENDING':
+      {
+        return state;
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].FETCH_CUSTOMER + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            customerInfo: payload.userID
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].FETCH_CUSTOMER + '_PENDING':
       {
         return state;
       }
