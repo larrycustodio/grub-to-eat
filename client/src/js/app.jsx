@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { HashRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
@@ -8,6 +8,13 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import UserProfile from "./components/UserProfile";
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentWillMount() {
+    if (!!document.cookie) {
+    }
+  }
   render() {
     return (
       <Router>
