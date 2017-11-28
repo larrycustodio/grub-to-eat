@@ -24,8 +24,7 @@
     "sass-loader": "^6.0.6",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
-    "style-loader": "^0.19.0",
-    "yelp-fusion": "^1.0.4"
+    "style-loader": "^0.19.0"
   },
   "devDependencies": {
     "axios": "^0.17.1",
