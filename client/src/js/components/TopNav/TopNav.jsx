@@ -8,7 +8,24 @@ export default class TopNav extends React.Component {
           <a href="#" className="navbar-center text-white">Grub To Eat</a>
         </div>
         <div className="login">
-          <a href="#/login" className="text-white">Log In</a>
+          {
+            !! document.cookie ?
+            (
+              <div>
+                <a href="#/user" className="mx-1 text-white">
+                  Hello
+                </a>
+                <a href="#/" className="mx-1 text-white">
+                  Logout
+                </a>
+              </div>
+            )
+            :( 
+              <a href="#/login" className="mx-1 text-white">
+                Log In
+              </a>
+            )
+          }
         </div>
       </nav>
     );
