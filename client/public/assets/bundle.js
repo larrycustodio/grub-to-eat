@@ -27603,7 +27603,7 @@ class SearchDisplay extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h1",
           null,
-          "Get Food While On The Toilet"
+          "Easy as 3.14"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "p",
