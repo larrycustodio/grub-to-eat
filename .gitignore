@@ -18,5 +18,4 @@ coverage
 node_modules
 npm-debug.log
 client/node_modules
-client/public/assets
 client/server/apiKeys.json
