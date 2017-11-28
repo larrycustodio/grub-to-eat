@@ -25,9 +25,12 @@ export default class UserProfile extends Component {
     this.onFormFocus = this.onFormFocus.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  
-  componentWillMount(){
 
+  componentWillMount(){
+    if(!!document.cookie){
+      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=')+6);
+      this.props.dispatch(getUserInformation(cookieToken));
+    }
   }
 
   onFormFocus(){
@@ -36,12 +39,12 @@ export default class UserProfile extends Component {
 
   onSubmit(e){
     e.preventDefault();
-
   }
 
   render() {
     const userInfo = this.props.userInfo;
-    return (
+    return (!!document.cookie) ? 
+    (
       <div className='container-fluid'>
         <TopNav />
         <h1 className='display-4 text-center'>User Profile</h1>
@@ -67,6 +70,13 @@ export default class UserProfile extends Component {
           }
         </form>
       </div>
-    );
+    )
+    :
+    (
+      <div className='container-fluid'>
+        <TopNav />
+        <p className='lead'>Please <a href='#/login'>Log In</a> to continue</p>
+      </div>
+    )
   }
 }

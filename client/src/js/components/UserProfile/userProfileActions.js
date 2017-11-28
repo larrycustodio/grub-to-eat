@@ -2,11 +2,13 @@ export const types = {
     GET_USER_INFORMATION: 'GET_USER_INFORMATION',
     UPDATE_USER_INFORMATION: 'UPDATE_USER_INFORMATION'
 };
+import axios from 'axios';
 
 export const getUserInformation = (userID) => {
+    console.log(userID);
     return {
         type: types.GET_USER_INFORMATION,
-        payload: axios.get('http://grubtoeat.herokuapp.com/api/Customers/5a1cf90b6741240004049661')
+        payload: axios.get(`http://grubtoeat.herokuapp.com/api/Customers/${userID}`)
         .then(res=>{
             return res.data;
         })
