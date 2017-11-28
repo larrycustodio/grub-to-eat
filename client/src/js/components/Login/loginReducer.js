@@ -7,7 +7,6 @@ const defaultState = {
 
 export default function LoginReducer(state = defaultState, action) {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
     case types.POST_CUSTOMER + '_FULFILLED': {
       if (payload) {
