@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getRestaurantList = searchParams => {
     return {
         type: 'GET_RESTAURANTS',
-        payload: axios.get(`${'http://localhost:5000/api/yelp/' + searchParams }`)
+        payload: axios.get('https://grubtoeat.herokuapp.com/api/Restaurants')
         .then(success=>{
             return success.data;
         })

@@ -23,7 +23,7 @@ export default class SearchResults extends React.Component {
         { isLoaded ? 
         <div className='container'>
           <h4 className='lead'>
-            Found {list.length} places near { this.state.searchLocation }!
+            Found { list.length } places near { this.state.searchLocation }!
           </h4>
           <div className='row'>
             {
@@ -35,10 +35,10 @@ export default class SearchResults extends React.Component {
                   data-result-index={index}
                   className='grid'>
                   <img className='grid__image'
-                    src={restaurant.image_url || 'http://bit.ly/2hZ3y91'} />
+                    src={restaurant.featuredImage || 'http://bit.ly/2hZ3y91'} />
                   <div className='grid__gradient'>
                     <div className='grid__content text-white text-center'>
-                      <h4 className='grid__title'>{restaurant.name}</h4>
+                      <h4 className='grid__title'>{ restaurant.restaurantName }</h4>
                       <p className='grid__info info-delivery-fee'>Delivery Fee: $3.99</p>
                       <p className='grid__info info-eta'>ETA:30 - 40 min</p>
                     </div>
