@@ -12,16 +12,16 @@ export default class TopNav extends React.Component {
             !! document.cookie ?
             (
               <div>
-                <a href="#/user" className="text-white">
+                <a href="#/user" className="mx-1 text-white">
                   Hello
                 </a>
-                <a href="#/" className="text-white">
+                <a href="#/" className="mx-1 text-white">
                   Logout
                 </a>
               </div>
             )
             :( 
-              <a href="#/login" className="text-white">
+              <a href="#/login" className="mx-1 text-white">
                 Log In
               </a>
             )
