@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import SearchDisplay from "./components/SearchDisplay";
 import SearchResults from "./components/SearchResults";
 import RestaurantMenu from "./components/RestaurantMenu";
+import UserProfile from "./components/UserProfile";
 
 export default class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
+          <Route path="/user" component={ UserProfile } />
         </div>
       </Router>
     );
