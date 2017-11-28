@@ -28315,16 +28315,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 const defaultState = {
-    email: "Searching...",
-    firstName: "Searching...",
-    lastName: "Searching...",
-    address1: "Searching...",
-    address2: "Searching...",
-    state: "Searching...",
-    zipcode: "Searching...",
-    city: "Searching...",
-    phone: "Searching...",
-    username: "Searching..."
+    email: "Enter E-Mail",
+    firstName: "Enter Your First Name",
+    lastName: "Enter Your Last Name",
+    address1: "Enter Address 1",
+    address2: "Enter Address 2",
+    state: "Enter State",
+    zipcode: "Enter Zip Code",
+    city: "Enter City",
+    phone: "Enter Mobile",
+    username: "Enter Username Log In"
 };
 
 function userProfileReducer(state = defaultState, { type, payload }) {
