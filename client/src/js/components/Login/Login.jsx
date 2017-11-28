@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { postCustomer, postRestaurant } from './loginActions';
+import { postCustomer, postRestaurant, getCustomer } from './loginActions';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -22,6 +22,7 @@ export default class Login extends React.Component {
     this.handleLoginState = this.handleLoginState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
   handleLoginState() {
     this.state.signUp
@@ -34,6 +35,10 @@ export default class Login extends React.Component {
   }
   handleChange(key) {
     return e => this.setState({ [key]: e.target.value });
+  }
+  handleLogin() {
+    const customerInfo = { ...this.state };
+    this.props.dispatch(getCustomer(customerInfo));
   }
   handleSubmit() {
     const customerInfo = { ...this.state };
@@ -170,17 +175,15 @@ export default class Login extends React.Component {
           <h3>Login</h3>
           <div className="form-group">
             <label htmlFor="inputEmail" className="label name">
-              Email
+              User Name
             </label>
             <input
-              type="email"
+              type="text"
               className="form-control"
-              id="inputEmail"
-              aria-describedby="emailHelp"
+              id="inputUser"
+              value={this.state.username}
+              onChange={this.handleChange('username')}
             />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
           </div>
           <div className="form-group">
             <label htmlFor="inputPassword">Password</label>
@@ -189,6 +192,8 @@ export default class Login extends React.Component {
               className="form-control"
               id="inputPassword"
               aria-describedby="passwordHelp"
+              value={this.state.password}
+              onChange={this.handleChange('password')}
             />
 
             <small id="passwordHelp" className="form-text text-muted">
@@ -206,12 +211,21 @@ export default class Login extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="restaurantOwner">Sign in as</label>
-            <select className="form-control" id="restaurantOwner">
+            <select
+              className="form-control"
+              id="restaurantOwner"
+              value={this.state.userType}
+              onChange={this.handleChange('userType')}
+            >
               <option>Restaurant Owner</option>
               <option>Customer</option>
             </select>
           </div>
-          <button className="submit-btn btn btn-primary" type="submit">
+          <button
+            className="submit-btn btn btn-primary"
+            type="submit"
+            onClick={this.handleLogin}
+          >
             Login
           </button>
 
