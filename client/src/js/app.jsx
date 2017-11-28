@@ -1,12 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import { HashRouter as Router, Route } from "react-router-dom";
-import Login from "./components/Login";
-import SearchDisplay from "./components/SearchDisplay";
-import SearchResults from "./components/SearchResults";
-import RestaurantMenu from "./components/RestaurantMenu";
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Login from './components/Login';
+import SearchDisplay from './components/SearchDisplay';
+import SearchResults from './components/SearchResults';
+import RestaurantMenu from './components/RestaurantMenu';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentWillMount() {
+    if (!!document.cookie) {
+    }
+  }
   render() {
     return (
       <Router>
