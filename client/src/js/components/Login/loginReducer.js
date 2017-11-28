@@ -30,6 +30,18 @@ export default function LoginReducer(state = defaultState, action) {
     case types.POST_RESTAURANT + '_PENDING': {
       return state;
     }
+
+    case types.FETCH_CUSTOMER + '_FULFILLED': {
+      if (payload) {
+        return {
+          ...state,
+          customerInfo: payload.userID
+        };
+      }
+    }
+    case types.FETCH_CUSTOMER + '_PENDING': {
+      return state;
+    }
   }
   return defaultState;
 }
