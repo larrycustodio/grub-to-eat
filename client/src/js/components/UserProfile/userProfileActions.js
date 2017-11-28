@@ -8,7 +8,7 @@ export const getUserInformation = (userID) => {
     console.log(userID);
     return {
         type: types.GET_USER_INFORMATION,
-        payload: axios.get(`http://grubtoeat.herokuapp.com/api/Customers/${userID}`)
+        payload: axios.get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`)
         .then(res=>{
             return res.data;
         })
