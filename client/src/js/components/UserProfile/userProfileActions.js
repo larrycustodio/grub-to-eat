@@ -17,13 +17,13 @@ export const getUserInformation = (userId) => {
 }
 //Sets payload to return edited user information
 export const updateUserInformation = (inputBody, userId) => {
-    console.log(inputBody);
-    const updateURL = `https://grubtoeat.herokuapp.com/api/Customers/update?where=%7B%22id%22%3A%20%${userId}%22%7D`.replace(/\"/g,'');
+    const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Customers/update?where={"id":"${userId}"}`).replace(/%22:/g,'%22%3A');;
     return {
         type: types.UPDATE_USER_INFORMATION,
         payload: axios.post(updateURL,inputBody)
         .then(res => {
             if(res.status == 200) getUserInformation(userId);
+            alert('User information saved!');
         })
         .catch(console.error)
     }

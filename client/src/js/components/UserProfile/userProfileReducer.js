@@ -1,16 +1,16 @@
 import { types } from "./userProfileActions";
 
 const defaultState = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    address1: "",
-    address2: "",
-    state: "",
-    zipcode: "",
-    city: "",
-    phone: "",
-    username: "",
+    email: "Loading...",
+    firstName: "Loading...",
+    lastName: "Loading...",
+    address1: "Loading...",
+    address2: "Loading...",
+    state: "Loading...",
+    zipcode: "Loading...",
+    city: "Loading...",
+    phone: "Loading...",
+    username: "Loading...",
 }
 
 export default function userProfileReducer(state = defaultState, { type, payload }){

@@ -21,6 +21,9 @@ export default class UserProfile extends Component {
         {name: 'state', label: 'State', inputType:'text'},
         {name: 'zipcode', label: 'Zip Code', inputType:'text'},
       ],
+      editedFields: {
+
+      }
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -35,21 +38,23 @@ export default class UserProfile extends Component {
   }
 
   onInputChange(e){
-    this.setState({
-      editFields: {
-        ...this.state.editFields,
-        [e.target.id]: e.target.value
-      }
-    })
   }
   onSubmit(e){
     // TODO on form submission
     e.preventDefault();
-    this.props.dispatch(updateUserInformation(this.state.editFields,this.props.userInfo.id));
+    this.props.dispatch(updateUserInformation(
+      {
+        "state":"CA",
+        "zipcode":"92101",
+        "firstName": "Testy",
+        "lastName": "McTestFace",
+        "email": "userTest@email.com"
+      },this.props.userInfo.id));
   }
 
   render() {
-    const userInfo = this.props.userInfo;
+    const userInfo = { ...this.props.userInfo };
+    console.log(userInfo);
     return (!!document.cookie) ? 
     (
       <div className='container-fluid'>
