@@ -1,0 +1,8 @@
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: grubtoeat
+machine:
+  node:
+    version: 8.9.1
