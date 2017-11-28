@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -w",
-    "start": "webpack && nodemon server/index.js",
-    "dev": "webpack && CLIENT_ID=Ts9mXy-CsdlBMR8Ub9RpOg CLIENT_SECRET=1r4iNuYsYsY4Dc6ITMPTeZoyH8fzKPuAVJAQLOTaweYvNaA2SSb4T7OodY6VZPBA nodemon server"
+    "start": "webpack && node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -46,8 +45,7 @@
     "sass": "^1.0.0-beta.3",
     "serve-favicon": "^2.4.5",
     "url-loader": "^0.6.2",
-    "webpack": "^3.8.1",
-    "yelp-fusion": "^1.0.4"
+    "webpack": "^3.8.1"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",

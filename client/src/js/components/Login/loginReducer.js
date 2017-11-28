@@ -1,12 +1,13 @@
 import { types } from './loginActions';
 
 const defaultState = {
-  customerInfo: []
+  customerInfo: [],
+  user: ''
 };
 
 export default function LoginReducer(state = defaultState, action) {
   const { type, payload } = action;
-
+  console.log(payload);
   switch (type) {
     case types.POST_CUSTOMER + '_FULFILLED': {
       if (payload) {
@@ -33,9 +34,10 @@ export default function LoginReducer(state = defaultState, action) {
 
     case types.FETCH_CUSTOMER + '_FULFILLED': {
       if (payload) {
+        console.log(payload);
         return {
           ...state,
-          customerInfo: payload.userID
+          user: payload.user
         };
       }
     }

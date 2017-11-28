@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { postCustomer, postRestaurant, getCustomer } from './loginActions';
+import { postCustomer, postRestaurant, fetchCustomer } from './loginActions';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class Login extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: 'test',
+      password: '',
       address1: '',
       address2: '',
       city: '',
@@ -24,6 +24,7 @@ export default class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
+
   handleLoginState() {
     this.state.signUp
       ? this.setState({
@@ -38,7 +39,7 @@ export default class Login extends React.Component {
   }
   handleLogin() {
     const customerInfo = { ...this.state };
-    this.props.dispatch(getCustomer(customerInfo));
+    this.props.dispatch(fetchCustomer(customerInfo));
   }
   handleSubmit() {
     const customerInfo = { ...this.state };
@@ -162,6 +163,7 @@ export default class Login extends React.Component {
             Sign Up!
           </button>
           <button
+            type="button"
             className="login btn btn-secondary"
             onClick={this.handleLoginState}
           >
@@ -229,7 +231,11 @@ export default class Login extends React.Component {
             Login
           </button>
 
-          <button className="btn btn-secondary" onClick={this.handleLoginState}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={this.handleLoginState}
+          >
             Need to Sign Up?
           </button>
         </div>
