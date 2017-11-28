@@ -4195,7 +4195,7 @@ const getUserInformation = userID => {
     console.log(userID);
     return {
         type: types.GET_USER_INFORMATION,
-        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`http://grubtoeat.herokuapp.com/api/Customers/${userID}`).then(res => {
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`).then(res => {
             return res.data;
         }).catch(console.error)
     };
