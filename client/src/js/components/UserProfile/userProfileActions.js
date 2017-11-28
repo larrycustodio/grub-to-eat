@@ -4,22 +4,27 @@ export const types = {
 };
 import axios from 'axios';
 
-export const getUserInformation = (userID) => {
-    console.log(userID);
+//Sets payload to up-to-date user information 
+export const getUserInformation = (userId) => {
     return {
         type: types.GET_USER_INFORMATION,
-        payload: axios.get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`)
-        .then(res=>{
+        payload: axios.get(`https://grubtoeat.herokuapp.com/api/Customers/${userId}`)
+        .then(res => {
             return res.data;
         })
         .catch(console.error)
     };
 }
-export const updateUserInformation = (inputBody) => {
+//Sets payload to return edited user information
+export const updateUserInformation = (inputBody, userId) => {
+    const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Customers/update?where={"id":"${userId}"}`).replace(/%22:/g,'%22%3A');;
     return {
-        type: types.UPDATE_SEARCH_LOCATION,
-        payload: {
-            input: inputBody
-        }
+        type: types.UPDATE_USER_INFORMATION,
+        payload: axios.post(updateURL,inputBody)
+        .then(res => {
+            if(res.status == 200) getUserInformation(userId);
+            alert('User information saved!');
+        })
+        .catch(console.error)
     }
 }

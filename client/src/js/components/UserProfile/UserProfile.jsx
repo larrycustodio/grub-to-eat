@@ -8,6 +8,7 @@ export default class UserProfile extends Component {
     super(props);
 
     this.state = {
+      // Expected form fields in User Profile Page as this.state.formFields
       formFields: [
         {name: 'username', label: 'Username', inputType:'text'},
         {name: 'firstName', label: 'First Name', inputType:'text'},
@@ -19,60 +20,79 @@ export default class UserProfile extends Component {
         {name: 'city', label: 'City', inputType:'text'},
         {name: 'state', label: 'State', inputType:'text'},
         {name: 'zipcode', label: 'Zip Code', inputType:'text'},
-      ]
+      ],
+      formValues: {}
     };
-
-    this.onFormFocus = this.onFormFocus.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillMount(){
+    // Retrieves the logged in user's information via getUserInformation action
     if(!!document.cookie){
       const cookieToken = document.cookie.substring(document.cookie.indexOf('token=')+6);
       this.props.dispatch(getUserInformation(cookieToken));
     }
   }
 
-  onFormFocus(){
-
+  onInputChange(e){
+    this.setState({
+      formValues: {
+        ...this.state.formValues,
+        [e.target.id] : e.target.value
+      }
+    })
   }
-
   onSubmit(e){
+    // TODO on form submission
     e.preventDefault();
+    this.props.dispatch(updateUserInformation(this.state.formValues,this.props.userInfo.id));
   }
 
   render() {
-    const userInfo = this.props.userInfo;
+    console.log(this.state.formValues);
     return (!!document.cookie) ? 
     (
       <div className='container-fluid'>
         <TopNav />
         <h1 className='display-4 text-center'>User Profile</h1>
         <form onSubmit={this.onSubmit}>
-          { this.state.formFields.map(formField => {
+          { 
+            /* 
+             * Creates form inputs for each entry in this.state.formFields
+             * Prefills the input values with the userInfo store retrieved
+             */ 
+            this.state.formFields.map(formField => {
+            const { name, label, inputType } = formField
             return (
-              <div key={ formField.name }
+              <div key={ name }
               className='form-group row'>
-                <label htmlFor={ formField.name }
-                className='col-sm-12 col-md-2'>
-                  { formField.label }
+                <label htmlFor={ name }
+                className='col-sm-8 col-md-2'>
+                  { label }
                 </label>
-                <div className='col sm-10 col-md-6-offset-3'>
+                <div className='col sm-8 col-md-6'>
                   <input type= { formField.inputType }
-                  className='form-control-plaintext'
-                  id={ formField.name }
-                  value = { userInfo[formField.name] } 
-                  readOnly />
+                  id={ name }
+                  className='form-control'
+                  placeholder = { this.props.userInfo[name] }
+                  onChange = { this.onInputChange }
+                  />
                 </div>
               </div>
             );
           })
           }
+          <div className='form-group row justify-content-center'>
+            <button type='submit' className='btn btn-primary mx-1'>Save Changes</button>
+            <button type='reset' className='btn btn-secondary mx-1'>Cancel</button>
+          </div>
         </form>
       </div>
     )
     :
     (
+      // Returns a redirect link for user log In if no log in is detected
       <div className='container-fluid'>
         <TopNav />
         <p className='lead'>Please <a href='#/login'>Log In</a> to continue</p>
