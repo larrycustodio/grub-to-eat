@@ -6,6 +6,7 @@
     "node": ">=4"
   },
   "scripts": {
+    "lint": "eslint .",
     "start": "node server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check"
