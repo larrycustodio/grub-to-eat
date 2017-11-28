@@ -4031,9 +4031,10 @@ module.exports = Cancel;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = postCustomer;
+/* harmony export (immutable) */ __webpack_exports__["c"] = postCustomer;
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchCustomer;
-/* harmony export (immutable) */ __webpack_exports__["c"] = postRestaurant;
+/* harmony export (immutable) */ __webpack_exports__["d"] = postRestaurant;
+/* harmony export (immutable) */ __webpack_exports__["b"] = fetchRestaurant;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
@@ -4043,9 +4044,10 @@ const types = {
   POST_RESTAURANT: 'POST_RESTAURANT',
   FETCH_CUSTOMER: 'FETCH_CUSTOMER',
   FETCH_RESTAURANT: 'FETCH_RESTAURANT',
-  GET_CUSTOMER: 'GET_CUSTOMER'
+  GET_CUSTOMER: 'GET_CUSTOMER',
+  GET_RESTAURANT: 'GET_RESTAURANT'
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = types;
+/* harmony export (immutable) */ __webpack_exports__["e"] = types;
 
 function postCustomer(customerInfo) {
   const {
@@ -4083,7 +4085,7 @@ function fetchCustomer(customerInfo) {
     }).then(res => {
       let userID = res.data.userId;
       if (res.status === 200) {
-        document.cookie = `token=${res.data.id};id=${res.data.id}`;
+        document.cookie = `token=${res.data.userId};id=${res.data.id}`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`).then(res => {
           console.log(res.data);
           return {
@@ -4107,6 +4109,28 @@ function postRestaurant(customerInfo) {
         user: res.data
       };
     }).catch(err => console.log(err))
+  };
+}
+function fetchRestaurant(customerInfo) {
+  const { username, password } = customerInfo;
+
+  return {
+    type: types.FETCH_RESTAURANT,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Restaurants/login', {
+      username,
+      password
+    }).then(res => {
+      let userID = res.data.userId;
+      if (res.status === 200) {
+        document.cookie = `token=${res.data.id};id=${res.data.id}`;
+        return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`).then(res => {
+          console.log(res.data);
+          return {
+            user: res.data
+          };
+        });
+      }
+    })
   };
 }
 
@@ -23253,6 +23277,9 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
+
 
 
 
@@ -23266,7 +23293,20 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     super(props);
   }
   componentWillMount() {
-    if (!!document.cookie) {}
+    if (!!document.cookie) {
+      console.log(document.cookie);
+      const cookieString = document.cookie;
+      const id = cookieString.substring(cookieString.indexOf('id=') + 3, cookieString.indexOf(';'));
+      const token = cookieString.substring(cookieString.indexOf('token=') + 6);
+
+      __WEBPACK_IMPORTED_MODULE_6_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}/accessTokens`).then(res => {
+        if (res.status === 200) {
+          return __WEBPACK_IMPORTED_MODULE_6_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}`).then(res => {
+            console.log(res.data.username);
+          });
+        }
+      });
+    }
   }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -26356,7 +26396,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
@@ -26372,15 +26412,20 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
   handleLogin() {
     const customerInfo = _extends({}, this.state);
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["a" /* fetchCustomer */])(customerInfo));
-  }
-  handleSubmit() {
-    const customerInfo = _extends({}, this.state);
     if (this.state.userType === 'Customer') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["b" /* postCustomer */])(customerInfo));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["a" /* fetchCustomer */])(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["c" /* postRestaurant */])(customerInfo));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["b" /* fetchRestaurant */])(customerInfo));
+    }
+  }
+  handleSignUp() {
+    const customerInfo = _extends({}, this.state);
+    if (this.state.userType === 'Customer') {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["c" /* postCustomer */])(customerInfo));
+    }
+    if (this.state.userType === 'Restaurant Owner') {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["d" /* postRestaurant */])(customerInfo));
     }
   }
   renderLogin() {
@@ -26560,7 +26605,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
           {
             className: 'submit-btn btn btn-primary',
             type: 'submit',
-            onClick: this.handleSubmit
+            onClick: this.handleSignUp
           },
           'Sign Up!'
         ),
@@ -27948,9 +27993,8 @@ const defaultState = {
 
 function LoginReducer(state = defaultState, action) {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_CUSTOMER + '_FULFILLED':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].POST_CUSTOMER + '_FULFILLED':
       {
         if (payload) {
           return _extends({}, state, {
@@ -27958,11 +28002,11 @@ function LoginReducer(state = defaultState, action) {
           });
         }
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_CUSTOMER + '_PENDING':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].POST_CUSTOMER + '_PENDING':
       {
         return state;
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_RESTAURANT + '_FULFILLED':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].POST_RESTAURANT + '_FULFILLED':
       {
         if (payload) {
           return _extends({}, state, {
@@ -27970,25 +28014,37 @@ function LoginReducer(state = defaultState, action) {
           });
         }
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].POST_RESTAURANT + '_PENDING':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].POST_RESTAURANT + '_PENDING':
       {
         return state;
       }
 
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].FETCH_CUSTOMER + '_FULFILLED':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_CUSTOMER + '_FULFILLED':
       {
         if (payload) {
-          console.log(payload);
           return _extends({}, state, {
             user: payload.user
           });
         }
       }
-    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["d" /* types */].FETCH_CUSTOMER + '_PENDING':
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_CUSTOMER + '_PENDING':
+      {
+        return state;
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_RESTAURANT + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            user: payload.user
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_RESTAURANT + '_PENDING':
       {
         return state;
       }
   }
+
   return defaultState;
 }
 
