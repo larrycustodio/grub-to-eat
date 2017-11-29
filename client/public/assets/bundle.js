@@ -27988,6 +27988,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -28006,6 +28007,10 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   onSubmit(e) {
     e.preventDefault();
     this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
+    this.setState({ fireRedirect: true });
+  }
+  handleCancel(e) {
+    e.preventDefault();
     this.setState({ fireRedirect: true });
   }
   render() {
@@ -28058,7 +28063,11 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "button",
-            { type: "reset", className: "btn btn-secondary mx-1" },
+            {
+              type: "reset",
+              onClick: this.handleCancel,
+              className: "btn btn-secondary mx-1"
+            },
             "Cancel"
           )
         )
@@ -28134,6 +28143,7 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentWillMount() {
@@ -28158,7 +28168,10 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["c" /* updateUserInformation */])(this.state.formValues, this.props.userInfo.id));
     this.setState({ fireRedirect: true });
   }
-
+  handleCancel(e) {
+    e.preventDefault();
+    this.setState({ fireRedirect: true });
+  }
   render() {
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
@@ -28216,7 +28229,7 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "button",
-            { type: "reset", className: "btn btn-secondary mx-1" },
+            { type: "reset", onClick: this.handleCancel, className: "btn btn-secondary mx-1" },
             "Cancel"
           )
         )

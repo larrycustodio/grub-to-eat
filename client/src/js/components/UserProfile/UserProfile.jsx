@@ -29,6 +29,7 @@ export default class UserProfile extends Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   componentWillMount() {
@@ -62,7 +63,10 @@ export default class UserProfile extends Component {
     );
     this.setState({ fireRedirect: true });
   }
-
+  handleCancel(e) {
+    e.preventDefault();
+    this.setState({ fireRedirect: true });
+  }
   render() {
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
@@ -103,7 +107,7 @@ export default class UserProfile extends Component {
             <button type="submit" className="btn btn-primary mx-1">
               Save Changes
             </button>
-            <button type="reset" className="btn btn-secondary mx-1">
+            <button type="reset" onClick={this.handleCancel} className="btn btn-secondary mx-1">
               Cancel
             </button>
           </div>

@@ -33,6 +33,7 @@ export default class RestaurantProfile extends React.Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -60,6 +61,10 @@ export default class RestaurantProfile extends React.Component {
         this.props.restaurantInfo.id
       )
     );
+    this.setState({ fireRedirect: true });
+  }
+  handleCancel(e) {
+    e.preventDefault();
     this.setState({ fireRedirect: true });
   }
   render() {
@@ -95,7 +100,11 @@ export default class RestaurantProfile extends React.Component {
             <button type="submit" className="btn btn-primary mx-1">
               Save Changes
             </button>
-            <button type="reset" className="btn btn-secondary mx-1">
+            <button
+              type="reset"
+              onClick={this.handleCancel}
+              className="btn btn-secondary mx-1"
+            >
               Cancel
             </button>
           </div>
