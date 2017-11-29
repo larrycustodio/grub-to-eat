@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import TopNav from "../TopNav";
 import {
   updateRestaurantInformation,
@@ -27,7 +28,8 @@ export default class RestaurantProfile extends React.Component {
         { name: "hours", label: "Hours", inputType: "text" },
         { name: "username", label: "Username", inputType: "text" }
       ],
-      formValues: {}
+      formValues: {},
+      fireRedirect: false
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -51,7 +53,6 @@ export default class RestaurantProfile extends React.Component {
     });
   }
   onSubmit(e) {
-    // TODO on form submission
     e.preventDefault();
     this.props.dispatch(
       updateRestaurantInformation(
@@ -59,8 +60,11 @@ export default class RestaurantProfile extends React.Component {
         this.props.restaurantInfo.id
       )
     );
+    this.setState({ fireRedirect: true });
   }
   render() {
+    const { from } = this.props.location.state || "/";
+    const { fireRedirect } = this.state;
     return !!document.cookie ? (
       <div className="container-fluid">
         <TopNav />
@@ -96,6 +100,7 @@ export default class RestaurantProfile extends React.Component {
             </button>
           </div>
         </form>
+        {fireRedirect && <Redirect to={from || "/#"} />}
       </div>
     ) : (
       // Returns a redirect link for restaurant log in if no log in is detected
@@ -107,99 +112,4 @@ export default class RestaurantProfile extends React.Component {
       </div>
     );
   }
-}
-
-{
-  /* <form>
-        <div className="form-group row">
-          <label htmlFor="email" className="col-sm-12 col-md-2">Email</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="text" readonly className="form-control-plaintext" id="email" placeholder="Email" />
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="lastName" className="col-sm-12 col-md-2">First Name</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="firstName" readonly className="form-control-plaintext" id="firstName" placeholder="First Name"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="lastName" className="col-sm-12 col-md-2">Last Name</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="lastName" readonly className="form-control-plaintext" id="lastName" placeholder="Last Name"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="restaurantName" className="col-sm-12 col-md-2">Restaurant Name</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="restaurantName" readonly className="form-control-plaintext" id="restaurantName" placeholder="Restaurant Name"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="address1" className="col-sm-12 col-md-2">Address1</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="address1" readonly className="form-control-plaintext" id="address1" placeholder="Address1"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="address2" className="col-sm-12 col-md-2">Address2</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="address2" readonly className="form-control-plaintext" id="address2" placeholder="Address2"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="state" className="col-sm-12 col-md-2">State</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="state" readonly className="form-control-plaintext" id="state" placeholder="State"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="zipcode" className="col-sm-12 col-md-2">Zipcode</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="zipcode" readonly className="form-control-plaintext" id="zipcode" placeholder="Zipcode"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="city" className="col-sm-12 col-md-2">City</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="city" readonly className="form-control-plaintext" id="city" placeholder="City"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="phone" className="col-sm-12 col-md-2">Phone</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="phone" readonly className="form-control-plaintext" id="phone" placeholder="Phone"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="featuredImage" className="col-sm-12 col-md-2">Featured Image</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="featuredImage" readonly className="form-control-plaintext" id="featuredImage" placeholder="Featured Image"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="description" className="col-sm-12 col-md-2">Description</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="description" readonly className="form-control-plaintext" id="description" placeholder="Description"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="category" className="col-sm-12 col-md-2">Category</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="category" readonly className="form-control-plaintext" id="category" placeholder="Category"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="hours" className="col-sm-12 col-md-2">Hours</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="hours" readonly className="form-control-plaintext" id="hours" placeholder="Hours"/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="username" className="col-sm-12 col-md-2">Username</label>
-          <div className="col-sm-10 col-md-6-offset-3">
-            <input type="username" readonly className="form-control-plaintext" id="username" placeholder="Username"/>
-          </div>
-        </div>
-      </form> */
 }
