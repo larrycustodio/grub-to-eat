@@ -6,7 +6,6 @@ export const types = {
 };
 // Sets payload to up-to-date restaurant information
 export const getRestaurantInformation = restaurantId => {
-  console.log(`getRestaurantInfo ${restaurantId}`);
   return {
     type: types.GET_RESTAURANT_INFORMATION,
     payload: axios
