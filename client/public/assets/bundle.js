@@ -26423,11 +26423,13 @@ function mapStoreToProps(store) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TopNav__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loginActions__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TopNav__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__loginActions__ = __webpack_require__(57);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 
@@ -26439,10 +26441,11 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     super(props);
     this.state = {
       signUp: false,
-      username: '',
-      userType: 'Restaurant Owner',
-      email: '',
-      password: ''
+      username: "",
+      userType: "Restaurant Owner",
+      email: "",
+      password: "",
+      fireRedirect: false
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
@@ -26463,247 +26466,258 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
   handleLogin() {
     const customerInfo = _extends({}, this.state);
-    if (this.state.userType === 'Customer') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__loginActions__["a" /* fetchCustomer */])(customerInfo));
+    if (this.state.userType === "Customer") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["a" /* fetchCustomer */])(customerInfo));
     }
-    if (this.state.userType === 'Restaurant Owner') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__loginActions__["b" /* fetchRestaurant */])(customerInfo));
+    if (this.state.userType === "Restaurant Owner") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["b" /* fetchRestaurant */])(customerInfo));
     }
   }
   handleSignUp() {
     const customerInfo = _extends({}, this.state);
-    if (this.state.userType === 'Customer') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__loginActions__["c" /* postCustomer */])(customerInfo));
+    if (this.state.userType === "Customer") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["c" /* postCustomer */])(customerInfo));
+      alert("Thank you for signing up, go ahead and login :)");
+      this.setState({ fireRedirect: true });
     }
-    if (this.state.userType === 'Restaurant Owner') {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__loginActions__["d" /* postRestaurant */])(customerInfo));
+    if (this.state.userType === "Restaurant Owner") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["d" /* postRestaurant */])(customerInfo));
+      alert("Thank you for signing up, go ahead and login :)");
+      this.setState({ fireRedirect: true });
     }
   }
   renderLogin() {
+    const { from } = this.props.location.state || "/";
+    const { fireRedirect } = this.state;
     if (this.state.signUp) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'form',
+        "form",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h3',
+          "h3",
           null,
-          'Sign Up'
+          "Sign Up"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
+          "div",
+          { className: "form-group" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'username' },
-            'User Name'
+            "label",
+            { htmlFor: "username" },
+            "User Name"
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            className: 'form-control',
-            id: 'username',
-            type: 'text',
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+            className: "form-control",
+            id: "username",
+            type: "text",
             value: this.state.username,
-            onChange: this.handleChange('username')
+            onChange: this.handleChange("username")
           })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
+          "div",
+          { className: "form-group" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'inputEmail', className: 'label name' },
-            'Email'
+            "label",
+            { htmlFor: "inputEmail", className: "label name" },
+            "Email"
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            type: 'email',
-            className: 'form-control',
-            id: 'inputEmail',
-            'aria-describedby': 'emailHelp',
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+            type: "email",
+            className: "form-control",
+            id: "inputEmail",
+            "aria-describedby": "emailHelp",
             value: this.state.email,
-            onChange: this.handleChange('email')
+            onChange: this.handleChange("email")
           }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'small',
-            { id: 'emailHelp', className: 'form-text text-muted' },
-            'We\'ll never share your email with anyone else.'
+            "small",
+            { id: "emailHelp", className: "form-text text-muted" },
+            "We'll never share your email with anyone else."
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
+          "div",
+          { className: "form-group" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'inputPassword' },
-            'Password'
+            "label",
+            { htmlFor: "inputPassword" },
+            "Password"
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            type: 'password',
-            className: 'form-control',
-            id: 'inputPassword',
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+            type: "password",
+            className: "form-control",
+            id: "inputPassword",
             value: this.state.password,
-            onChange: this.handleChange('password')
+            onChange: this.handleChange("password")
           })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
+          "div",
+          { className: "form-group" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'registerType' },
-            'Register as'
+            "label",
+            { htmlFor: "registerType" },
+            "Register as"
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'select',
+            "select",
             {
-              className: 'form-control',
-              id: 'registerType',
+              className: "form-control",
+              id: "registerType",
               value: this.state.userType,
-              onChange: this.handleChange('userType')
+              onChange: this.handleChange("userType")
             },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
+              "option",
               null,
-              'Restaurant Owner'
+              "Restaurant Owner"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
+              "option",
               null,
-              'Customer'
+              "Customer"
             )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
+          "button",
           {
-            className: 'submit-btn btn btn-primary',
-            type: 'submit',
+            className: "submit-btn btn btn-primary",
+            type: "submit",
             onClick: this.handleSignUp
           },
-          'Sign Up!'
+          "Sign Up!"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
+          "button",
           {
-            type: 'button',
-            className: 'login btn btn-secondary',
+            type: "button",
+            className: "login btn btn-secondary",
             onClick: this.handleLoginState
           },
-          'Already have an account? Login'
+          "Already have an account? Login"
         )
       );
     } else {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
+        "div",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h3',
+          "h3",
           null,
-          'Login'
+          "Login"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
+          "form",
+          { onSubmit: this.handleLogin },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'inputEmail', className: 'label name' },
-            'User Name'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            type: 'text',
-            className: 'form-control',
-            id: 'inputUser',
-            value: this.state.username,
-            onChange: this.handleChange('username')
-          })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'inputPassword' },
-            'Password'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-            type: 'password',
-            className: 'form-control',
-            id: 'inputPassword',
-            'aria-describedby': 'passwordHelp',
-            value: this.state.password,
-            onChange: this.handleChange('password')
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'small',
-            { id: 'passwordHelp', className: 'form-text text-muted' },
+            "div",
+            { className: "form-group" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'form-check' },
+              "label",
+              { htmlFor: "inputEmail", className: "label name" },
+              "User Name"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              type: "text",
+              className: "form-control",
+              id: "inputUser",
+              value: this.state.username,
+              onChange: this.handleChange("username")
+            })
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "form-group" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "inputPassword" },
+              "Password"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              type: "password",
+              className: "form-control",
+              id: "inputPassword",
+              "aria-describedby": "passwordHelp",
+              value: this.state.password,
+              onChange: this.handleChange("password")
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "small",
+              { id: "passwordHelp", className: "form-text text-muted" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'label',
-                { className: 'form-check-label' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                  type: 'checkbox',
-                  className: 'form-check-input',
-                  onChange: this.forgotPassword
-                }),
-                'Forgot your password?'
+                "div",
+                { className: "form-check" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { className: "form-check-label" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    className: "form-check-input",
+                    onChange: this.forgotPassword
+                  }),
+                  "Forgot your password?"
+                )
               )
             )
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'form-group' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'label',
-            { htmlFor: 'restaurantOwner' },
-            'Sign in as'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'select',
-            {
-              className: 'form-control',
-              id: 'restaurantOwner',
-              value: this.state.userType,
-              onChange: this.handleChange('userType')
-            },
+            "div",
+            { className: "form-group" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              null,
-              'Restaurant Owner'
+              "label",
+              { htmlFor: "restaurantOwner" },
+              "Sign in as"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              null,
-              'Customer'
+              "select",
+              {
+                className: "form-control",
+                id: "restaurantOwner",
+                value: this.state.userType,
+                onChange: this.handleChange("userType")
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "option",
+                null,
+                "Restaurant Owner"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "option",
+                null,
+                "Customer"
+              )
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              className: "submit-btn btn btn-primary",
+              type: "submit",
+              onClick: this.handleLogin
+            },
+            "Login"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              className: "btn btn-secondary",
+              type: "button",
+              onClick: this.handleLoginState
+            },
+            "Need to Sign Up?"
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
-          {
-            className: 'submit-btn btn btn-primary',
-            type: 'submit',
-            onClick: this.handleLogin
-          },
-          'Login'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
-          {
-            className: 'btn btn-secondary',
-            type: 'button',
-            onClick: this.handleLoginState
-          },
-          'Need to Sign Up?'
-        )
+        fireRedirect && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Redirect */], { to: from || "/#" })
       );
     }
   }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'jumbotron login-wrapper' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+      "div",
+      { className: "jumbotron login-wrapper" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__TopNav__["a" /* default */], null),
       this.renderLogin()
     );
   }
