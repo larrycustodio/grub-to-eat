@@ -804,12 +804,15 @@ module.exports = emptyFunction;
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(129);
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
+=======
+>>>>>>> development
 "use strict";
 /*
 object-assign
@@ -904,7 +907,11 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 10 */
+=======
+/* 9 */
+>>>>>>> development
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -964,7 +971,11 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 11 */
+=======
+/* 10 */
+>>>>>>> development
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1031,7 +1042,11 @@ var createPath = exports.createPath = function createPath(location) {
 };
 
 /***/ }),
+<<<<<<< HEAD
 /* 12 */
+=======
+/* 11 */
+>>>>>>> development
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1102,7 +1117,11 @@ var createPath = function createPath(location) {
 };
 
 /***/ }),
+<<<<<<< HEAD
 /* 13 */
+=======
+/* 12 */
+>>>>>>> development
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1126,7 +1145,11 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 14 */
+=======
+/* 13 */
+>>>>>>> development
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1195,7 +1218,11 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 15 */
+=======
+/* 14 */
+>>>>>>> development
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1203,7 +1230,11 @@ module.exports = warning;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(46);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(12);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(11);
+>>>>>>> development
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -1271,6 +1302,15 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 };
 
 /***/ }),
+<<<<<<< HEAD
+=======
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(129);
+
+/***/ }),
+>>>>>>> development
 /* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1295,8 +1335,13 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 
 
 if (process.env.NODE_ENV !== 'production') {
+<<<<<<< HEAD
   var invariant = __webpack_require__(10);
   var warning = __webpack_require__(14);
+=======
+  var invariant = __webpack_require__(9);
+  var warning = __webpack_require__(13);
+>>>>>>> development
   var ReactPropTypesSecret = __webpack_require__(18);
   var loggedTypeFailures = {};
 }
@@ -1522,7 +1567,11 @@ var _valueEqual = __webpack_require__(46);
 
 var _valueEqual2 = _interopRequireDefault(_valueEqual);
 
+<<<<<<< HEAD
 var _PathUtils = __webpack_require__(11);
+=======
+var _PathUtils = __webpack_require__(10);
+>>>>>>> development
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4033,9 +4082,20 @@ module.exports = Cancel;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["c"] = postCustomer;
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchCustomer;
+<<<<<<< HEAD
 /* harmony export (immutable) */ __webpack_exports__["d"] = postRestaurant;
 /* harmony export (immutable) */ __webpack_exports__["b"] = fetchRestaurant;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+=======
+<<<<<<< HEAD
+/* harmony export (immutable) */ __webpack_exports__["c"] = postRestaurant;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(15);
+=======
+/* harmony export (immutable) */ __webpack_exports__["d"] = postRestaurant;
+/* harmony export (immutable) */ __webpack_exports__["b"] = fetchRestaurant;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
+>>>>>>> development
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
@@ -4059,7 +4119,13 @@ function postCustomer(customerInfo) {
     address1,
     address2,
     city,
+<<<<<<< HEAD
     state
+=======
+    state,
+    zip,
+    userType
+>>>>>>> development
   } = customerInfo;
   return {
     type: types.POST_CUSTOMER,
@@ -4075,7 +4141,11 @@ function postCustomer(customerInfo) {
   };
 }
 function fetchCustomer(customerInfo) {
+<<<<<<< HEAD
   const { username, password } = customerInfo;
+=======
+  const { username, password, userType } = customerInfo;
+>>>>>>> development
 
   return {
     type: types.FETCH_CUSTOMER,
@@ -4097,7 +4167,23 @@ function fetchCustomer(customerInfo) {
   };
 }
 function postRestaurant(customerInfo) {
+<<<<<<< HEAD
   const { username, email, password } = customerInfo;
+=======
+  const {
+    username,
+    email,
+    password,
+    firstName,
+    lastName,
+    address1,
+    address2,
+    city,
+    state,
+    zip,
+    userType
+  } = customerInfo;
+>>>>>>> development
   return {
     type: types.POST_RESTAURANT,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Restaurants', {
@@ -4112,7 +4198,11 @@ function postRestaurant(customerInfo) {
   };
 }
 function fetchRestaurant(customerInfo) {
+<<<<<<< HEAD
   const { username, password } = customerInfo;
+=======
+  const { username, password, userType } = customerInfo;
+>>>>>>> development
 
   return {
     type: types.FETCH_RESTAURANT,
@@ -4122,7 +4212,11 @@ function fetchRestaurant(customerInfo) {
     }).then(res => {
       let userID = res.data.userId;
       if (res.status === 200) {
+<<<<<<< HEAD
         document.cookie = `token=${res.data.id};id=${res.data.id}`;
+=======
+        document.cookie = `token=${res.data.id};id=${res.data.id};`;
+>>>>>>> development
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`).then(res => {
           console.log(res.data);
           return {
@@ -4159,7 +4253,11 @@ function updateSearchLocation(input) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(15);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
@@ -4181,6 +4279,7 @@ const getRestaurantList = searchParams => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 const types = {
@@ -4214,6 +4313,41 @@ const updateUserInformation = (inputBody, userId) => {
     };
 };
 /* harmony export (immutable) */ __webpack_exports__["c"] = updateUserInformation;
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+const types = {
+  GET_RESTAURANT_INFORMATION: "GET_RESTAURANT_INFORMATION",
+  UPDATE_RESTAURANT_INFORMATION: "UPDATE_RESTAURANT_INFORMATION"
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = types;
+
+// Sets payload to up-to-date restaurant information
+const getRestaurantInformation = restaurantId => {
+  return {
+    type: types.GET_RESTAURANT_INFORMATION,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}`).then(res => {
+      return res.data;
+    }).catch(console.error)
+  };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getRestaurantInformation;
+
+// Sets payload to return edited restaurant information
+const updateRestaurantInformation = (inputBody, restaurantId) => {
+  const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Restaurants/update?where={"id":"${restaurantId}"}`).replace(/%22:/g, "%22%3A");
+  return {
+    type: types.UPDATE_RESTAURANT_INFORMATION,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(updateURL, inputBody).then(res => {
+      if (res.status == 200) getRestaurantInformation(restaurantId);
+      alert("Restaurant information saved!");
+    }).catch(console.error)
+  };
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = updateRestaurantInformation;
+>>>>>>> development
 
 
 /***/ }),
@@ -4264,7 +4398,11 @@ Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MOD
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+<<<<<<< HEAD
 var m=__webpack_require__(9),n=__webpack_require__(13),p=__webpack_require__(6);
+=======
+var m=__webpack_require__(8),n=__webpack_require__(12),p=__webpack_require__(6);
+>>>>>>> development
 function q(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var r={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function t(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||r}t.prototype.isReactComponent={};t.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?q("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};t.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function u(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||r}function v(){}v.prototype=t.prototype;var w=u.prototype=new v;w.constructor=u;m(w,t.prototype);w.isPureReactComponent=!0;function x(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||r}var y=x.prototype=new v;y.constructor=x;m(y,t.prototype);y.unstable_isAsyncReactComponent=!0;y.render=function(){return this.props.children};
@@ -4300,10 +4438,17 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
+<<<<<<< HEAD
 var _assign = __webpack_require__(9);
 var invariant = __webpack_require__(10);
 var emptyObject = __webpack_require__(13);
 var warning = __webpack_require__(14);
+=======
+var _assign = __webpack_require__(8);
+var invariant = __webpack_require__(9);
+var emptyObject = __webpack_require__(12);
+var warning = __webpack_require__(13);
+>>>>>>> development
 var emptyFunction = __webpack_require__(6);
 var checkPropTypes = __webpack_require__(17);
 
@@ -5693,7 +5838,11 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
+<<<<<<< HEAD
 var aa=__webpack_require__(0),m=__webpack_require__(29),A=__webpack_require__(9),B=__webpack_require__(6),ca=__webpack_require__(30),da=__webpack_require__(31),ea=__webpack_require__(32),ha=__webpack_require__(33),ia=__webpack_require__(34),C=__webpack_require__(13);
+=======
+var aa=__webpack_require__(0),m=__webpack_require__(29),A=__webpack_require__(8),B=__webpack_require__(6),ca=__webpack_require__(30),da=__webpack_require__(31),ea=__webpack_require__(32),ha=__webpack_require__(33),ia=__webpack_require__(34),C=__webpack_require__(12);
+>>>>>>> development
 function D(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:D("227");
 var la={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function qa(a,b){return(a&b)===b}
 var ra={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ra,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){sa.hasOwnProperty(f)?D("48",f):void 0;var g=f.toLowerCase(),k=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:qa(k,b.MUST_USE_PROPERTY),
@@ -5988,17 +6137,28 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(0);
+<<<<<<< HEAD
 var invariant = __webpack_require__(10);
 var warning = __webpack_require__(14);
 var ExecutionEnvironment = __webpack_require__(29);
 var _assign = __webpack_require__(9);
+=======
+var invariant = __webpack_require__(9);
+var warning = __webpack_require__(13);
+var ExecutionEnvironment = __webpack_require__(29);
+var _assign = __webpack_require__(8);
+>>>>>>> development
 var emptyFunction$1 = __webpack_require__(6);
 var EventListener = __webpack_require__(30);
 var getActiveElement = __webpack_require__(31);
 var shallowEqual = __webpack_require__(32);
 var containsNode = __webpack_require__(33);
 var focusNode = __webpack_require__(34);
+<<<<<<< HEAD
 var emptyObject = __webpack_require__(13);
+=======
+var emptyObject = __webpack_require__(12);
+>>>>>>> development
 var checkPropTypes = __webpack_require__(17);
 var hyphenateStyleName = __webpack_require__(70);
 var camelizeStyleName = __webpack_require__(72);
@@ -21632,9 +21792,15 @@ function createProvider() {
 
 
 var emptyFunction = __webpack_require__(6);
+<<<<<<< HEAD
 var invariant = __webpack_require__(10);
 var warning = __webpack_require__(14);
 var assign = __webpack_require__(9);
+=======
+var invariant = __webpack_require__(9);
+var warning = __webpack_require__(13);
+var assign = __webpack_require__(8);
+>>>>>>> development
 
 var ReactPropTypesSecret = __webpack_require__(18);
 var checkPropTypes = __webpack_require__(17);
@@ -22182,7 +22348,11 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 var emptyFunction = __webpack_require__(6);
+<<<<<<< HEAD
 var invariant = __webpack_require__(10);
+=======
+var invariant = __webpack_require__(9);
+>>>>>>> development
 var ReactPropTypesSecret = __webpack_require__(18);
 
 module.exports = function() {
@@ -23312,15 +23482,34 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Login__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(153);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_axios__);
 
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__ = __webpack_require__(155);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Login__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_axios__);
+
+>>>>>>> development
+>>>>>>> development
 
 
 
@@ -23355,6 +23544,18 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* HashRouter */],
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        'div',
+        { className: 'container' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/profile', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
+=======
+>>>>>>> development
         "div",
         { className: "container" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: "/", component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
@@ -23362,6 +23563,10 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/results", component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/menu", component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/user", component: __WEBPACK_IMPORTED_MODULE_6__components_UserProfile__["a" /* default */] })
+<<<<<<< HEAD
+=======
+>>>>>>> development
+>>>>>>> development
       )
     );
   }
@@ -23517,7 +23722,11 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(22);
 
+<<<<<<< HEAD
 var _PathUtils = __webpack_require__(11);
+=======
+var _PathUtils = __webpack_require__(10);
+>>>>>>> development
 
 var _createTransitionManager = __webpack_require__(23);
 
@@ -23894,7 +24103,11 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(22);
 
+<<<<<<< HEAD
 var _PathUtils = __webpack_require__(11);
+=======
+var _PathUtils = __webpack_require__(10);
+>>>>>>> development
 
 var _createTransitionManager = __webpack_require__(23);
 
@@ -24298,7 +24511,11 @@ var _warning = __webpack_require__(2);
 
 var _warning2 = _interopRequireDefault(_warning);
 
+<<<<<<< HEAD
 var _PathUtils = __webpack_require__(11);
+=======
+var _PathUtils = __webpack_require__(10);
+>>>>>>> development
 
 var _LocationUtils = __webpack_require__(22);
 
@@ -25211,10 +25428,17 @@ Redirect.contextTypes = {
 /* unused harmony reexport createHashHistory */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createMemoryHistory__ = __webpack_require__(119);
 /* unused harmony reexport createMemoryHistory */
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(15);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(12);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(14);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(11);
+>>>>>>> development
 /* unused harmony reexport parsePath */
 /* unused harmony reexport createPath */
 
@@ -25236,8 +25460,13 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(12);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(11);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(51);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -25540,8 +25769,13 @@ var createBrowserHistory = function createBrowserHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(12);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(11);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(51);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -25859,8 +26093,13 @@ var createHashHistory = function createHashHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(15);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(14);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(27);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -26044,7 +26283,11 @@ var createMemoryHistory = function createMemoryHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(11);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(10);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_history_PathUtils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Router__ = __webpack_require__(25);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26411,7 +26654,11 @@ function mapStoreToProps(store) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(8);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(15);
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__loginActions__ = __webpack_require__(57);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26434,7 +26681,12 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       address1: '',
       address2: '',
       city: '',
+<<<<<<< HEAD
       state: ''
+=======
+      state: '',
+      zip: ''
+>>>>>>> development
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
@@ -26468,6 +26720,10 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["c" /* postCustomer */])(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
+<<<<<<< HEAD
+=======
+      console.log('owner');
+>>>>>>> development
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["d" /* postRestaurant */])(customerInfo));
     }
   }
@@ -27994,17 +28250,29 @@ class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(7);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UserProfile__ = __webpack_require__(156);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RestaurantProfile__ = __webpack_require__(156);
+>>>>>>> development
 
 
 
 function mapStoreToProps(store) {
   return {
+<<<<<<< HEAD
     userInfo: store.userProfile
   };
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__UserProfile__["a" /* default */]));
+=======
+    restaurantInfo: store.restaurantProfile
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__RestaurantProfile__["a" /* default */]));
+>>>>>>> development
 
 /***/ }),
 /* 156 */
@@ -28014,28 +28282,41 @@ function mapStoreToProps(store) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(16);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__userProfileActions__ = __webpack_require__(60);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restaurantProfileActions__ = __webpack_require__(60);
+>>>>>>> development
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
 
 
 
+<<<<<<< HEAD
 
 class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+=======
+class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+>>>>>>> development
   constructor(props) {
     super(props);
 
     this.state = {
+<<<<<<< HEAD
       // Expected form fields in User Profile Page as this.state.formFields
       formFields: [{ name: 'username', label: 'Username', inputType: 'text' }, { name: 'firstName', label: 'First Name', inputType: 'text' }, { name: 'lastName', label: 'Last Name', inputType: 'text' }, { name: 'email', label: 'Email', inputType: 'email' }, { name: 'phone', label: 'Phone #', inputType: 'phone' }, { name: 'address1', label: 'Address 1', inputType: 'text' }, { name: 'address2', label: 'Address 2', inputType: 'text' }, { name: 'city', label: 'City', inputType: 'text' }, { name: 'state', label: 'State', inputType: 'text' }, { name: 'zipcode', label: 'Zip Code', inputType: 'text' }],
+=======
+      formFields: [{ name: 'email', label: 'Email', inputType: 'email' }, { name: 'firstName', label: 'First Name', inputType: 'text' }, { name: 'lastName', label: 'Last Name', inputType: 'text' }, { name: 'restaurantName', label: 'Restaurant Name', inputType: 'text' }, { name: 'address1', label: 'Address1', inputType: 'text' }, { name: 'address2', label: 'Address2', inputType: 'text' }, { name: 'state', label: 'State', inputType: 'text' }, { name: 'zipcode', label: 'Zip Code', inputType: 'text' }, { name: 'city', label: 'City', inputType: 'text' }, { name: 'phone', label: 'Phone', inputType: 'phone' }, { name: 'featuredImage', label: 'Featured Image', inputType: 'text' }, { name: 'description', label: 'Description', inputType: 'text' }, { name: 'category', label: 'Category', inputType: 'text' }, { name: 'hours', label: 'Hours', inputType: 'text' }, { name: 'username', label: 'Username', inputType: 'text' }],
+>>>>>>> development
       formValues: {}
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+<<<<<<< HEAD
 
   componentWillMount() {
     // Retrieves the logged in user's information via getUserInformation action
@@ -28045,6 +28326,15 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     }
   }
 
+=======
+  componentDidMount() {
+    // Retrieves the logged in restaurant's information via getRestaurantInformation action
+    if (!!document.cookie) {
+      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=') + 6);
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__restaurantProfileActions__["a" /* getRestaurantInformation */])(cookieToken));
+    }
+  }
+>>>>>>> development
   onInputChange(e) {
     this.setState({
       formValues: _extends({}, this.state.formValues, {
@@ -28055,6 +28345,7 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   onSubmit(e) {
     // TODO on form submission
     e.preventDefault();
+<<<<<<< HEAD
     this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["c" /* updateUserInformation */])(this.state.formValues, this.props.userInfo.id));
   }
 
@@ -28098,10 +28389,45 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                 placeholder: this.props.userInfo[name],
                 onChange: this.onInputChange
               })
+=======
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__restaurantProfileActions__["c" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
+  }
+  render() {
+    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "container-fluid" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "h1",
+        { className: "display-4 text-center'" },
+        "Restaurant Profile"
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "form",
+        { onSubmit: this.onSubmit },
+
+        // Creates form inputs for each entry in this.state.formFields
+        // Prefills the input values with the restaurantInfo store retrieved
+        this.state.formFields.map(formField => {
+          const { name, label, inputType } = formField;
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { key: name, className: "form-group row" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: name, className: "col-sm-8 col-md-2" },
+              label
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-sm-8 col-md-6" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: formField.inputType, id: name, className: "form-control", placeholder: this.props.restaurantInfo[name], onChange: this.onInputChange })
+>>>>>>> development
             )
           );
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+<<<<<<< HEAD
           'div',
           { className: 'form-group row justify-content-center' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -28113,10 +28439,24 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             'button',
             { type: 'reset', className: 'btn btn-secondary mx-1' },
             'Cancel'
+=======
+          "div",
+          { className: "form-group row justify-content-center" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            { type: "submit", className: "btn btn-primary mx-1" },
+            "Save Changes"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            { type: "reset", className: "btn btn-secondary mx-1" },
+            "Cancel"
+>>>>>>> development
           )
         )
       )
     ) :
+<<<<<<< HEAD
     // Returns a redirect link for user log In if no log in is detected
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
@@ -28132,12 +28472,127 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
           'Log In'
         ),
         ' to continue'
+=======
+    // Returns a redirect link for restaurant log in if no log in is detected
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "container-fluid" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "p",
+        { className: "lead" },
+        "Please ",
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "a",
+          { href: "#/login" },
+          "Log In"
+        ),
+        " to continue"
+>>>>>>> development
       )
     );
   }
 }
+<<<<<<< HEAD
 /* harmony export (immutable) */ __webpack_exports__["a"] = UserProfile;
 
+=======
+/* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantProfile;
+
+
+{/* <form>
+   <div className="form-group row">
+     <label htmlFor="email" className="col-sm-12 col-md-2">Email</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="text" readonly className="form-control-plaintext" id="email" placeholder="Email" />
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="lastName" className="col-sm-12 col-md-2">First Name</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="firstName" readonly className="form-control-plaintext" id="firstName" placeholder="First Name"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="lastName" className="col-sm-12 col-md-2">Last Name</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="lastName" readonly className="form-control-plaintext" id="lastName" placeholder="Last Name"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="restaurantName" className="col-sm-12 col-md-2">Restaurant Name</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="restaurantName" readonly className="form-control-plaintext" id="restaurantName" placeholder="Restaurant Name"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="address1" className="col-sm-12 col-md-2">Address1</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="address1" readonly className="form-control-plaintext" id="address1" placeholder="Address1"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="address2" className="col-sm-12 col-md-2">Address2</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="address2" readonly className="form-control-plaintext" id="address2" placeholder="Address2"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="state" className="col-sm-12 col-md-2">State</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="state" readonly className="form-control-plaintext" id="state" placeholder="State"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="zipcode" className="col-sm-12 col-md-2">Zipcode</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="zipcode" readonly className="form-control-plaintext" id="zipcode" placeholder="Zipcode"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="city" className="col-sm-12 col-md-2">City</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="city" readonly className="form-control-plaintext" id="city" placeholder="City"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="phone" className="col-sm-12 col-md-2">Phone</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="phone" readonly className="form-control-plaintext" id="phone" placeholder="Phone"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="featuredImage" className="col-sm-12 col-md-2">Featured Image</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="featuredImage" readonly className="form-control-plaintext" id="featuredImage" placeholder="Featured Image"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="description" className="col-sm-12 col-md-2">Description</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="description" readonly className="form-control-plaintext" id="description" placeholder="Description"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="category" className="col-sm-12 col-md-2">Category</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="category" readonly className="form-control-plaintext" id="category" placeholder="Category"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="hours" className="col-sm-12 col-md-2">Hours</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="hours" readonly className="form-control-plaintext" id="hours" placeholder="Hours"/>
+     </div>
+   </div>
+   <div className="form-group row">
+     <label htmlFor="username" className="col-sm-12 col-md-2">Username</label>
+     <div className="col-sm-10 col-md-6-offset-3">
+       <input type="username" readonly className="form-control-plaintext" id="username" placeholder="Username"/>
+     </div>
+   </div>
+  </form> */}
+>>>>>>> development
 
 /***/ }),
 /* 157 */
@@ -28161,12 +28616,28 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> development
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(163);
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__ = __webpack_require__(164);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__ = __webpack_require__(164);
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__ = __webpack_require__(168);
+>>>>>>> development
+>>>>>>> development
 
 
 
@@ -28180,7 +28651,15 @@ const rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineRed
   restaurantMenu: __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__["a" /* default */],
   searchDisplay: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__["a" /* default */],
   searchResults: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__["a" /* default */],
+<<<<<<< HEAD
   userProfile: __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__["a" /* default */]
+=======
+<<<<<<< HEAD
+  restaurantProfile: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__["a" /* default */]
+=======
+  userProfile: __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__["a" /* default */]
+>>>>>>> development
+>>>>>>> development
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -28358,13 +28837,19 @@ function searchResultsReducer(state = defaultState, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony export (immutable) */ __webpack_exports__["a"] = userProfileReducer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__userProfileActions__ = __webpack_require__(60);
+=======
+/* harmony export (immutable) */ __webpack_exports__["a"] = restaurantProfileReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__ = __webpack_require__(60);
+>>>>>>> development
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
 
 const defaultState = {
+<<<<<<< HEAD
     email: "Loading...",
     firstName: "Loading...",
     lastName: "Loading...",
@@ -28389,6 +28874,37 @@ function userProfileReducer(state = defaultState, { type, payload }) {
             return state;
     }
     return defaultState;
+=======
+  email: "Loading...",
+  firstName: "Loading...",
+  lastName: "Loading...",
+  restaurantName: "Loading...",
+  address1: "Loading...",
+  address2: "Loading...",
+  state: "Loading...",
+  zipcode: "Loading...",
+  city: "Loading...",
+  phone: "Loading...",
+  featuredImage: "Loading...",
+  description: "Loading...",
+  category: "Loading...",
+  hours: "Loading...",
+  username: "Loading..."
+};
+
+function restaurantProfileReducer(state = defaultState, { type, payload }) {
+  switch (type) {
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["b" /* types */].GET_RESTAURANT_INFORMATION:
+      return _extends({}, state, {
+        payload
+      });
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["b" /* types */].GET_RESTAURANT_INFORMATION + "_FULFILLED":
+      return _extends({}, payload);
+    default:
+      return state;
+  }
+  return defaultState;
+>>>>>>> development
 }
 
 /***/ }),
@@ -28619,6 +29135,239 @@ function isPromise(value) {
 
 // removed by extract-text-webpack-plugin
 
+<<<<<<< HEAD
+=======
+/***/ }),
+/* 164 */,
+/* 165 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+const types = {
+    GET_USER_INFORMATION: 'GET_USER_INFORMATION',
+    UPDATE_USER_INFORMATION: 'UPDATE_USER_INFORMATION'
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = types;
+
+
+
+//Sets payload to up-to-date user information 
+const getUserInformation = userId => {
+    return {
+        type: types.GET_USER_INFORMATION,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userId}`).then(res => {
+            return res.data;
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUserInformation;
+
+//Sets payload to return edited user information
+const updateUserInformation = (inputBody, userId) => {
+    const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Customers/update?where={"id":"${userId}"}`).replace(/%22:/g, '%22%3A');;
+    return {
+        type: types.UPDATE_USER_INFORMATION,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(updateURL, inputBody).then(res => {
+            if (res.status == 200) getUserInformation(userId);
+            alert('User information saved!');
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = updateUserInformation;
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UserProfile__ = __webpack_require__(167);
+
+
+
+function mapStoreToProps(store) {
+  return {
+    userInfo: store.userProfile
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__UserProfile__["a" /* default */]));
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__userProfileActions__ = __webpack_require__(165);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
+
+class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // Expected form fields in User Profile Page as this.state.formFields
+      formFields: [{ name: 'username', label: 'Username', inputType: 'text' }, { name: 'firstName', label: 'First Name', inputType: 'text' }, { name: 'lastName', label: 'Last Name', inputType: 'text' }, { name: 'email', label: 'Email', inputType: 'email' }, { name: 'phone', label: 'Phone #', inputType: 'phone' }, { name: 'address1', label: 'Address 1', inputType: 'text' }, { name: 'address2', label: 'Address 2', inputType: 'text' }, { name: 'city', label: 'City', inputType: 'text' }, { name: 'state', label: 'State', inputType: 'text' }, { name: 'zipcode', label: 'Zip Code', inputType: 'text' }],
+      formValues: {}
+    };
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    // Retrieves the logged in user's information via getUserInformation action
+    if (!!document.cookie) {
+      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=') + 6);
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["a" /* getUserInformation */])(cookieToken));
+    }
+  }
+
+  onInputChange(e) {
+    this.setState({
+      formValues: _extends({}, this.state.formValues, {
+        [e.target.id]: e.target.value
+      })
+    });
+  }
+  onSubmit(e) {
+    // TODO on form submission
+    e.preventDefault();
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["c" /* updateUserInformation */])(this.state.formValues, this.props.userInfo.id));
+  }
+
+  render() {
+    console.log(this.state.formValues);
+    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'container-fluid' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h1',
+        { className: 'display-4 text-center' },
+        'User Profile'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'form',
+        { onSubmit: this.onSubmit },
+
+        /* 
+         * Creates form inputs for each entry in this.state.formFields
+         * Prefills the input values with the userInfo store retrieved
+         */
+        this.state.formFields.map(formField => {
+          const { name, label, inputType } = formField;
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { key: name,
+              className: 'form-group row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { htmlFor: name,
+                className: 'col-sm-8 col-md-2' },
+              label
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col sm-8 col-md-6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: formField.inputType,
+                id: name,
+                className: 'form-control',
+                placeholder: this.props.userInfo[name],
+                onChange: this.onInputChange
+              })
+            )
+          );
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'form-group row justify-content-center' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'submit', className: 'btn btn-primary mx-1' },
+            'Save Changes'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'reset', className: 'btn btn-secondary mx-1' },
+            'Cancel'
+          )
+        )
+      )
+    ) :
+    // Returns a redirect link for user log In if no log in is detected
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'container-fluid' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        { className: 'lead' },
+        'Please ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'a',
+          { href: '#/login' },
+          'Log In'
+        ),
+        ' to continue'
+      )
+    );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = UserProfile;
+
+
+/***/ }),
+/* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = userProfileReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__userProfileActions__ = __webpack_require__(165);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+const defaultState = {
+    email: "Loading...",
+    firstName: "Loading...",
+    lastName: "Loading...",
+    address1: "Loading...",
+    address2: "Loading...",
+    state: "Loading...",
+    zipcode: "Loading...",
+    city: "Loading...",
+    phone: "Loading...",
+    username: "Loading..."
+};
+
+function userProfileReducer(state = defaultState, { type, payload }) {
+    switch (type) {
+        case __WEBPACK_IMPORTED_MODULE_0__userProfileActions__["b" /* types */].GET_USER_INFORMATION:
+            return _extends({}, state, {
+                payload
+            });
+        case __WEBPACK_IMPORTED_MODULE_0__userProfileActions__["b" /* types */].GET_USER_INFORMATION + '_FULFILLED':
+            return _extends({}, payload);
+        default:
+            return state;
+    }
+    return defaultState;
+}
+
+>>>>>>> development
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map

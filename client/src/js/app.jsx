@@ -6,6 +6,7 @@ import SearchDisplay from "./components/SearchDisplay";
 import SearchResults from "./components/SearchResults";
 import RestaurantMenu from "./components/RestaurantMenu";
 import UserProfile from "./components/UserProfile";
+import RestaurantProfile from './components/RestaurantProfile';
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -45,6 +46,7 @@ export default class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
+          <Route path="/profile" component={RestaurantProfile} />
           <Route path="/user" component={ UserProfile } />
         </div>
       </Router>

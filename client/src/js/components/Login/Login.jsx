@@ -21,7 +21,8 @@ export default class Login extends React.Component {
       address1: '',
       address2: '',
       city: '',
-      state: ''
+      state: '',
+      zip: ''
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
@@ -57,6 +58,7 @@ export default class Login extends React.Component {
       this.props.dispatch(postCustomer(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
+      console.log('owner');
       this.props.dispatch(postRestaurant(customerInfo));
     }
   }
