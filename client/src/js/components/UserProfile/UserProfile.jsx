@@ -50,7 +50,6 @@ export default class UserProfile extends Component {
   }
 
   render() {
-    console.log(this.state.formValues);
     return (!!document.cookie) ? 
     (
       <div className='container-fluid'>
