@@ -25,7 +25,7 @@ class App extends React.Component {
         const token = cookieString.substring(
           cookieString.indexOf('token=') + 6
         );
-
+        
         axios
           .get(
             `https://grubtoeat.herokuapp.com/api/Customers/${
@@ -71,6 +71,7 @@ class App extends React.Component {
             }
           });
       }
+
     }
   }
   render() {
