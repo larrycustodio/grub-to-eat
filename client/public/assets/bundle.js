@@ -4059,7 +4059,9 @@ function postCustomer(customerInfo) {
     address1,
     address2,
     city,
-    state
+    state,
+    zip,
+    userType
   } = customerInfo;
   return {
     type: types.POST_CUSTOMER,
@@ -4075,7 +4077,7 @@ function postCustomer(customerInfo) {
   };
 }
 function fetchCustomer(customerInfo) {
-  const { username, password } = customerInfo;
+  const { username, password, userType } = customerInfo;
 
   return {
     type: types.FETCH_CUSTOMER,
@@ -4097,7 +4099,19 @@ function fetchCustomer(customerInfo) {
   };
 }
 function postRestaurant(customerInfo) {
-  const { username, email, password } = customerInfo;
+  const {
+    username,
+    email,
+    password,
+    firstName,
+    lastName,
+    address1,
+    address2,
+    city,
+    state,
+    zip,
+    userType
+  } = customerInfo;
   return {
     type: types.POST_RESTAURANT,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Restaurants', {
@@ -4112,7 +4126,7 @@ function postRestaurant(customerInfo) {
   };
 }
 function fetchRestaurant(customerInfo) {
-  const { username, password } = customerInfo;
+  const { username, password, userType } = customerInfo;
 
   return {
     type: types.FETCH_RESTAURANT,
@@ -4122,7 +4136,7 @@ function fetchRestaurant(customerInfo) {
     }).then(res => {
       let userID = res.data.userId;
       if (res.status === 200) {
-        document.cookie = `token=${res.data.id};id=${res.data.id}`;
+        document.cookie = `token=${res.data.id};id=${res.data.id};`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`).then(res => {
           console.log(res.data);
           return {
@@ -23277,8 +23291,10 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_axios__);
+
 
 
 
@@ -23299,9 +23315,9 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       const id = cookieString.substring(cookieString.indexOf('id=') + 3, cookieString.indexOf(';'));
       const token = cookieString.substring(cookieString.indexOf('token=') + 6);
 
-      __WEBPACK_IMPORTED_MODULE_6_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}/accessTokens`).then(res => {
+      __WEBPACK_IMPORTED_MODULE_7_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}/accessTokens`).then(res => {
         if (res.status === 200) {
-          return __WEBPACK_IMPORTED_MODULE_6_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}`).then(res => {
+          return __WEBPACK_IMPORTED_MODULE_7_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}`).then(res => {
             console.log(res.data.username);
           });
         }
@@ -23313,12 +23329,13 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* HashRouter */],
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { className: 'container' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] })
+        "div",
+        { className: "container" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: "/", component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/login", component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/results", component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/menu", component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/user", component: __WEBPACK_IMPORTED_MODULE_6__components_UserProfile__["a" /* default */] })
       )
     );
   }
@@ -26391,7 +26408,8 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       address1: '',
       address2: '',
       city: '',
-      state: ''
+      state: '',
+      zip: ''
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
@@ -26425,6 +26443,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["c" /* postCustomer */])(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
+      console.log('owner');
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__loginActions__["d" /* postRestaurant */])(customerInfo));
     }
   }
@@ -27745,9 +27764,22 @@ class TopNav extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "login" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { href: "#/user", className: "mx-1 text-white" },
+            "Hello"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { href: "#/", className: "mx-1 text-white" },
+            "Logout"
+          )
+        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "a",
-          { href: "#/login", className: "text-white" },
+          { href: "#/login", className: "mx-1 text-white" },
           "Log In"
         )
       )
@@ -27959,6 +27991,8 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__ = __webpack_require__(168);
+
 
 
 
@@ -27970,7 +28004,8 @@ const rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineRed
   login: __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__["a" /* default */],
   restaurantMenu: __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__["a" /* default */],
   searchDisplay: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__["a" /* default */],
-  searchResults: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__["a" /* default */]
+  searchResults: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__["a" /* default */],
+  userProfile: __WEBPACK_IMPORTED_MODULE_5__components_UserProfile_userProfileReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -28370,6 +28405,236 @@ function isPromise(value) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 164 */,
+/* 165 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+const types = {
+    GET_USER_INFORMATION: 'GET_USER_INFORMATION',
+    UPDATE_USER_INFORMATION: 'UPDATE_USER_INFORMATION'
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = types;
+
+
+
+//Sets payload to up-to-date user information 
+const getUserInformation = userId => {
+    return {
+        type: types.GET_USER_INFORMATION,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userId}`).then(res => {
+            return res.data;
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getUserInformation;
+
+//Sets payload to return edited user information
+const updateUserInformation = (inputBody, userId) => {
+    const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Customers/update?where={"id":"${userId}"}`).replace(/%22:/g, '%22%3A');;
+    return {
+        type: types.UPDATE_USER_INFORMATION,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(updateURL, inputBody).then(res => {
+            if (res.status == 200) getUserInformation(userId);
+            alert('User information saved!');
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = updateUserInformation;
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UserProfile__ = __webpack_require__(167);
+
+
+
+function mapStoreToProps(store) {
+  return {
+    userInfo: store.userProfile
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__UserProfile__["a" /* default */]));
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__userProfileActions__ = __webpack_require__(165);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
+
+class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // Expected form fields in User Profile Page as this.state.formFields
+      formFields: [{ name: 'username', label: 'Username', inputType: 'text' }, { name: 'firstName', label: 'First Name', inputType: 'text' }, { name: 'lastName', label: 'Last Name', inputType: 'text' }, { name: 'email', label: 'Email', inputType: 'email' }, { name: 'phone', label: 'Phone #', inputType: 'phone' }, { name: 'address1', label: 'Address 1', inputType: 'text' }, { name: 'address2', label: 'Address 2', inputType: 'text' }, { name: 'city', label: 'City', inputType: 'text' }, { name: 'state', label: 'State', inputType: 'text' }, { name: 'zipcode', label: 'Zip Code', inputType: 'text' }],
+      formValues: {}
+    };
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    // Retrieves the logged in user's information via getUserInformation action
+    if (!!document.cookie) {
+      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=') + 6);
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["a" /* getUserInformation */])(cookieToken));
+    }
+  }
+
+  onInputChange(e) {
+    this.setState({
+      formValues: _extends({}, this.state.formValues, {
+        [e.target.id]: e.target.value
+      })
+    });
+  }
+  onSubmit(e) {
+    // TODO on form submission
+    e.preventDefault();
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__userProfileActions__["c" /* updateUserInformation */])(this.state.formValues, this.props.userInfo.id));
+  }
+
+  render() {
+    console.log(this.state.formValues);
+    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'container-fluid' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h1',
+        { className: 'display-4 text-center' },
+        'User Profile'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'form',
+        { onSubmit: this.onSubmit },
+
+        /* 
+         * Creates form inputs for each entry in this.state.formFields
+         * Prefills the input values with the userInfo store retrieved
+         */
+        this.state.formFields.map(formField => {
+          const { name, label, inputType } = formField;
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { key: name,
+              className: 'form-group row' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'label',
+              { htmlFor: name,
+                className: 'col-sm-8 col-md-2' },
+              label
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'col sm-8 col-md-6' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: formField.inputType,
+                id: name,
+                className: 'form-control',
+                placeholder: this.props.userInfo[name],
+                onChange: this.onInputChange
+              })
+            )
+          );
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'form-group row justify-content-center' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'submit', className: 'btn btn-primary mx-1' },
+            'Save Changes'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'reset', className: 'btn btn-secondary mx-1' },
+            'Cancel'
+          )
+        )
+      )
+    ) :
+    // Returns a redirect link for user log In if no log in is detected
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'container-fluid' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        { className: 'lead' },
+        'Please ',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'a',
+          { href: '#/login' },
+          'Log In'
+        ),
+        ' to continue'
+      )
+    );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = UserProfile;
+
+
+/***/ }),
+/* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = userProfileReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__userProfileActions__ = __webpack_require__(165);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+const defaultState = {
+    email: "Loading...",
+    firstName: "Loading...",
+    lastName: "Loading...",
+    address1: "Loading...",
+    address2: "Loading...",
+    state: "Loading...",
+    zipcode: "Loading...",
+    city: "Loading...",
+    phone: "Loading...",
+    username: "Loading..."
+};
+
+function userProfileReducer(state = defaultState, { type, payload }) {
+    switch (type) {
+        case __WEBPACK_IMPORTED_MODULE_0__userProfileActions__["b" /* types */].GET_USER_INFORMATION:
+            return _extends({}, state, {
+                payload
+            });
+        case __WEBPACK_IMPORTED_MODULE_0__userProfileActions__["b" /* types */].GET_USER_INFORMATION + '_FULFILLED':
+            return _extends({}, payload);
+        default:
+            return state;
+    }
+    return defaultState;
+}
 
 /***/ })
 /******/ ]);
