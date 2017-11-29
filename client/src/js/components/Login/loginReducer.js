@@ -42,6 +42,10 @@ export default function LoginReducer(state = defaultState, action) {
     case types.FETCH_CUSTOMER + '_PENDING': {
       return state;
     }
+    case types.FETCH_CUSTOMER + '_REJECTED': {
+      alert('Please fix your login credentials and try again!');
+      return state;
+    }
     case types.FETCH_RESTAURANT + '_FULFILLED': {
       if (payload) {
         return {
@@ -51,6 +55,10 @@ export default function LoginReducer(state = defaultState, action) {
       }
     }
     case types.FETCH_RESTAURANT + '_PENDING': {
+      return state;
+    }
+    case types.FETCH_RESTAURANT + '_REJECTED': {
+      alert('Please fix your login credentials and try again!');
       return state;
     }
   }
