@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import React from "react";
 
-=======
-import React from 'react';
->>>>>>> development
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Login from './components/Login';
 import SearchDisplay from './components/SearchDisplay';
