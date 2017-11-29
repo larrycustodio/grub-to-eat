@@ -1,6 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { postCustomer, postRestaurant, fetchCustomer } from './loginActions';
+import {
+  postCustomer,
+  postRestaurant,
+  fetchCustomer,
+  fetchRestaurant
+} from './loginActions';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -16,12 +21,13 @@ export default class Login extends React.Component {
       address1: '',
       address2: '',
       city: '',
-      state: ''
+      state: '',
+      zip: ''
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
@@ -39,14 +45,20 @@ export default class Login extends React.Component {
   }
   handleLogin() {
     const customerInfo = { ...this.state };
-    this.props.dispatch(fetchCustomer(customerInfo));
+    if (this.state.userType === 'Customer') {
+      this.props.dispatch(fetchCustomer(customerInfo));
+    }
+    if (this.state.userType === 'Restaurant Owner') {
+      this.props.dispatch(fetchRestaurant(customerInfo));
+    }
   }
-  handleSubmit() {
+  handleSignUp() {
     const customerInfo = { ...this.state };
     if (this.state.userType === 'Customer') {
       this.props.dispatch(postCustomer(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
+      console.log('owner');
       this.props.dispatch(postRestaurant(customerInfo));
     }
   }
@@ -158,7 +170,7 @@ export default class Login extends React.Component {
           <button
             className="submit-btn btn btn-primary"
             type="submit"
-            onClick={this.handleSubmit}
+            onClick={this.handleSignUp}
           >
             Sign Up!
           </button>
