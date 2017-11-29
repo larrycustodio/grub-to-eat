@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { HashRouter as Router, Route } from "react-router-dom";
-import Login from "./components/Login";
-import SearchDisplay from "./components/SearchDisplay";
-import SearchResults from "./components/SearchResults";
-import RestaurantMenu from "./components/RestaurantMenu";
-import UserProfile from "./components/UserProfile";
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Login from './components/Login';
+import SearchDisplay from './components/SearchDisplay';
+import SearchResults from './components/SearchResults';
+import RestaurantMenu from './components/RestaurantMenu';
+import RestaurantProfile from './components/RestaurantProfile';
+import UserProfile from './components/UserProfile';
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -45,7 +46,8 @@ export default class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
-          <Route path="/user" component={ UserProfile } />
+          <Route path="/restaurant" component={RestaurantProfile} />
+          <Route path="/user" component={UserProfile} />
         </div>
       </Router>
     );

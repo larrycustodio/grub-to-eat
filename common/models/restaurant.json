@@ -53,6 +53,10 @@
     },
     "hours": {
       "type": "string"
+    },
+    "userType": {
+      "type": "string",
+      "default": "restaurantOwner"
     }
   },
   "validations": [],
