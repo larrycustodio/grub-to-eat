@@ -14,7 +14,7 @@ export default class TopNav extends React.Component {
             !! document.cookie ?
             (
               <div>
-                { !! document.cookie.indexOf('restaurantID') ?
+                { ( document.cookie.indexOf('restaurantID') > 0 ) ?
                 (
                   <a href="#/restaurant" className="mx-1 text-white">
                     Hello Owner

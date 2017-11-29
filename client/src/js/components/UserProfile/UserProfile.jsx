@@ -28,8 +28,8 @@ export default class UserProfile extends Component {
 
   componentWillMount(){
     // Retrieves the logged in user's information via getUserInformation action
-    if(!!document.cookie){
-      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=')+6);
+    if(!!document.cookie){      
+      const cookieToken = document.cookie.substr(document.cookie.indexOf('customerID=')+11, 24);
       this.props.dispatch(getUserInformation(cookieToken));
     }
   }
@@ -46,11 +46,12 @@ export default class UserProfile extends Component {
   onSubmit(e){
     // TODO on form submission
     e.preventDefault();
+    const cookieToken = document.cookie.substr(document.cookie.indexOf('customerID=') + 11, 24);    
     this.props.dispatch(updateUserInformation(this.state.formValues,this.props.userInfo.id));
   }
 
   render() {
-    return (!!document.cookie) ? 
+    return (!!document.cookie && document.cookie.indexOf('customerID=') > 0 ) ? 
     (
       <div className='container-fluid'>
         <TopNav />
@@ -71,12 +72,18 @@ export default class UserProfile extends Component {
                   { label }
                 </label>
                 <div className='col sm-8 col-md-6'>
-                  <input type= { formField.inputType }
-                  id={ name }
-                  className='form-control'
-                  placeholder = { this.props.userInfo[name] }
-                  onChange = { this.onInputChange }
-                  />
+                  { name == 'username' ? 
+                    <div id= { name }>
+                      { this.props.userInfo[name] }
+                    </div>
+                    : 
+                    <input type= { formField.inputType }
+                    id={ name }
+                    className='form-control'
+                    placeholder = { this.props.userInfo[name] }
+                    onChange = { this.onInputChange }
+                    />
+                  }
                 </div>
               </div>
             );

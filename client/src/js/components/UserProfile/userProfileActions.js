@@ -22,8 +22,12 @@ export const updateUserInformation = (inputBody, userId) => {
         type: types.UPDATE_USER_INFORMATION,
         payload: axios.post(updateURL,inputBody)
         .then(res => {
-            if(res.status == 200) getUserInformation(userId);
-            alert('User information saved!');
+            if(res.status == 200){
+                getUserInformation(userId);
+                alert('User information saved!');
+            } else {
+                alert('Oops, something went wrong! :( \n Refresh the page and try again!');
+            }
         })
         .catch(console.error)
     }
