@@ -7,10 +7,10 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "node server/server.js",
+    "start": "webpack && node server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check",
-    "build":"webpack -w"
+    "build": "webpack -w"
   },
   "dependencies": {
     "axios": "^0.17.1",
