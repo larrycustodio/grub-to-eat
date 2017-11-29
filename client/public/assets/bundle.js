@@ -28455,6 +28455,11 @@ function LoginReducer(state = defaultState, action) {
       {
         return state;
       }
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_CUSTOMER + '_REJECTED':
+      {
+        alert('Please fix your login credentials and try again!');
+        return state;
+      }
     case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_RESTAURANT + '_FULFILLED':
       {
         if (payload) {
@@ -28465,6 +28470,11 @@ function LoginReducer(state = defaultState, action) {
       }
     case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_RESTAURANT + '_PENDING':
       {
+        return state;
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__loginActions__["e" /* types */].FETCH_RESTAURANT + '_REJECTED':
+      {
+        alert('Please fix your login credentials and try again!');
         return state;
       }
   }
