@@ -9,26 +9,15 @@ export const types = {
   GET_RESTAURANT: 'GET_RESTAURANT'
 };
 export function postCustomer(customerInfo) {
-  const {
-    username,
-    email,
-    password,
-    firstName,
-    lastName,
-    address1,
-    address2,
-    city,
-    state,
-    zip,
-    userType
-  } = customerInfo;
+  const { username, email, password, userType } = customerInfo;
   return {
     type: types.POST_CUSTOMER,
     payload: axios
       .post('https://grubtoeat.herokuapp.com/api/Customers', {
         username,
         email,
-        password
+        password,
+        userType
       })
       .then(res => {
         return {
@@ -55,7 +44,6 @@ export function fetchCustomer(customerInfo) {
           return axios
             .get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`)
             .then(res => {
-              console.log(res.data);
               return {
                 user: res.data
               };
@@ -65,19 +53,7 @@ export function fetchCustomer(customerInfo) {
   };
 }
 export function postRestaurant(customerInfo) {
-  const {
-    username,
-    email,
-    password,
-    firstName,
-    lastName,
-    address1,
-    address2,
-    city,
-    state,
-    zip,
-    userType
-  } = customerInfo;
+  const { username, email, password, userType } = customerInfo;
   return {
     type: types.POST_RESTAURANT,
     payload: axios
@@ -85,13 +61,6 @@ export function postRestaurant(customerInfo) {
         username,
         email,
         password,
-        firstName,
-        lastName,
-        address1,
-        address2,
-        city,
-        state,
-        zip,
         userType
       })
       .then(res => {
@@ -113,13 +82,12 @@ export function fetchRestaurant(customerInfo) {
         password
       })
       .then(res => {
-        let userID = res.data.userId;
+        let userId = res.data.userId;
         if (res.status === 200) {
-          document.cookie = `token=${res.data.id};id=${res.data.id};`;
+          document.cookie = `token=${res.data.userId};id=${res.data.id};`;
           return axios
-            .get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`)
+            .get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userId}`)
             .then(res => {
-              console.log(res.data);
               return {
                 user: res.data
               };

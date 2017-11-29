@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TopNav from '../TopNav';
-import axios from 'axios';
 import { updateUserInformation, getUserInformation } from './userProfileActions';
 
 export default class UserProfile extends Component {
@@ -43,6 +42,7 @@ export default class UserProfile extends Component {
       }
     })
   }
+  
   onSubmit(e){
     // TODO on form submission
     e.preventDefault();
