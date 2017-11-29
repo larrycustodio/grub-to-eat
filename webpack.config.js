@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [
   {
-    context: path.join(__dirname, '/src'),
+    context: path.join(__dirname, '/client/src'),
     
     name: 'js',
   
@@ -15,12 +15,12 @@ module.exports = [
   
     output: {
       filename: 'bundle.js',
-      path: path.join(__dirname, '/public/assets')
+      path: path.join(__dirname, '/client/public/assets')
     },
 
     resolve: {
       alias: {
-        react: path.join(__dirname, 'node_modules', 'react')
+        react: path.join(__dirname, '/client/node_modules', 'react')
       },
       extensions: ['.js', '.jsx']
     },
@@ -29,7 +29,7 @@ module.exports = [
         // See .babelrc for specified react compiler 
         {
           test: /\.jsx?$/,
-          exclude: /node_modules/,
+          exclude: [/node_modules/,/server/,/common/],
           loaders: ['babel-loader']
         },
         {

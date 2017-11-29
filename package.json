@@ -9,9 +9,19 @@
     "lint": "eslint .",
     "start": "node server/server.js",
     "server-test": "nodemon server/test-server",
-    "posttest": "npm run lint && nsp check"
+    "posttest": "npm run lint && nsp check",
+    "build":"webpack -w"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "babel": "^6.23.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-airbnb": "^2.4.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "css-loader": "^0.28.7",
@@ -24,7 +34,17 @@
     "sass-loader": "^6.0.6",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0",
-    "style-loader": "^0.19.0"
+    "style-loader": "^0.19.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-devtools": "^3.4.1",
+    "redux-promise-middleware": "^5.0.0",
+    "sass": "^1.0.0-beta.3",
+    "webpack": "^3.8.1"
   },
   "devDependencies": {
     "axios": "^0.17.1",
