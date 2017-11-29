@@ -1,14 +1,14 @@
 import React from "react";
 
-import { HashRouter as Router, Route } from 'react-router-dom';
-import Login from './components/Login';
-import SearchDisplay from './components/SearchDisplay';
-import SearchResults from './components/SearchResults';
-import RestaurantMenu from './components/RestaurantMenu';
-import RestaurantProfile from './components/RestaurantProfile';
-import UserProfile from './components/UserProfile';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import { HashRouter as Router, Route } from "react-router-dom";
+import Login from "./components/Login";
+import SearchDisplay from "./components/SearchDisplay";
+import SearchResults from "./components/SearchResults";
+import RestaurantMenu from "./components/RestaurantMenu";
+import RestaurantProfile from "./components/RestaurantProfile";
+import UserProfile from "./components/UserProfile";
+import { connect } from "react-redux";
+import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +22,6 @@ class App extends React.Component {
         cookieString.indexOf(";")
       );
       const token = cookieString.substring(cookieString.indexOf("token=") + 6);
-
     }
   }
   render() {

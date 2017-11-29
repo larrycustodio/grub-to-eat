@@ -12,7 +12,7 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUp: true,
+      signUp: false,
       username: '',
       userType: 'Restaurant Owner',
       email: '',
