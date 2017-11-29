@@ -10,19 +10,19 @@ export default class TopNav extends React.Component {
         </div>
         <div className="login">
           {
+            // Looks for login cookies to determine login user type
             !! document.cookie ?
-
             (
               <div>
-                { !!this.props.restaurantProfile.userType ?
+                { !! document.cookie.indexOf('restaurantID') ?
                 (
                   <a href="#/restaurant" className="mx-1 text-white">
-                    Restaurant Owner
+                    Hello Owner
                   </a>
                 ) :
                 (
                   <a href="#/user" className="mx-1 text-white">
-                    User
+                    Hi Person
                   </a>
                 )
                 }
