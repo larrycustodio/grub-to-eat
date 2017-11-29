@@ -46,13 +46,8 @@ export default class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
-<<<<<<< HEAD
           <Route path="/user" component={UserProfile} />
-          <Route path="/customer" component={RestaurantProfile} />
-=======
-          <Route path="/profile" component={RestaurantProfile} />
-          <Route path="/user" component={UserProfile} />
->>>>>>> development
+          <Route path="/restaurant" component={RestaurantProfile} />
         </div>
       </Router>
     );
