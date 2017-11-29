@@ -26475,15 +26475,17 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   }
   handleSignUp() {
     const customerInfo = _extends({}, this.state);
-    if (this.state.userType === "Customer") {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["c" /* postCustomer */])(customerInfo));
-      alert("Thank you for signing up, go ahead and login :)");
-      this.setState({ fireRedirect: true });
-    }
-    if (this.state.userType === "Restaurant Owner") {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["d" /* postRestaurant */])(customerInfo));
-      alert("Thank you for signing up, go ahead and login :)");
-      this.setState({ fireRedirect: true });
+    if (this.state.email != "" && this.state.password != "" && this.state.username != "") {
+      if (this.state.userType === "Customer") {
+        this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["c" /* postCustomer */])(customerInfo));
+        alert("Thank you for signing up, go ahead and login :)");
+        this.setState({ signUp: false });
+      }
+      if (this.state.userType === "Restaurant Owner") {
+        this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__loginActions__["d" /* postRestaurant */])(customerInfo));
+        alert("Thank you for signing up, go ahead and login :)");
+        this.setState({ signUp: false });
+      }
     }
   }
   renderLogin() {
@@ -26491,7 +26493,7 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     const { fireRedirect } = this.state;
     if (this.state.signUp) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "form",
+        "div",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h3",
@@ -26499,104 +26501,108 @@ class Login extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
           "Sign Up"
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "form-group" },
+          "form",
+          { onSubmit: this.handleSignUp },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "label",
-            { htmlFor: "username" },
-            "User Name"
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-            className: "form-control",
-            id: "username",
-            type: "text",
-            value: this.state.username,
-            onChange: this.handleChange("username")
-          })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "form-group" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "label",
-            { htmlFor: "inputEmail", className: "label name" },
-            "Email"
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-            type: "email",
-            className: "form-control",
-            id: "inputEmail",
-            "aria-describedby": "emailHelp",
-            value: this.state.email,
-            onChange: this.handleChange("email")
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "small",
-            { id: "emailHelp", className: "form-text text-muted" },
-            "We'll never share your email with anyone else."
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "form-group" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "label",
-            { htmlFor: "inputPassword" },
-            "Password"
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-            type: "password",
-            className: "form-control",
-            id: "inputPassword",
-            value: this.state.password,
-            onChange: this.handleChange("password")
-          })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "form-group" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "label",
-            { htmlFor: "registerType" },
-            "Register as"
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "select",
-            {
-              className: "form-control",
-              id: "registerType",
-              value: this.state.userType,
-              onChange: this.handleChange("userType")
-            },
+            "div",
+            { className: "form-group" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "option",
-              null,
-              "Restaurant Owner"
+              "label",
+              { htmlFor: "username" },
+              "User Name"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              className: "form-control",
+              id: "username",
+              type: "text",
+              value: this.state.username,
+              onChange: this.handleChange("username")
+            })
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "form-group" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "inputEmail", className: "label name" },
+              "Email"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              type: "email",
+              className: "form-control",
+              id: "inputEmail",
+              "aria-describedby": "emailHelp",
+              value: this.state.email,
+              onChange: this.handleChange("email")
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "small",
+              { id: "emailHelp", className: "form-text text-muted" },
+              "We'll never share your email with anyone else."
+            )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "form-group" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "inputPassword" },
+              "Password"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+              type: "password",
+              className: "form-control",
+              id: "inputPassword",
+              value: this.state.password,
+              onChange: this.handleChange("password")
+            })
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "form-group" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "registerType" },
+              "Register as"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "option",
-              null,
-              "Customer"
+              "select",
+              {
+                className: "form-control",
+                id: "registerType",
+                value: this.state.userType,
+                onChange: this.handleChange("userType")
+              },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "option",
+                null,
+                "Restaurant Owner"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "option",
+                null,
+                "Customer"
+              )
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              className: "submit-btn btn btn-primary",
+              type: "submit",
+              onClick: this.handleSignUp
+            },
+            "Sign Up!"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              type: "button",
+              className: "login btn btn-secondary",
+              onClick: this.handleLoginState
+            },
+            "Already have an account? Login"
           )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "button",
-          {
-            className: "submit-btn btn btn-primary",
-            type: "submit",
-            onClick: this.handleSignUp
-          },
-          "Sign Up!"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "button",
-          {
-            type: "button",
-            className: "login btn btn-secondary",
-            onClick: this.handleLoginState
-          },
-          "Already have an account? Login"
         )
       );
     } else {
@@ -28526,7 +28532,6 @@ const types = {
 
 // Sets payload to up-to-date restaurant information
 const getRestaurantInformation = restaurantId => {
-  console.log(`getRestaurantInfo ${restaurantId}`);
   return {
     type: types.GET_RESTAURANT_INFORMATION,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}`).then(res => {

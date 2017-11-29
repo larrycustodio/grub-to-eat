@@ -50,15 +50,21 @@ export default class Login extends React.Component {
   }
   handleSignUp() {
     const customerInfo = { ...this.state };
-    if (this.state.userType === "Customer") {
-      this.props.dispatch(postCustomer(customerInfo));
-      alert("Thank you for signing up, go ahead and login :)");
-      this.setState({ fireRedirect: true });
-    }
-    if (this.state.userType === "Restaurant Owner") {
-      this.props.dispatch(postRestaurant(customerInfo));
-      alert("Thank you for signing up, go ahead and login :)");
-      this.setState({ fireRedirect: true });
+    if (
+      this.state.email != "" &&
+      this.state.password != "" &&
+      this.state.username != ""
+    ) {
+      if (this.state.userType === "Customer") {
+        this.props.dispatch(postCustomer(customerInfo));
+        alert("Thank you for signing up, go ahead and login :)");
+        this.setState({ signUp: false });
+      }
+      if (this.state.userType === "Restaurant Owner") {
+        this.props.dispatch(postRestaurant(customerInfo));
+        alert("Thank you for signing up, go ahead and login :)");
+        this.setState({ signUp: false });
+      }
     }
   }
   renderLogin() {
@@ -66,72 +72,74 @@ export default class Login extends React.Component {
     const { fireRedirect } = this.state;
     if (this.state.signUp) {
       return (
-        <form>
+        <div>
           <h3>Sign Up</h3>
-          <div className="form-group">
-            <label htmlFor="username">User Name</label>
-            <input
-              className="form-control"
-              id="username"
-              type="text"
-              value={this.state.username}
-              onChange={this.handleChange("username")}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="inputEmail" className="label name">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="inputEmail"
-              aria-describedby="emailHelp"
-              value={this.state.email}
-              onChange={this.handleChange("email")}
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="inputPassword">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputPassword"
-              value={this.state.password}
-              onChange={this.handleChange("password")}
-            />
-          </div>
+          <form onSubmit={this.handleSignUp}>
+            <div className="form-group">
+              <label htmlFor="username">User Name</label>
+              <input
+                className="form-control"
+                id="username"
+                type="text"
+                value={this.state.username}
+                onChange={this.handleChange("username")}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="inputEmail" className="label name">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="inputEmail"
+                aria-describedby="emailHelp"
+                value={this.state.email}
+                onChange={this.handleChange("email")}
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                We'll never share your email with anyone else.
+              </small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="inputPassword">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="inputPassword"
+                value={this.state.password}
+                onChange={this.handleChange("password")}
+              />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="registerType">Register as</label>
-            <select
-              className="form-control"
-              id="registerType"
-              value={this.state.userType}
-              onChange={this.handleChange("userType")}
+            <div className="form-group">
+              <label htmlFor="registerType">Register as</label>
+              <select
+                className="form-control"
+                id="registerType"
+                value={this.state.userType}
+                onChange={this.handleChange("userType")}
+              >
+                <option>Restaurant Owner</option>
+                <option>Customer</option>
+              </select>
+            </div>
+            <button
+              className="submit-btn btn btn-primary"
+              type="submit"
+              onClick={this.handleSignUp}
             >
-              <option>Restaurant Owner</option>
-              <option>Customer</option>
-            </select>
-          </div>
-          <button
-            className="submit-btn btn btn-primary"
-            type="submit"
-            onClick={this.handleSignUp}
-          >
-            Sign Up!
-          </button>
-          <button
-            type="button"
-            className="login btn btn-secondary"
-            onClick={this.handleLoginState}
-          >
-            Already have an account? Login
-          </button>
-        </form>
+              Sign Up!
+            </button>
+            <button
+              type="button"
+              className="login btn btn-secondary"
+              onClick={this.handleLoginState}
+            >
+              Already have an account? Login
+            </button>
+          </form>
+        </div>
       );
     } else {
       return (
