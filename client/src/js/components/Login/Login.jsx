@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Navbar from '../TopNav';
 import {
   postCustomer,
   postRestaurant,
@@ -14,15 +15,8 @@ export default class Login extends React.Component {
       signUp: true,
       username: '',
       userType: 'Restaurant Owner',
-      firstName: '',
-      lastName: '',
       email: '',
-      password: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zip: ''
+      password: ''
     };
     this.renderLogin = this.renderLogin.bind(this);
     this.handleLoginState = this.handleLoginState.bind(this);
@@ -75,22 +69,6 @@ export default class Login extends React.Component {
               value={this.state.username}
               onChange={this.handleChange('username')}
             />
-            <label htmlFor="firstName">First Name</label>
-            <input
-              className="form-control"
-              id="firstName"
-              type="text"
-              value={this.state.firstName}
-              onChange={this.handleChange('firstName')}
-            />
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              className="form-control"
-              id="lastName"
-              type="text"
-              value={this.state.lastName}
-              onChange={this.handleChange('lastName')}
-            />
           </div>
           <div className="form-group">
             <label htmlFor="inputEmail" className="label name">
@@ -118,42 +96,7 @@ export default class Login extends React.Component {
               onChange={this.handleChange('password')}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              className="form-control"
-              id="address1"
-              value={this.state.address1}
-              onChange={this.handleChange('address1')}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              className="form-control"
-              id="city"
-              value={this.state.city}
-              onChange={this.handleChange('city')}
-            />
-            <label htmlFor="state">State</label>
-            <input
-              type="text"
-              className="form-control"
-              id="state"
-              value={this.state.state}
-              onChange={this.handleChange('state')}
-            />
-            <label htmlFor="zip">Zip</label>
-            <input
-              type="text"
-              className="form-control"
-              id="zip"
-              value={this.state.zip}
-              onChange={this.handleChange('zip')}
-            />
-          </div>
+
           <div className="form-group">
             <label htmlFor="registerType">Register as</label>
             <select
@@ -254,6 +197,11 @@ export default class Login extends React.Component {
     }
   }
   render() {
-    return <div className="jumbotron login-wrapper">{this.renderLogin()}</div>;
+    return (
+      <div className="jumbotron login-wrapper">
+        <Navbar />
+        {this.renderLogin()}
+      </div>
+    );
   }
 }
