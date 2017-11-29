@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Login from './components/Login';
@@ -18,10 +18,10 @@ export default class App extends React.Component {
       console.log(document.cookie);
       const cookieString = document.cookie;
       const id = cookieString.substring(
-        cookieString.indexOf('id=') + 3,
-        cookieString.indexOf(';')
+        cookieString.indexOf("id=") + 3,
+        cookieString.indexOf(";")
       );
-      const token = cookieString.substring(cookieString.indexOf('token=') + 6);
+      const token = cookieString.substring(cookieString.indexOf("token=") + 6);
 
       axios
         .get(
@@ -48,6 +48,7 @@ export default class App extends React.Component {
           <Route path="/menu" component={RestaurantMenu} />
           <Route path="/restaurant" component={RestaurantProfile} />
           <Route path="/user" component={UserProfile} />
+          <Route path="/restaurant" component={RestaurantProfile} />
         </div>
       </Router>
     );

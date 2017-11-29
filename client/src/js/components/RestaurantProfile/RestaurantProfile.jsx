@@ -1,6 +1,9 @@
 import React from "react";
 import TopNav from "../TopNav";
-import { updateRestaurantInformation, getRestaurantInformation } from './restaurantProfileActions';
+import {
+  updateRestaurantInformation,
+  getRestaurantInformation
+} from "./restaurantProfileActions";
 
 export default class RestaurantProfile extends React.Component {
   constructor(props) {
@@ -8,88 +11,105 @@ export default class RestaurantProfile extends React.Component {
 
     this.state = {
       formFields: [
-        {name: 'email', label: 'Email', inputType:'email'},
-        {name: 'firstName', label: 'First Name', inputType:'text'},
-        {name: 'lastName', label: 'Last Name', inputType:'text'},
-        {name: 'restaurantName', label: 'Restaurant Name', inputType:'text'},
-        {name: 'address1', label: 'Address1', inputType:'text'},
-        {name: 'address2', label: 'Address2', inputType:'text'},
-        {name: 'state', label: 'State', inputType:'text'},
-        {name: 'zipcode', label: 'Zip Code', inputType:'text'},
-        {name: 'city', label: 'City', inputType:'text'},
-        {name: 'phone', label: 'Phone', inputType:'phone'},
-        {name: 'featuredImage', label: 'Featured Image', inputType:'text'},
-        {name: 'description', label: 'Description', inputType:'text'},
-        {name: 'category', label: 'Category', inputType:'text'},
-        {name: 'hours', label: 'Hours', inputType:'text'},
-        {name: 'username', label: 'Username', inputType:'text'}
+        { name: "email", label: "Email", inputType: "email" },
+        { name: "firstName", label: "First Name", inputType: "text" },
+        { name: "lastName", label: "Last Name", inputType: "text" },
+        { name: "restaurantName", label: "Restaurant Name", inputType: "text" },
+        { name: "address1", label: "Address1", inputType: "text" },
+        { name: "address2", label: "Address2", inputType: "text" },
+        { name: "state", label: "State", inputType: "text" },
+        { name: "zipcode", label: "Zip Code", inputType: "text" },
+        { name: "city", label: "City", inputType: "text" },
+        { name: "phone", label: "Phone", inputType: "phone" },
+        { name: "featuredImage", label: "Featured Image", inputType: "text" },
+        { name: "description", label: "Description", inputType: "text" },
+        { name: "category", label: "Category", inputType: "text" },
+        { name: "hours", label: "Hours", inputType: "text" },
+        { name: "username", label: "Username", inputType: "text" }
       ],
       formValues: {}
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
-    if(!!document.cookie){
-      const cookieToken = document.cookie.substring(document.cookie.indexOf('token=')+6);
+    if (!!document.cookie) {
+      const cookieToken = document.cookie.substring(
+        document.cookie.indexOf("token=") + 6
+      );
       this.props.dispatch(getRestaurantInformation(cookieToken));
     }
   }
-  onInputChange(e){
+  onInputChange(e) {
     this.setState({
       formValues: {
         ...this.state.formValues,
-        [e.target.id] : e.target.value
+        [e.target.id]: e.target.value
       }
-    })
+    });
   }
-  onSubmit(e){
+  onSubmit(e) {
     // TODO on form submission
     e.preventDefault();
-    this.props.dispatch(updateRestaurantInformation(this.state.formValues, this.props.restaurantInfo.id));
+    this.props.dispatch(
+      updateRestaurantInformation(
+        this.state.formValues,
+        this.props.restaurantInfo.id
+      )
+    );
   }
   render() {
-    return (!!document.cookie) ?
-    (
+    return !!document.cookie ? (
       <div className="container-fluid">
         <TopNav />
         <h1 className="display-4 text-center'">Restaurant Profile</h1>
         <form onSubmit={this.onSubmit}>
-          {
-            // Creates form inputs for each entry in this.state.formFields
-            // Prefills the input values with the restaurantInfo store retrieved
-            this.state.formFields.map(formField => {
-              const { name, label, inputType } = formField;
-              return (
-                <div key={name} className="form-group row">
-                  <label htmlFor={name} className="col-sm-8 col-md-2">{ label }</label>
-                  <div className="col-sm-8 col-md-6">
-                    <input type={formField.inputType} id={name} className="form-control" placeholder= {this.props.restaurantInfo[name]} onChange= {this.onInputChange}/>
-                  </div>
+          {// Creates form inputs for each entry in this.state.formFields
+          // Prefills the input values with the restaurantInfo store retrieved
+          this.state.formFields.map(formField => {
+            const { name, label, inputType } = formField;
+            return (
+              <div key={name} className="form-group row">
+                <label htmlFor={name} className="col-sm-8 col-md-2">
+                  {label}
+                </label>
+                <div className="col-sm-8 col-md-6">
+                  <input
+                    type={formField.inputType}
+                    id={name}
+                    className="form-control"
+                    placeholder={this.props.restaurantInfo[name]}
+                    onChange={this.onInputChange}
+                  />
                 </div>
-              );
-            })
-          }
+              </div>
+            );
+          })}
           <div className="form-group row justify-content-center">
-            <button type='submit' className="btn btn-primary mx-1">Save Changes</button>
-            <button type='reset' className="btn btn-secondary mx-1">Cancel</button>
+            <button type="submit" className="btn btn-primary mx-1">
+              Save Changes
+            </button>
+            <button type="reset" className="btn btn-secondary mx-1">
+              Cancel
+            </button>
           </div>
         </form>
       </div>
-    )
-    :
-    (
+    ) : (
       // Returns a redirect link for restaurant log in if no log in is detected
       <div className="container-fluid">
         <TopNav />
-        <p className="lead">Please <a href="#/login">Log In</a> to continue</p>
+        <p className="lead">
+          Please <a href="#/login">Log In</a> to continue
+        </p>
       </div>
-    )
+    );
   }
 }
 
-      {/* <form>
+{
+  /* <form>
         <div className="form-group row">
           <label htmlFor="email" className="col-sm-12 col-md-2">Email</label>
           <div className="col-sm-10 col-md-6-offset-3">
@@ -180,4 +200,5 @@ export default class RestaurantProfile extends React.Component {
             <input type="username" readonly className="form-control-plaintext" id="username" placeholder="Username"/>
           </div>
         </div>
-      </form> */}
+      </form> */
+}
