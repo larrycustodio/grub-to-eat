@@ -37,6 +37,10 @@
     },
     "phone": {
       "type": "string"
+    },
+    "userType": {
+      "type": "string",
+      "default": "customer"
     }
   },
   "validations": [],
