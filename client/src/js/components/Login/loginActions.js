@@ -28,7 +28,15 @@ export function postCustomer(customerInfo) {
       .post('https://grubtoeat.herokuapp.com/api/Customers', {
         username,
         email,
-        password
+        password,
+        firstName,
+        lastName,
+        address1,
+        address2,
+        city,
+        state,
+        zip,
+        userType
       })
       .then(res => {
         return {
@@ -84,7 +92,15 @@ export function postRestaurant(customerInfo) {
       .post('https://grubtoeat.herokuapp.com/api/Restaurants', {
         username,
         email,
-        password
+        password,
+        firstName,
+        lastName,
+        address1,
+        address2,
+        city,
+        state,
+        zip,
+        userType
       })
       .then(res => {
         return {

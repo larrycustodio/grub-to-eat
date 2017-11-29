@@ -4068,7 +4068,15 @@ function postCustomer(customerInfo) {
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Customers', {
       username,
       email,
-      password
+      password,
+      firstName,
+      lastName,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+      userType
     }).then(res => {
       return {
         user: res.data
@@ -4117,7 +4125,15 @@ function postRestaurant(customerInfo) {
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('https://grubtoeat.herokuapp.com/api/Restaurants', {
       username,
       email,
-      password
+      password,
+      firstName,
+      lastName,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+      userType
     }).then(res => {
       return {
         user: res.data
