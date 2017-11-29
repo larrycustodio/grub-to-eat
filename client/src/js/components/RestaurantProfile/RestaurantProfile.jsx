@@ -35,8 +35,9 @@ export default class RestaurantProfile extends React.Component {
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
     if (!!document.cookie) {
-      const cookieToken = document.cookie.substring(
-        document.cookie.indexOf("token=") + 6
+      const cookieToken = document.cookie.substr(
+        document.cookie.indexOf("restaurantID=") + 13,
+        24
       );
       this.props.dispatch(getRestaurantInformation(cookieToken));
     }

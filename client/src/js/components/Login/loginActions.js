@@ -8,6 +8,7 @@ export const types = {
   GET_CUSTOMER: 'GET_CUSTOMER',
   GET_RESTAURANT: 'GET_RESTAURANT'
 };
+// Customer Signup Actions
 export function postCustomer(customerInfo) {
   const { username, email, password, userType } = customerInfo;
   return {
@@ -27,9 +28,9 @@ export function postCustomer(customerInfo) {
       .catch(err => console.log(err))
   };
 }
+// Customer Login Actions
 export function fetchCustomer(customerInfo) {
   const { username, password, userType } = customerInfo;
-
   return {
     type: types.FETCH_CUSTOMER,
     payload: axios
@@ -38,12 +39,14 @@ export function fetchCustomer(customerInfo) {
         password
       })
       .then(res => {
-        let userID = res.data.userId;
+        const { id, userId, ttl } = res.data;
         if (res.status === 200) {
-          document.cookie = `token=${res.data.userId};id=${res.data.id}`;
+          document.cookie = `token=${id}; max-age=${ttl}`;
+          document.cookie = `customerID=${userId}; max-age=${ttl}`;
           return axios
-            .get(`https://grubtoeat.herokuapp.com/api/Customers/${userID}`)
+            .get(`https://grubtoeat.herokuapp.com/api/Customers/${ userId }`)
             .then(res => {
+              window.location.href = '/#';              
               return {
                 user: res.data
               };
@@ -52,6 +55,7 @@ export function fetchCustomer(customerInfo) {
       })
   };
 }
+// Restaurant Owner Signup Action
 export function postRestaurant(customerInfo) {
   const { username, email, password, userType } = customerInfo;
   return {
@@ -71,6 +75,7 @@ export function postRestaurant(customerInfo) {
       .catch(err => console.log(err))
   };
 }
+// Restaurant Owner Login Action
 export function fetchRestaurant(customerInfo) {
   const { username, password, userType } = customerInfo;
 
@@ -82,12 +87,14 @@ export function fetchRestaurant(customerInfo) {
         password
       })
       .then(res => {
-        let userId = res.data.userId;
+        const { id, userId, ttl } = res.data;
         if (res.status === 200) {
-          document.cookie = `token=${res.data.userId};id=${res.data.id};`;
+          document.cookie = `token=${id}; max-age=${ttl}`;
+          document.cookie = `restaurantID=${userId}; max-age=${ttl}`;
           return axios
             .get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userId}`)
             .then(res => {
+              window.location.href = '/#';
               return {
                 user: res.data
               };

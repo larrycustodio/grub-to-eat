@@ -3,8 +3,8 @@ const morgan = require('morgan');
 const faker = require('faker');
 const axios = require('axios');
 const herokuAPI = 'https://grubtoeat.herokuapp.com/api';
-const app = express();
 
+const app = express();
 app.use(morgan('dev'));
 app.use(express.static('public'));
 
