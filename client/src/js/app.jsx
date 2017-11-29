@@ -32,6 +32,7 @@ export default class App extends React.Component {
             return axios
               .get(`https://grubtoeat.herokuapp.com/api/Customers/${token}`)
               .then(res => {
+                //TODO on login success
                 console.log(res.data.username);
               });
           }

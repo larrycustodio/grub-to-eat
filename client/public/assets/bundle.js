@@ -23400,6 +23400,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
       __WEBPACK_IMPORTED_MODULE_8_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}/accessTokens`).then(res => {
         if (res.status === 200) {
           return __WEBPACK_IMPORTED_MODULE_8_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${token}`).then(res => {
+            //TODO on login success
             console.log(res.data.username);
           });
         }
