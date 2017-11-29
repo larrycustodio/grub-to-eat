@@ -13,7 +13,7 @@ export default class Login extends React.Component {
     this.state = {
       signUp: true,
       username: '',
-      userType: '',
+      userType: 'Restaurant Owner',
       firstName: '',
       lastName: '',
       email: '',
@@ -58,7 +58,6 @@ export default class Login extends React.Component {
       this.props.dispatch(postCustomer(customerInfo));
     }
     if (this.state.userType === 'Restaurant Owner') {
-      console.log('owner');
       this.props.dispatch(postRestaurant(customerInfo));
     }
   }
