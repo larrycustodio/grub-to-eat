@@ -46,6 +46,7 @@ export default class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
+          <Route path="/restaurant" component={RestaurantProfile} />
           <Route path="/user" component={UserProfile} />
           <Route path="/restaurant" component={RestaurantProfile} />
         </div>
