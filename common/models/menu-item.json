@@ -6,6 +6,9 @@
     "validateUpsert": true
   },
   "properties": {
+    "category": {
+      "type": "string"
+    },
     "name": {
       "type": "string"
     },
