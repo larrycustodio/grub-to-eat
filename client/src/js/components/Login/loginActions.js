@@ -41,6 +41,9 @@ export function fetchCustomer(customerInfo) {
       .then(res => {
         const { id, userId, ttl } = res.data;
         if (res.status === 200) {
+          document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';                
           document.cookie = `token=${id}; max-age=${ttl}`;
           document.cookie = `customerID=${userId}; max-age=${ttl}`;
           return axios
@@ -89,6 +92,9 @@ export function fetchRestaurant(customerInfo) {
       .then(res => {
         const { id, userId, ttl } = res.data;
         if (res.status === 200) {
+          document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
           document.cookie = `token=${id}; max-age=${ttl}`;
           document.cookie = `restaurantID=${userId}; max-age=${ttl}`;
           return axios
