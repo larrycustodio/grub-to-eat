@@ -10,7 +10,8 @@
     "start": "webpack && node server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check",
-    "build":"webpack -w"
+    "build":"webpack -w",
+    "postinstall": "webpack"
   },
   "dependencies": {
     "axios": "^0.17.1",
