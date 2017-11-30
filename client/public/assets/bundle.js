@@ -28068,23 +28068,25 @@ class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           { className: "container" },
-          this.state.menu.map((menuCategory, menuIndex) => {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          this.state.menu.map((menuCategory, menuIndex) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { key: menuCategory.id },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "h1",
+              { className: "my-2" },
+              menuCategory.category
+            ),
+            this.state.menu.length == this.state.menuItems.length ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { key: menuCategory.id },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h3",
-                null,
-                menuCategory.category
-              ),
-              this.state.menu.length == this.state.menuItems.length ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              { className: "row justify-content-left" },
+              this.state.menuItems[menuIndex].map(menuItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
-                { className: "row justify-content-center" },
-                this.state.menuItems[menuIndex].map(menuItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                {
+                  key: menuItem.id,
+                  className: "col-12 col-md-6 my-2" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "div",
-                  {
-                    key: menuItem.id,
-                    className: "card col-10 m-1" },
+                  { className: "card" },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
                     { className: "card-body" },
@@ -28095,23 +28097,23 @@ class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                       "p",
-                      null,
+                      { className: "text-muted" },
                       menuItem.description || ''
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "p",
-                      null,
+                      "h5",
+                      { className: "text-right" },
                       `$${menuItem.price.toFixed(2)}`
                     )
                   )
-                ))
-              ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                null,
-                "Looking for menu items..."
-              )
-            );
-          })
+                )
+              ))
+            ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              null,
+              "Looking for menu items..."
+            )
+          ))
         )
       ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "main",
