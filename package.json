@@ -7,7 +7,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "webpack && node server/server.js",
+    "start": "webpack && nodemon server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check",
     "build":"webpack -w"
