@@ -29,11 +29,15 @@ export default class RestaurantProfile extends React.Component {
         { name: "username", label: "Username", inputType: "text" }
       ],
       formValues: {},
-      fireRedirect: false
+      fireRedirect: false,
+      toggleProfile: false,
+      toggleMenu: false
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleProfileToggle = this.handleProfileToggle.bind(this);
+    this.handleMenuToggle = this.handleMenuToggle.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -67,58 +71,185 @@ export default class RestaurantProfile extends React.Component {
     e.preventDefault();
     this.setState({ fireRedirect: true });
   }
+  handleProfileToggle(e) {
+    this.state.toggleProfile
+      ? this.setState({ toggleProfile: false })
+      : this.setState({ toggleProfile: true });
+  }
+  handleMenuToggle(e) {
+    this.state.toggleMenu
+      ? this.setState({ toggleMenu: false })
+      : this.setState({ toggleMenu: true });
+  }
   render() {
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
-    return !!document.cookie ? (
-      <div className="container-fluid">
-        <TopNav />
-        <h1 className="display-4 text-center'">Restaurant Profile</h1>
-        <form onSubmit={this.onSubmit}>
-          {// Creates form inputs for each entry in this.state.formFields
-          // Prefills the input values with the restaurantInfo store retrieved
-          this.state.formFields.map(formField => {
-            const { name, label, inputType } = formField;
-            return (
-              <div key={name} className="form-group row">
-                <label htmlFor={name} className="col-sm-8 col-md-2">
-                  {label}
-                </label>
-                <div className="col-sm-8 col-md-6">
-                  <input
-                    type={formField.inputType}
-                    id={name}
-                    className="form-control"
-                    placeholder={this.props.restaurantInfo[name]}
-                    onChange={this.onInputChange}
-                  />
+    if (this.state.toggleProfile === true) {
+      return !!document.cookie ? (
+        <div className="container-fluid">
+          <TopNav />
+          <h1 className="display-4 text-center'">Restaurant</h1>
+          <form role="form">
+            <div className="row">
+              <div className="col-sm-3 text-center">
+                <div className="checkbox">
+                  <label htmlFor="profileCheckBox">
+                    <input
+                      type="checkbox"
+                      id="profileCheckBox"
+                      onChange={this.handleProfileToggle}
+                    />
+                    profile
+                  </label>
+                </div>
+                <div className="checkbox">
+                  <label htmlFor="menuCheckBox">
+                    <input
+                      type="checkbox"
+                      id="menuCheckBox"
+                      onChange={this.handleMenuToggle}
+                    />
+                    menu
+                  </label>
                 </div>
               </div>
-            );
-          })}
-          <div className="form-group row justify-content-center">
-            <button type="submit" className="btn btn-primary mx-1">
-              Save Changes
-            </button>
-            <button
-              type="reset"
-              onClick={this.handleCancel}
-              className="btn btn-secondary mx-1"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-        {fireRedirect && <Redirect to={from || "/#"} />}
-      </div>
-    ) : (
-      // Returns a redirect link for restaurant log in if no log in is detected
-      <div className="container-fluid">
-        <TopNav />
-        <p className="lead">
-          Please <a href="#/login">Log In</a> to continue
-        </p>
-      </div>
-    );
+            </div>
+          </form>
+          <form onSubmit={this.onSubmit}>
+            {// Creates form inputs for each entry in this.state.formFields
+            // Prefills the input values with the restaurantInfo store retrieved
+            this.state.formFields.map(formField => {
+              const { name, label, inputType } = formField;
+              return (
+                <div key={name} className="form-group row">
+                  <label htmlFor={name} className="col-sm-8 col-md-2">
+                    {label}
+                  </label>
+                  <div className="col-sm-8 col-md-6">
+                    <input
+                      type={formField.inputType}
+                      id={name}
+                      className="form-control"
+                      placeholder={this.props.restaurantInfo[name]}
+                      onChange={this.onInputChange}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            <div className="form-group row justify-content-center">
+              <button type="submit" className="btn btn-primary mx-1">
+                Save Changes
+              </button>
+              <button
+                type="reset"
+                onClick={this.handleCancel}
+                className="btn btn-secondary mx-1"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+          {fireRedirect && <Redirect to={from || "/#"} />}
+        </div>
+      ) : (
+        // Returns a redirect link for restaurant log in if no log in is detected
+        <div className="container-fluid">
+          <TopNav />
+          <p className="lead">
+            Please <a href="#/login">Log In</a> to continue
+          </p>
+        </div>
+      );
+    } else if (this.state.toggleMenu === true) {
+      return !!document.cookie ? (
+        <div className="container-fluid">
+          <TopNav />
+          <h1 className="display-4 text-center'">Restaurant</h1>
+          <form role="form">
+            <div className="row">
+              <div className="col-sm-3 text-center">
+                <div className="checkbox">
+                  <label htmlFor="profileCheckBox">
+                    <input
+                      type="checkbox"
+                      id="profileCheckBox"
+                      onChange={this.handleProfileToggle}
+                    />
+                    profile
+                  </label>
+                </div>
+                <div className="checkbox">
+                  <label htmlFor="menuCheckBox">
+                    <input
+                      type="checkbox"
+                      id="menuCheckBox"
+                      onChange={this.handleMenuToggle}
+                    />
+                    menu
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+          {/* 
+          Display form with the signed in restaurants menus.
+
+          this.state.restaurantProfile.id  =>  POST /Restaurants/{id}/menus => response = { id, restaurantId}
+            -store the id from response then =-> GET /Menus/{id}/
+          }
+          */}
+        </div>
+      ) : (
+        // Returns a redirect link for restaurant log in if no log in is detected
+        <div className="container-fluid">
+          <TopNav />
+          <p className="lead">
+            Please <a href="#/login">Log In</a> to continue
+          </p>
+        </div>
+      );
+    } else {
+      return !!document.cookie ? (
+        <div className="container-fluid">
+          <TopNav />
+          <h1 className="display-4 text-center'">Restaurant</h1>
+          <form role="form">
+            <div className="row">
+              <div className="col-sm-3 text-center">
+                <div className="checkbox">
+                  <label htmlFor="profileCheckBox">
+                    <input
+                      type="checkbox"
+                      id="profileCheckBox"
+                      onChange={this.handleProfileToggle}
+                    />
+                    profile
+                  </label>
+                </div>
+                <div className="checkbox">
+                  <label htmlFor="menuCheckBox">
+                    <input
+                      type="checkbox"
+                      id="menuCheckBox"
+                      onChange={this.handleMenuToggle}
+                    />
+                    menu
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      ) : (
+        // Returns a redirect link for restaurant log in if no log in is detected
+        <div className="container-fluid">
+          <TopNav />
+          <p className="lead">
+            Please <a href="#/login">Log In</a> to continue
+          </p>
+        </div>
+      );
+    }
   }
 }
