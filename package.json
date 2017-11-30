@@ -7,11 +7,15 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "node server/server.js",
+    "start": "webpack && node server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check",
+<<<<<<< HEAD
     "postinstall": "webpack",
     "build":"webpack -w"
+=======
+    "build": "webpack -w"
+>>>>>>> eefaf9d14193bf9f2034a7785a8765351c7364ee
   },
   "dependencies": {
     "axios": "^0.17.1",

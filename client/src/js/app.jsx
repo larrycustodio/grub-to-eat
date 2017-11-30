@@ -1,19 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import { HashRouter as Router, Route } from "react-router-dom";
-import Login from "./components/Login";
-import SearchDisplay from "./components/SearchDisplay";
-import SearchResults from "./components/SearchResults";
-import RestaurantMenu from "./components/RestaurantMenu";
-import RestaurantProfile from "./components/RestaurantProfile";
-import UserProfile from "./components/UserProfile";
-import { connect } from "react-redux";
-import axios from "axios";
+import { HashRouter as Router, Route } from 'react-router-dom';
+import Login from './components/Login';
+import SearchDisplay from './components/SearchDisplay';
+import SearchResults from './components/SearchResults';
+import RestaurantMenu from './components/RestaurantMenu';
+import RestaurantProfile from './components/RestaurantProfile';
+import UserProfile from './components/UserProfile';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> eefaf9d14193bf9f2034a7785a8765351c7364ee
   render() {
     return (
       <Router>

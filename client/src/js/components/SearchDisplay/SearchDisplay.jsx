@@ -23,7 +23,7 @@ export default class SearchDisplay extends React.Component {
       <div>
         <TopNav />
         <div className="text-center">
-          <h1>Easy as 3.14</h1>
+          <h1>Easy as 3.14!</h1>
           <p>Get grub right at your door in just a few clicks</p>
           <div className="input-group">
             <input
