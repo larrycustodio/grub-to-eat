@@ -14,10 +14,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> eefaf9d14193bf9f2034a7785a8765351c7364ee
   render() {
     return (
       <Router>

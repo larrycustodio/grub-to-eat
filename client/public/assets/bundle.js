@@ -24018,34 +24018,19 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> eefaf9d14193bf9f2034a7785a8765351c7364ee
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* HashRouter */],
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-<<<<<<< HEAD
-        "div",
-        { className: "container" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: "/", component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/login", component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/results", component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/menu/:restaurantId", component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/user", component: __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: "/restaurant", component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
-=======
         'div',
         { className: 'container' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu/:restaurantId', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/user', component: __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/restaurant', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
->>>>>>> eefaf9d14193bf9f2034a7785a8765351c7364ee
       )
     );
   }
