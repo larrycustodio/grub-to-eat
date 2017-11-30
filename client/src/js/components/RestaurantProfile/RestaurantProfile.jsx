@@ -118,7 +118,6 @@ export default class RestaurantProfile extends React.Component {
     let addMenuCheckbox = document.getElementById('addMenuCheckbox')
     profileCheckBox.checked = false;
     menuCheckBox.checked = true;
-    // addMenuCheckbox.checked = false;
     if (typeof this.props.restaurantInfo.id !== "undefined") {
       this.props.dispatch(getMenus(this.props.restaurantInfo.id));
     }

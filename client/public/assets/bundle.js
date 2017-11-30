@@ -28281,7 +28281,6 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     let addMenuCheckbox = document.getElementById('addMenuCheckbox');
     profileCheckBox.checked = false;
     menuCheckBox.checked = true;
-    // addMenuCheckbox.checked = false;
     if (typeof this.props.restaurantInfo.id !== "undefined") {
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantInfo.id));
     }
