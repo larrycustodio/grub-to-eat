@@ -24018,13 +24018,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
-    if (!!document.cookie) {
-      const cookieString = document.cookie;
-      const id = cookieString.substring(cookieString.indexOf("id=") + 3, cookieString.indexOf(";"));
-      const token = cookieString.substring(cookieString.indexOf("token=") + 6);
-    }
-  }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* HashRouter */],
@@ -28066,11 +28059,15 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     this.state = {
       formFields: [{ name: "email", label: "Email", inputType: "email" }, { name: "firstName", label: "First Name", inputType: "text" }, { name: "lastName", label: "Last Name", inputType: "text" }, { name: "restaurantName", label: "Restaurant Name", inputType: "text" }, { name: "address1", label: "Address1", inputType: "text" }, { name: "address2", label: "Address2", inputType: "text" }, { name: "state", label: "State", inputType: "text" }, { name: "zipcode", label: "Zip Code", inputType: "text" }, { name: "city", label: "City", inputType: "text" }, { name: "phone", label: "Phone", inputType: "phone" }, { name: "featuredImage", label: "Featured Image", inputType: "text" }, { name: "description", label: "Description", inputType: "text" }, { name: "category", label: "Category", inputType: "text" }, { name: "hours", label: "Hours", inputType: "text" }, { name: "username", label: "Username", inputType: "text" }],
       formValues: {},
-      fireRedirect: false
+      fireRedirect: false,
+      toggleProfile: false,
+      toggleMenu: false
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleProfileToggle = this.handleProfileToggle.bind(this);
+    this.handleMenuToggle = this.handleMenuToggle.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -28095,84 +28092,268 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     e.preventDefault();
     this.setState({ fireRedirect: true });
   }
+  handleProfileToggle(e) {
+    this.state.toggleProfile ? this.setState({ toggleProfile: false }) : this.setState({ toggleProfile: true });
+  }
+  handleMenuToggle(e) {
+    this.state.toggleMenu ? this.setState({ toggleMenu: false }) : this.setState({ toggleMenu: true });
+  }
   render() {
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
-    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      { className: "container-fluid" },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "h1",
-        { className: "display-4 text-center'" },
-        "Restaurant Profile"
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "form",
-        { onSubmit: this.onSubmit },
-        // Creates form inputs for each entry in this.state.formFields
-        // Prefills the input values with the restaurantInfo store retrieved
-        this.state.formFields.map(formField => {
-          const { name, label, inputType } = formField;
-          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    if (this.state.toggleProfile === true) {
+      return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h1",
+          { className: "display-4 text-center'" },
+          "Restaurant"
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "form",
+          { role: "form" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { key: name, className: "form-group row" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "label",
-              { htmlFor: name, className: "col-sm-8 col-md-2" },
-              label
-            ),
+            { className: "row" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { className: "col-sm-8 col-md-6" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                type: formField.inputType,
-                id: name,
-                className: "form-control",
-                placeholder: this.props.restaurantInfo[name],
-                onChange: this.onInputChange
-              })
+              { className: "col-sm-3 text-center" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "profileCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "profileCheckBox",
+                    onChange: this.handleProfileToggle
+                  }),
+                  "profile"
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "menuCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "menuCheckBox",
+                    onChange: this.handleMenuToggle
+                  }),
+                  "menu"
+                )
+              )
             )
-          );
-        }),
+          )
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "form-group row justify-content-center" },
+          "form",
+          { onSubmit: this.onSubmit },
+          // Creates form inputs for each entry in this.state.formFields
+          // Prefills the input values with the restaurantInfo store retrieved
+          this.state.formFields.map(formField => {
+            const { name, label, inputType } = formField;
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { key: name, className: "form-group row" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { htmlFor: name, className: "col-sm-8 col-md-2" },
+                label
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "col-sm-8 col-md-6" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: formField.inputType,
+                  id: name,
+                  className: "form-control",
+                  placeholder: this.props.restaurantInfo[name],
+                  onChange: this.onInputChange
+                })
+              )
+            );
+          }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "button",
-            { type: "submit", className: "btn btn-primary mx-1" },
-            "Save Changes"
+            "div",
+            { className: "form-group row justify-content-center" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              { type: "submit", className: "btn btn-primary mx-1" },
+              "Save Changes"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                type: "reset",
+                onClick: this.handleCancel,
+                className: "btn btn-secondary mx-1"
+              },
+              "Cancel"
+            )
+          )
+        ),
+        fireRedirect && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Redirect */], { to: from || "/#" })
+      ) :
+      // Returns a redirect link for restaurant log in if no log in is detected
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "p",
+          { className: "lead" },
+          "Please ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { href: "#/login" },
+            "Log In"
           ),
+          " to continue"
+        )
+      );
+    } else if (this.state.toggleMenu === true) {
+      return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h1",
+          { className: "display-4 text-center'" },
+          "Restaurant"
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "form",
+          { role: "form" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "button",
-            {
-              type: "reset",
-              onClick: this.handleCancel,
-              className: "btn btn-secondary mx-1"
-            },
-            "Cancel"
+            "div",
+            { className: "row" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-sm-3 text-center" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "profileCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "profileCheckBox",
+                    onChange: this.handleProfileToggle
+                  }),
+                  "profile"
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "menuCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "menuCheckBox",
+                    onChange: this.handleMenuToggle
+                  }),
+                  "menu"
+                )
+              )
+            )
           )
         )
-      ),
-      fireRedirect && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Redirect */], { to: from || "/#" })
-    ) :
-    // Returns a redirect link for restaurant log in if no log in is detected
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      { className: "container-fluid" },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+      ) :
+      // Returns a redirect link for restaurant log in if no log in is detected
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "p",
-        { className: "lead" },
-        "Please ",
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "a",
-          { href: "#/login" },
-          "Log In"
+          "p",
+          { className: "lead" },
+          "Please ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { href: "#/login" },
+            "Log In"
+          ),
+          " to continue"
+        )
+      );
+    } else {
+      return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h1",
+          { className: "display-4 text-center'" },
+          "Restaurant"
         ),
-        " to continue"
-      )
-    );
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "form",
+          { role: "form" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "row" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "col-sm-3 text-center" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "profileCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "profileCheckBox",
+                    onChange: this.handleProfileToggle
+                  }),
+                  "profile"
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "menuCheckBox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    type: "checkbox",
+                    id: "menuCheckBox",
+                    onChange: this.handleMenuToggle
+                  }),
+                  "menu"
+                )
+              )
+            )
+          )
+        )
+      ) :
+      // Returns a redirect link for restaurant log in if no log in is detected
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { className: "container-fluid" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "p",
+          { className: "lead" },
+          "Please ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "a",
+            { href: "#/login" },
+            "Log In"
+          ),
+          " to continue"
+        )
+      );
+    }
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantProfile;

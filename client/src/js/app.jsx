@@ -14,16 +14,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
-    if (!!document.cookie) {
-      const cookieString = document.cookie;
-      const id = cookieString.substring(
-        cookieString.indexOf("id=") + 3,
-        cookieString.indexOf(";")
-      );
-      const token = cookieString.substring(cookieString.indexOf("token=") + 6);
-    }
-  }
   render() {
     return (
       <Router>
