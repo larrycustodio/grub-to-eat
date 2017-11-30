@@ -37,7 +37,7 @@ export const updateRestaurantInformation = (inputBody, restaurantId) => {
       .catch(console.error)
   };
 };
-export const removeMenu = (id) => {
+export const removeMenu = id => {
   return {
     type: types.REMOVE_MENU,
     payload: axios
@@ -45,8 +45,8 @@ export const removeMenu = (id) => {
       .then(res => {
         return {
           menuId: id
-        }
-        console.log('Removed the menu!', res);
+        };
+        console.log("Removed the menu!", res);
       })
   };
 };
@@ -65,5 +65,16 @@ export const getMenus = restaurantId => {
       .catch(console.error)
   };
 };
-
-
+export const addMenu = (restaurantId, menuName) => {
+  return {
+    type: types.ADD_MENU,
+    payload: axios
+      .post(
+        `https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`,
+        { name: menuName }
+      )
+      .then(res => {
+        console.log(res.data.id);
+      })
+  };
+};

@@ -34,14 +34,15 @@ export default class RestaurantProfile extends React.Component {
       formValues: {},
       fireRedirect: false,
       toggleProfile: false,
-      toggleMenu: false,
-      selectedMenuIds: []
+      toggleRemoveMenu: false,
+      toggleAddMenu: false
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleProfileToggle = this.handleProfileToggle.bind(this);
-    this.handleMenuToggle = this.handleMenuToggle.bind(this);
+    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
+    this.handleAddMenuToggle = this.handleAddMenuToggle.bind(this);
     this.addMenu = this.addMenu.bind(this);
     this.removeMenu = this.removeMenu.bind(this);
   }
@@ -81,21 +82,51 @@ export default class RestaurantProfile extends React.Component {
     this.state.toggleProfile
       ? this.setState({ toggleProfile: false })
       : this.setState({ toggleProfile: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleRemoveMenu: false
+    });
   }
-  handleMenuToggle(id) {
-    this.state.toggleMenu
-      ? this.setState({ toggleMenu: false })
-      : this.setState({ toggleMenu: true });
+  handleRemoveMenuToggle(id) {
+    this.state.toggleRemoveMenu
+      ? this.setState({ toggleRemoveMenu: false })
+      : this.setState({ toggleRemoveMenu: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleProfile: false
+    });
     if (typeof this.props.restaurantInfo.id !== "undefined") {
       this.props.dispatch(getMenus(this.props.restaurantInfo.id));
     }
   }
-  addMenu() {}
+  handleAddMenuToggle(id) {
+    this.state.toggleAddMenu
+      ? this.setState({ toggleAddMenu: false })
+      : this.setState({ toggleAddMenu: true });
+    this.setState({
+      toggleRemoveMenu: false,
+      toggleProfile: false
+    });
+  }
+  addMenu(e) {
+    e.preventDefault();
+    let menuName = document.getElementById("menuNameInput").value;
+    this.props.dispatch(addMenu(this.props.restaurantInfo.id, menuName));
+    this.setState({ toggleRemoveMenu: true });
+    let profileCheckBox = document.getElementById('profileCheckBox');
+    let menuCheckBox= document.getElementById('menuCheckBox');
+    let addMenuCheckbox = document.getElementById('addMenuCheckbox')
+    profileCheckBox.checked = false;
+    menuCheckBox.checked = true;
+    // addMenuCheckbox.checked = false;
+    if (typeof this.props.restaurantInfo.id !== "undefined") {
+      this.props.dispatch(getMenus(this.props.restaurantInfo.id));
+    }
+  }
   removeMenu(e) {
     this.props.dispatch(removeMenu(e.target.id, this.props.restaurantInfo.id));
   }
   render() {
-    console.log("selectedMenuIds in render is ", this.state.selectedMenuIds);
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
@@ -106,26 +137,33 @@ export default class RestaurantProfile extends React.Component {
           <form role="form">
             <div className="row">
               <div className="col-sm-3 text-center">
-                <div className="checkbox">
-                  <label htmlFor="profileCheckBox">
-                    <input
-                      type="checkbox"
-                      id="profileCheckBox"
-                      onChange={this.handleProfileToggle}
-                    />
-                    profile
-                  </label>
-                </div>
-                <div className="checkbox">
-                  <label htmlFor="menuCheckBox">
-                    <input
-                      type="checkbox"
-                      id="menuCheckBox"
-                      onChange={this.handleMenuToggle}
-                    />
-                    menu
-                  </label>
-                </div>
+                <label htmlFor="profileCheckBox">
+                  <input
+                    type="radio"
+                    id="profileCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleProfileToggle}
+                  />
+                  profile
+                </label>
+                <label htmlFor="menuCheckBox">
+                  <input
+                    type="radio"
+                    id="menuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleRemoveMenuToggle}
+                  />
+                  view/remove menu
+                </label>
+                <label htmlFor="addMenuCheckBox">
+                  <input
+                    type="radio"
+                    id="addMenuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleAddMenuToggle}
+                  />
+                  add menu
+                </label>
               </div>
             </div>
           </form>
@@ -143,9 +181,10 @@ export default class RestaurantProfile extends React.Component {
                     <input
                       type={formField.inputType}
                       id={name}
+                      name="profileCheckBoxes"
                       className="form-control"
                       placeholder={this.props.restaurantInfo[name]}
-                      onChange={this.onInputChange}
+                      onClick={this.onInputChange}
                     />
                   </div>
                 </div>
@@ -175,8 +214,9 @@ export default class RestaurantProfile extends React.Component {
           </p>
         </div>
       );
-    } else if (
-      this.state.toggleMenu === true &&
+    }
+    if (
+      this.state.toggleRemoveMenu === true &&
       typeof this.props.restaurantInfo.menus !== "undefined"
     ) {
       return !!document.cookie ? (
@@ -186,36 +226,36 @@ export default class RestaurantProfile extends React.Component {
           <form role="form">
             <div className="row">
               <div className="col-sm-3 text-center">
-                <div className="checkbox">
-                  <label htmlFor="profileCheckBox">
-                    <input
-                      type="checkbox"
-                      id="profileCheckBox"
-                      onChange={this.handleProfileToggle}
-                    />
-                    profile
-                  </label>
-                </div>
-                <div className="checkbox">
-                  <label htmlFor="menuCheckBox">
-                    <input
-                      type="checkbox"
-                      id="menuCheckBox"
-                      onChange={this.handleMenuToggle}
-                    />
-                    menu
-                  </label>
-                </div>
+                <label htmlFor="profileCheckBox">
+                  <input
+                    type="radio"
+                    id="profileCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleProfileToggle}
+                  />
+                  profile
+                </label>
+                <label htmlFor="menuCheckBox">
+                  <input
+                    type="radio"
+                    id="menuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleRemoveMenuToggle}
+                  />
+                  view/remove menu
+                </label>
+                <label htmlFor="addMenuCheckBox">
+                  <input
+                    type="radio"
+                    id="addMenuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleAddMenuToggle}
+                  />
+                  add menu
+                </label>
               </div>
             </div>
           </form>
-          {/* 
-          Display form with the signed in restaurants menus.
-          
-          this.state.restaurantProfile.id  =>  POST /Restaurants/{id}/menus => response = { id, restaurantId}
-            -store the id from response then =-> GET /Menus/{id}/
-          }
-          */}
           <div>
             <h2>Your Menus</h2>
             <p>
@@ -224,13 +264,11 @@ export default class RestaurantProfile extends React.Component {
             </p>
             {this.props.restaurantInfo.menus.map(menu => {
               return (
-                <div className="row" key={menu.id} onChange={this.removeMenu}>
-                  <div className="checkbox">
-                    <label htmlFor="menuCheckbox">
-                      <input type="checkbox" id={menu.id} />
-                      {menu.name}
-                    </label>
-                  </div>
+                <div className="row" key={menu.id}>
+                  <label htmlFor="menuCheckbox">
+                    <input type="radio" onClick={this.removeMenu} name="profileCheckBoxes" id={menu.id} />
+                    {menu.name}
+                  </label>
                 </div>
               );
             })}
@@ -245,47 +283,125 @@ export default class RestaurantProfile extends React.Component {
           </p>
         </div>
       );
-    } else {
-      return !!document.cookie ? (
+    }
+    if (this.state.toggleAddMenu === true) {
+      return (
         <div className="container-fluid">
           <TopNav />
           <h1 className="display-4 text-center'">Restaurant</h1>
           <form role="form">
             <div className="row">
               <div className="col-sm-3 text-center">
-                <div className="checkbox">
-                  <label htmlFor="profileCheckBox">
-                    <input
-                      type="checkbox"
-                      id="profileCheckBox"
-                      onChange={this.handleProfileToggle}
-                    />
-                    profile
-                  </label>
-                </div>
-                <div className="checkbox">
-                  <label htmlFor="menuCheckBox">
-                    <input
-                      type="checkbox"
-                      id="menuCheckBox"
-                      onChange={this.handleMenuToggle}
-                    />
-                    menu
-                  </label>
-                </div>
+                <label htmlFor="profileCheckBox">
+                  <input
+                    type="radio"
+                    id="profileCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleProfileToggle}
+                  />
+                  profile
+                </label>
+                <label htmlFor="menuCheckBox">
+                  <input
+                    type="radio"
+                    id="menuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleRemoveMenuToggle}
+                  />
+                  view/remove menu
+                </label>
+                <label htmlFor="addMenuCheckBox">
+                  <input
+                    type="radio"
+                    id="addMenuCheckBox"
+                    name="profileCheckBoxes"
+                    onClick={this.handleAddMenuToggle}
+                  />
+                  add menu
+                </label>
               </div>
             </div>
           </form>
-        </div>
-      ) : (
-        // Returns a redirect link for restaurant log in if no log in is detected
-        <div className="container-fluid">
-          <TopNav />
-          <p className="lead">
-            Please <a href="#/login">Log In</a> to continue
-          </p>
+          <div>
+            <h2>Add Menu</h2>
+            <p>Fill in the forms and click add to submit your new menu!</p>
+            <form onSubmit={this.addMenu}>
+              <div className="form-group row">
+                <label htmlFor="menuName">Menu Name</label>
+                <div className="col-sm-8 col-md-6">
+                  <input
+                    type="text"
+                    id="menuNameInput"
+                    className="form-control"
+                    placeholder="Enter a menu name..."
+                    onClick={this.onInputChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group row justify-content-center">
+                <button type="submit" className="btn btn-primary mx-1">
+                  Add Menu
+                </button>
+                <button
+                  type="reset"
+                  onClick={this.handleCancel}
+                  className="btn btn-secondary mx-1"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+            {fireRedirect && <Redirect to={from || "/#"} />}
+          </div>
         </div>
       );
     }
+    return !!document.cookie ? (
+      <div className="container-fluid">
+        <TopNav />
+        <h1 className="display-4 text-center'">Restaurant</h1>
+        <form role="form">
+          <div className="row">
+            <div className="col-sm-3 text-center">
+              <label htmlFor="profileCheckBox">
+                <input
+                  type="radio"
+                  id="profileCheckBox"
+                  name="profileCheckBoxes"
+                  onClick={this.handleProfileToggle}
+                />
+                profile
+              </label>
+              <label htmlFor="menuCheckBox">
+                <input
+                  type="radio"
+                  id="menuCheckBox"
+                  name="profileCheckBoxes"
+                  onClick={this.handleRemoveMenuToggle}
+                />
+                view/remove menu
+              </label>
+              <label htmlFor="addMenuCheckBox">
+                <input
+                  type="radio"
+                  id="addMenuCheckBox"
+                  name="profileCheckBoxes"
+                  onClick={this.handleAddMenuToggle}
+                />
+                add menu
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+    ) : (
+      // Returns a redirect link for restaurant log in if no log in is detected
+      <div className="container-fluid">
+        <TopNav />
+        <p className="lead">
+          Please <a href="#/login">Log In</a> to continue
+        </p>
+      </div>
+    );
   }
 }

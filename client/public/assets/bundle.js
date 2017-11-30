@@ -4828,7 +4828,7 @@ const types = {
   REMOVE_MENU: "REMOVE_MENU",
   ADD_MENU: "ADD_MENU"
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = types;
+/* harmony export (immutable) */ __webpack_exports__["e"] = types;
 
 // Sets payload to up-to-date restaurant information
 const getRestaurantInformation = restaurantId => {
@@ -4839,7 +4839,7 @@ const getRestaurantInformation = restaurantId => {
     }).catch(console.error)
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = getRestaurantInformation;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getRestaurantInformation;
 
 // Sets payload to return edited restaurant information
 const updateRestaurantInformation = (inputBody, restaurantId) => {
@@ -4852,7 +4852,7 @@ const updateRestaurantInformation = (inputBody, restaurantId) => {
     }).catch(console.error)
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = updateRestaurantInformation;
+/* harmony export (immutable) */ __webpack_exports__["f"] = updateRestaurantInformation;
 
 const removeMenu = id => {
   return {
@@ -4861,11 +4861,11 @@ const removeMenu = id => {
       return {
         menuId: id
       };
-      console.log('Removed the menu!', res);
+      console.log("Removed the menu!", res);
     })
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = removeMenu;
+/* harmony export (immutable) */ __webpack_exports__["d"] = removeMenu;
 
 const getMenus = restaurantId => {
   return {
@@ -4877,7 +4877,17 @@ const getMenus = restaurantId => {
     }).catch(console.error)
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = getMenus;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getMenus;
+
+const addMenu = (restaurantId, menuName) => {
+  return {
+    type: types.ADD_MENU,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`, { name: menuName }).then(res => {
+      console.log(res.data.id);
+    })
+  };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = addMenu;
 
 
 /***/ }),
@@ -28202,14 +28212,15 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       formValues: {},
       fireRedirect: false,
       toggleProfile: false,
-      toggleMenu: false,
-      selectedMenuIds: []
+      toggleRemoveMenu: false,
+      toggleAddMenu: false
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleProfileToggle = this.handleProfileToggle.bind(this);
-    this.handleMenuToggle = this.handleMenuToggle.bind(this);
+    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
+    this.handleAddMenuToggle = this.handleAddMenuToggle.bind(this);
     this.addMenu = this.addMenu.bind(this);
     this.removeMenu = this.removeMenu.bind(this);
   }
@@ -28217,7 +28228,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
     if (!!document.cookie) {
       const cookieToken = document.cookie.substr(document.cookie.indexOf("restaurantID=") + 13, 24);
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getRestaurantInformation */])(cookieToken));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* getRestaurantInformation */])(cookieToken));
     }
   }
   onInputChange(e) {
@@ -28229,7 +28240,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["e" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["f" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
     this.setState({ fireRedirect: true });
   }
   handleCancel(e) {
@@ -28238,19 +28249,47 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   }
   handleProfileToggle(e) {
     this.state.toggleProfile ? this.setState({ toggleProfile: false }) : this.setState({ toggleProfile: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleRemoveMenu: false
+    });
   }
-  handleMenuToggle(id) {
-    this.state.toggleMenu ? this.setState({ toggleMenu: false }) : this.setState({ toggleMenu: true });
+  handleRemoveMenuToggle(id) {
+    this.state.toggleRemoveMenu ? this.setState({ toggleRemoveMenu: false }) : this.setState({ toggleRemoveMenu: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleProfile: false
+    });
     if (typeof this.props.restaurantInfo.id !== "undefined") {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* getMenus */])(this.props.restaurantInfo.id));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantInfo.id));
     }
   }
-  addMenu() {}
+  handleAddMenuToggle(id) {
+    this.state.toggleAddMenu ? this.setState({ toggleAddMenu: false }) : this.setState({ toggleAddMenu: true });
+    this.setState({
+      toggleRemoveMenu: false,
+      toggleProfile: false
+    });
+  }
+  addMenu(e) {
+    e.preventDefault();
+    let menuName = document.getElementById("menuNameInput").value;
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* addMenu */])(this.props.restaurantInfo.id, menuName));
+    this.setState({ toggleRemoveMenu: true });
+    let profileCheckBox = document.getElementById('profileCheckBox');
+    let menuCheckBox = document.getElementById('menuCheckBox');
+    let addMenuCheckbox = document.getElementById('addMenuCheckbox');
+    profileCheckBox.checked = false;
+    menuCheckBox.checked = true;
+    // addMenuCheckbox.checked = false;
+    if (typeof this.props.restaurantInfo.id !== "undefined") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantInfo.id));
+    }
+  }
   removeMenu(e) {
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* removeMenu */])(e.target.id, this.props.restaurantInfo.id));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["d" /* removeMenu */])(e.target.id, this.props.restaurantInfo.id));
   }
   render() {
-    console.log("selectedMenuIds in render is ", this.state.selectedMenuIds);
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
@@ -28273,32 +28312,37 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               "div",
               { className: "col-sm-3 text-center" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "profileCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "profileCheckBox",
-                    onChange: this.handleProfileToggle
-                  }),
-                  "profile"
-                )
+                "label",
+                { htmlFor: "profileCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "profileCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleProfileToggle
+                }),
+                "profile"
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "menuCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "menuCheckBox",
-                    onChange: this.handleMenuToggle
-                  }),
-                  "menu"
-                )
+                "label",
+                { htmlFor: "menuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "menuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleRemoveMenuToggle
+                }),
+                "view/remove menu"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { htmlFor: "addMenuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "addMenuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleAddMenuToggle
+                }),
+                "add menu"
               )
             )
           )
@@ -28324,9 +28368,10 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
                   type: formField.inputType,
                   id: name,
+                  name: "profileCheckBoxes",
                   className: "form-control",
                   placeholder: this.props.restaurantInfo[name],
-                  onChange: this.onInputChange
+                  onClick: this.onInputChange
                 })
               )
             );
@@ -28369,7 +28414,8 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           " to continue"
         )
       );
-    } else if (this.state.toggleMenu === true && typeof this.props.restaurantInfo.menus !== "undefined") {
+    }
+    if (this.state.toggleRemoveMenu === true && typeof this.props.restaurantInfo.menus !== "undefined") {
       return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
@@ -28389,32 +28435,37 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               "div",
               { className: "col-sm-3 text-center" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "profileCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "profileCheckBox",
-                    onChange: this.handleProfileToggle
-                  }),
-                  "profile"
-                )
+                "label",
+                { htmlFor: "profileCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "profileCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleProfileToggle
+                }),
+                "profile"
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "menuCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "menuCheckBox",
-                    onChange: this.handleMenuToggle
-                  }),
-                  "menu"
-                )
+                "label",
+                { htmlFor: "menuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "menuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleRemoveMenuToggle
+                }),
+                "view/remove menu"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { htmlFor: "addMenuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "addMenuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleAddMenuToggle
+                }),
+                "add menu"
               )
             )
           )
@@ -28435,16 +28486,12 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           this.props.restaurantInfo.menus.map(menu => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
-              { className: "row", key: menu.id, onChange: this.removeMenu },
+              { className: "row", key: menu.id },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "menuCheckbox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", id: menu.id }),
-                  menu.name
-                )
+                "label",
+                { htmlFor: "menuCheckbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "radio", onClick: this.removeMenu, name: "profileCheckBoxes", id: menu.id }),
+                menu.name
               )
             );
           })
@@ -28467,8 +28514,9 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           " to continue"
         )
       );
-    } else {
-      return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    }
+    if (this.state.toggleAddMenu === true) {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
@@ -28487,55 +28535,172 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               "div",
               { className: "col-sm-3 text-center" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "profileCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "profileCheckBox",
-                    onChange: this.handleProfileToggle
-                  }),
-                  "profile"
-                )
+                "label",
+                { htmlFor: "profileCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "profileCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleProfileToggle
+                }),
+                "profile"
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "checkbox" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { htmlFor: "menuCheckBox" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    type: "checkbox",
-                    id: "menuCheckBox",
-                    onChange: this.handleMenuToggle
-                  }),
-                  "menu"
-                )
+                "label",
+                { htmlFor: "menuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "menuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleRemoveMenuToggle
+                }),
+                "view/remove menu"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { htmlFor: "addMenuCheckBox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "radio",
+                  id: "addMenuCheckBox",
+                  name: "profileCheckBoxes",
+                  onClick: this.handleAddMenuToggle
+                }),
+                "add menu"
               )
             )
           )
-        )
-      ) :
-      // Returns a redirect link for restaurant log in if no log in is detected
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "container-fluid" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "p",
-          { className: "lead" },
-          "Please ",
+          "div",
+          null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/login" },
-            "Log In"
+            "h2",
+            null,
+            "Add Menu"
           ),
-          " to continue"
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "p",
+            null,
+            "Fill in the forms and click add to submit your new menu!"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "form",
+            { onSubmit: this.addMenu },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "form-group row" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { htmlFor: "menuName" },
+                "Menu Name"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "col-sm-8 col-md-6" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                  type: "text",
+                  id: "menuNameInput",
+                  className: "form-control",
+                  placeholder: "Enter a menu name...",
+                  onClick: this.onInputChange
+                })
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "form-group row justify-content-center" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "button",
+                { type: "submit", className: "btn btn-primary mx-1" },
+                "Add Menu"
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "button",
+                {
+                  type: "reset",
+                  onClick: this.handleCancel,
+                  className: "btn btn-secondary mx-1"
+                },
+                "Cancel"
+              )
+            )
+          ),
+          fireRedirect && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["a" /* Redirect */], { to: from || "/#" })
         )
       );
     }
+    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "container-fluid" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "h1",
+        { className: "display-4 text-center'" },
+        "Restaurant"
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "form",
+        { role: "form" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "row" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "col-sm-3 text-center" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "profileCheckBox" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                type: "radio",
+                id: "profileCheckBox",
+                name: "profileCheckBoxes",
+                onClick: this.handleProfileToggle
+              }),
+              "profile"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "menuCheckBox" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                type: "radio",
+                id: "menuCheckBox",
+                name: "profileCheckBoxes",
+                onClick: this.handleRemoveMenuToggle
+              }),
+              "view/remove menu"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "label",
+              { htmlFor: "addMenuCheckBox" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                type: "radio",
+                id: "addMenuCheckBox",
+                name: "profileCheckBoxes",
+                onClick: this.handleAddMenuToggle
+              }),
+              "add menu"
+            )
+          )
+        )
+      )
+    ) :
+    // Returns a redirect link for restaurant log in if no log in is detected
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "container-fluid" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "p",
+        { className: "lead" },
+        "Please ",
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "a",
+          { href: "#/login" },
+          "Log In"
+        ),
+        " to continue"
+      )
+    );
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantProfile;
@@ -28962,17 +29127,17 @@ const defaultState = {
 
 function restaurantProfileReducer(state = defaultState, { type, payload }) {
   switch (type) {
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_RESTAURANT_INFORMATION:
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["e" /* types */].GET_RESTAURANT_INFORMATION:
       return _extends({}, state, {
         payload
       });
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_RESTAURANT_INFORMATION + "_FULFILLED":
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["e" /* types */].GET_RESTAURANT_INFORMATION + "_FULFILLED":
       return _extends({}, payload);
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].REMOVE_MENU + "_FULFILLED":
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["e" /* types */].REMOVE_MENU + "_FULFILLED":
       return _extends({}, state, {
         menus: state.menus.filter(menu => menu.id !== payload.menuId)
       });
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_MENUS + "_FULFILLED":
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["e" /* types */].GET_MENUS + "_FULFILLED":
       return _extends({}, state, {
         menus: payload.menus
       });
