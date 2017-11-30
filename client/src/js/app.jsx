@@ -7,6 +7,7 @@ import SearchResults from './components/SearchResults';
 import RestaurantMenu from './components/RestaurantMenu';
 import RestaurantProfile from './components/RestaurantProfile';
 import UserProfile from './components/UserProfile';
+import MenuItems from './components/MenuItems';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
           <Route path="/menu" component={RestaurantMenu} />
+          <Route path="/menu/edit" component={MenuItems} />
           <Route path="/user" component={UserProfile} />
           <Route path="/restaurant" component={RestaurantProfile} />
         </div>
