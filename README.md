@@ -7,14 +7,12 @@ A restaurant ordering web app developed with full-stack JavaScript technologies 
 ## Getting Started
 ### Installation
 
-Fork a copy of the repo, and install the necesasry node dependencies on the root and client folder:
+Fork a copy of the repo, and install the necessary node dependencies on the root and client folder:
 ```
-$ npm i
-$ cd client
-$ npm i
+$ npm install
 ```
 
-Then run `npm start` to start the server, and open localhost:12345 in your internet browser
+Then run `npm run start` to start the server, and open localhost:3000 in your internet browser
 
 INSERT SCREENSHOT OF APP HERE
 
