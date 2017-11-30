@@ -8,6 +8,10 @@ export default class TopNav extends React.Component {
 
   logoutHandler(){
     console.log('logging out');
+    document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';        
+    window.location.reload(true);
   }
   render() {
     return (
@@ -31,7 +35,7 @@ export default class TopNav extends React.Component {
                 </a>
               )}
               <a href="#/" 
-                onClick={this.logoutHandler()}
+                onClick={this.logoutHandler}
                 className="mx-1 text-white">
                 Logout
               </a>
