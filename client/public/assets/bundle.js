@@ -24018,7 +24018,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* HashRouter */],
@@ -24029,7 +24028,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu/:restaurantId', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/user', component: __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/restaurant', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
       )
@@ -27915,7 +27914,7 @@ class SearchResults extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
               "a",
               {
                 key: restaurant.id,
-                href: '#/results/' + restaurant.id,
+                href: '#/menu/' + restaurant.id,
                 "data-result-index": index,
                 className: "grid" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", { className: "grid__image",
@@ -28004,15 +28003,126 @@ function mapStoreToProps(store) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
 
-class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+
+
+class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(props) {
     super(props);
+
+    this.state = {
+      menu: [],
+      menuItems: [],
+      isRestaurantLoaded: false,
+      isMenuLoaded: false
+    };
   }
+
+  componentWillMount() {
+    const restaurantId = this.props.match.params.restaurantId;
+    const url = 'https://grubtoeat.herokuapp.com/api';
+    __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Restaurants/${restaurantId}`).then(res => {
+      this.setState(_extends({}, res.data, {
+        isRestaurantLoaded: true
+      }));
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Restaurants/${restaurantId}/menus`).then(menuSuccess => {
+        this.setState(_extends({}, this.state, {
+          menu: menuSuccess.data,
+          isMenuLoaded: true
+        }));
+        menuSuccess.data.forEach(menuCategory => {
+          console.log('finding menu item');
+          __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Menus/${menuCategory.id}/menuItems`).then(menuItemSuccess => {
+            this.setState(_extends({}, this.state, {
+              menuItems: [...this.state.menuItems, menuItemSuccess.data]
+            }));
+          }).catch(console.error);
+        });
+      }).catch(console.error);
+    }).catch(console.error);
+  }
+
   render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null);
+    console.log(this.state);
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "container-fluid" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      this.state.isRestaurantLoaded ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "main",
+        { className: "main" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "jumbotron" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "h1",
+            { className: "display-4" },
+            this.state.restaurantName
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "container" },
+          this.state.menu.map((menuCategory, menuIndex) => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { key: menuCategory.id },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                null,
+                menuCategory.category
+              ),
+              this.state.menu.length == this.state.menuItems.length ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "row justify-content-center" },
+                this.state.menuItems[menuIndex].map(menuItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  {
+                    key: menuItem.id,
+                    className: "card col-10 m-1" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "card-body" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "h3",
+                      null,
+                      menuItem.name
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "p",
+                      null,
+                      menuItem.description || ''
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "p",
+                      null,
+                      `$${menuItem.price.toFixed(2)}`
+                    )
+                  )
+                ))
+              ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                null,
+                "Looking for menu items..."
+              )
+            );
+          })
+        )
+      ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "main",
+        { className: "main" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "p",
+          { className: "display-4" },
+          "Finding menu..."
+        )
+      )
+    );
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantMenu;
