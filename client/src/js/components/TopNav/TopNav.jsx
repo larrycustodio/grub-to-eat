@@ -1,6 +1,14 @@
 import React from "react";
 
 export default class TopNav extends React.Component {
+  constructor(props){
+    super(props);
+    this.logoutHandler = this.logoutHandler.bind(this);
+  }
+
+  logoutHandler(){
+    console.log('logging out');
+  }
   render() {
     return (
       <nav className="navbar navbar-toggleable-md navbar-dark bg-dark fixed-top">
@@ -22,7 +30,9 @@ export default class TopNav extends React.Component {
                   Hi Person
                 </a>
               )}
-              <a href="#/" className="mx-1 text-white">
+              <a href="#/" 
+                onClick={this.logoutHandler()}
+                className="mx-1 text-white">
                 Logout
               </a>
             </div>
