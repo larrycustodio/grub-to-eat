@@ -4823,9 +4823,12 @@ const getRestaurantList = searchParams => {
 
 const types = {
   GET_RESTAURANT_INFORMATION: "GET_RESTAURANT_INFORMATION",
-  UPDATE_RESTAURANT_INFORMATION: "UPDATE_RESTAURANT_INFORMATION"
+  UPDATE_RESTAURANT_INFORMATION: "UPDATE_RESTAURANT_INFORMATION",
+  GET_MENUS: "GET_MENUS",
+  REMOVE_MENU: "REMOVE_MENU",
+  ADD_MENU: "ADD_MENU"
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = types;
+/* harmony export (immutable) */ __webpack_exports__["d"] = types;
 
 // Sets payload to up-to-date restaurant information
 const getRestaurantInformation = restaurantId => {
@@ -4836,7 +4839,7 @@ const getRestaurantInformation = restaurantId => {
     }).catch(console.error)
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = getRestaurantInformation;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getRestaurantInformation;
 
 // Sets payload to return edited restaurant information
 const updateRestaurantInformation = (inputBody, restaurantId) => {
@@ -4849,7 +4852,32 @@ const updateRestaurantInformation = (inputBody, restaurantId) => {
     }).catch(console.error)
   };
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = updateRestaurantInformation;
+/* harmony export (immutable) */ __webpack_exports__["e"] = updateRestaurantInformation;
+
+const removeMenu = id => {
+  return {
+    type: types.REMOVE_MENU,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete("https://grubtoeat.herokuapp.com/api/Menus/" + id).then(res => {
+      return {
+        menuId: id
+      };
+      console.log('Removed the menu!', res);
+    })
+  };
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = removeMenu;
+
+const getMenus = restaurantId => {
+  return {
+    type: types.GET_MENUS,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`).then(res => {
+      return {
+        menus: res.data
+      };
+    }).catch(console.error)
+  };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getMenus;
 
 
 /***/ }),
@@ -28174,19 +28202,22 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       formValues: {},
       fireRedirect: false,
       toggleProfile: false,
-      toggleMenu: false
+      toggleMenu: false,
+      selectedMenuIds: []
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleProfileToggle = this.handleProfileToggle.bind(this);
     this.handleMenuToggle = this.handleMenuToggle.bind(this);
+    this.addMenu = this.addMenu.bind(this);
+    this.removeMenu = this.removeMenu.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
     if (!!document.cookie) {
       const cookieToken = document.cookie.substr(document.cookie.indexOf("restaurantID=") + 13, 24);
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* getRestaurantInformation */])(cookieToken));
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getRestaurantInformation */])(cookieToken));
     }
   }
   onInputChange(e) {
@@ -28198,7 +28229,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["e" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
     this.setState({ fireRedirect: true });
   }
   handleCancel(e) {
@@ -28208,10 +28239,18 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   handleProfileToggle(e) {
     this.state.toggleProfile ? this.setState({ toggleProfile: false }) : this.setState({ toggleProfile: true });
   }
-  handleMenuToggle(e) {
+  handleMenuToggle(id) {
     this.state.toggleMenu ? this.setState({ toggleMenu: false }) : this.setState({ toggleMenu: true });
+    if (typeof this.props.restaurantInfo.id !== "undefined") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* getMenus */])(this.props.restaurantInfo.id));
+    }
+  }
+  addMenu() {}
+  removeMenu(e) {
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* removeMenu */])(e.target.id, this.props.restaurantInfo.id));
   }
   render() {
+    console.log("selectedMenuIds in render is ", this.state.selectedMenuIds);
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
@@ -28330,7 +28369,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           " to continue"
         )
       );
-    } else if (this.state.toggleMenu === true) {
+    } else if (this.state.toggleMenu === true && typeof this.props.restaurantInfo.menus !== "undefined") {
       return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
@@ -28379,6 +28418,36 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               )
             )
           )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "h2",
+            null,
+            "Your Menus"
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "p",
+            null,
+            "Check a menu to remove it or click the add menu button to add a new one!"
+          ),
+          this.props.restaurantInfo.menus.map(menu => {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "row", key: menu.id, onChange: this.removeMenu },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "checkbox" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "label",
+                  { htmlFor: "menuCheckbox" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "checkbox", id: menu.id }),
+                  menu.name
+                )
+              )
+            );
+          })
         )
       ) :
       // Returns a redirect link for restaurant log in if no log in is detected
@@ -28887,17 +28956,26 @@ const defaultState = {
   description: "Loading...",
   category: "Loading...",
   hours: "Loading...",
-  username: "Loading..."
+  username: "Loading...",
+  menus: []
 };
 
 function restaurantProfileReducer(state = defaultState, { type, payload }) {
   switch (type) {
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["b" /* types */].GET_RESTAURANT_INFORMATION:
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_RESTAURANT_INFORMATION:
       return _extends({}, state, {
         payload
       });
-    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["b" /* types */].GET_RESTAURANT_INFORMATION + "_FULFILLED":
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_RESTAURANT_INFORMATION + "_FULFILLED":
       return _extends({}, payload);
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].REMOVE_MENU + "_FULFILLED":
+      return _extends({}, state, {
+        menus: state.menus.filter(menu => menu.id !== payload.menuId)
+      });
+    case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["d" /* types */].GET_MENUS + "_FULFILLED":
+      return _extends({}, state, {
+        menus: payload.menus
+      });
     default:
       return state;
   }

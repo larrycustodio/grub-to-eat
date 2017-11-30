@@ -3,7 +3,10 @@ import { Redirect } from "react-router";
 import TopNav from "../TopNav";
 import {
   updateRestaurantInformation,
-  getRestaurantInformation
+  getRestaurantInformation,
+  getMenus,
+  removeMenu,
+  addMenu
 } from "./restaurantProfileActions";
 
 export default class RestaurantProfile extends React.Component {
@@ -31,13 +34,16 @@ export default class RestaurantProfile extends React.Component {
       formValues: {},
       fireRedirect: false,
       toggleProfile: false,
-      toggleMenu: false
+      toggleMenu: false,
+      selectedMenuIds: []
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleProfileToggle = this.handleProfileToggle.bind(this);
     this.handleMenuToggle = this.handleMenuToggle.bind(this);
+    this.addMenu = this.addMenu.bind(this);
+    this.removeMenu = this.removeMenu.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -76,12 +82,20 @@ export default class RestaurantProfile extends React.Component {
       ? this.setState({ toggleProfile: false })
       : this.setState({ toggleProfile: true });
   }
-  handleMenuToggle(e) {
+  handleMenuToggle(id) {
     this.state.toggleMenu
       ? this.setState({ toggleMenu: false })
       : this.setState({ toggleMenu: true });
+    if (typeof this.props.restaurantInfo.id !== "undefined") {
+      this.props.dispatch(getMenus(this.props.restaurantInfo.id));
+    }
+  }
+  addMenu() {}
+  removeMenu(e) {
+    this.props.dispatch(removeMenu(e.target.id, this.props.restaurantInfo.id));
   }
   render() {
+    console.log("selectedMenuIds in render is ", this.state.selectedMenuIds);
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
@@ -161,7 +175,10 @@ export default class RestaurantProfile extends React.Component {
           </p>
         </div>
       );
-    } else if (this.state.toggleMenu === true) {
+    } else if (
+      this.state.toggleMenu === true &&
+      typeof this.props.restaurantInfo.menus !== "undefined"
+    ) {
       return !!document.cookie ? (
         <div className="container-fluid">
           <TopNav />
@@ -194,11 +211,30 @@ export default class RestaurantProfile extends React.Component {
           </form>
           {/* 
           Display form with the signed in restaurants menus.
-
+          
           this.state.restaurantProfile.id  =>  POST /Restaurants/{id}/menus => response = { id, restaurantId}
             -store the id from response then =-> GET /Menus/{id}/
           }
           */}
+          <div>
+            <h2>Your Menus</h2>
+            <p>
+              Check a menu to remove it or click the add menu button to add a
+              new one!
+            </p>
+            {this.props.restaurantInfo.menus.map(menu => {
+              return (
+                <div className="row" key={menu.id} onChange={this.removeMenu}>
+                  <div className="checkbox">
+                    <label htmlFor="menuCheckbox">
+                      <input type="checkbox" id={menu.id} />
+                      {menu.name}
+                    </label>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ) : (
         // Returns a redirect link for restaurant log in if no log in is detected

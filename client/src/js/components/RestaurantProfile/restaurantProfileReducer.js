@@ -15,7 +15,8 @@ const defaultState = {
   description: "Loading...",
   category: "Loading...",
   hours: "Loading...",
-  username: "Loading..."
+  username: "Loading...",
+  menus: []
 };
 
 export default function restaurantProfileReducer(
@@ -31,6 +32,16 @@ export default function restaurantProfileReducer(
     case types.GET_RESTAURANT_INFORMATION + "_FULFILLED":
       return {
         ...payload
+      };
+    case types.REMOVE_MENU + "_FULFILLED":
+      return {
+        ...state,
+        menus: state.menus.filter(menu => menu.id !== payload.menuId)
+      };
+    case types.GET_MENUS + "_FULFILLED":
+      return {
+        ...state,
+        menus: payload.menus
       };
     default:
       return state;
