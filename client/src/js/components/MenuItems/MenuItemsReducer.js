@@ -47,7 +47,7 @@ export default function menuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          menu: payload.item
+          menus: state.menu.filter(menu => menu.id !== payload.menuId)
         };
       }
     }

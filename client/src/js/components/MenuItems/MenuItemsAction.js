@@ -41,3 +41,31 @@ export function getItem() {
       .catch(err => console.log(err))
   };
 }
+export function updateItem(itemId, updatedState) {
+  const updateURL = encodeURI(
+    `https://grubtoeat.herokuapp.com/api/MenuItems/update?where={"id":"${
+      itemId
+    }"}`
+  ).replace(/%22:/g, '%22%3A');
+  return {
+    type: types.PUT_ITEM,
+    payload: axios
+      .put(updateURL, updatedState)
+      .then(res.status === 200 ? getItem(itemId) : null)
+      .catch(err => console.log(err))
+  };
+}
+export function deleteItem(itemId) {
+  return {
+    type: types.DELETE_ITEM,
+    payload: axios
+      .delete(`https://grubtoeat.herokuapp.com/api/MenuItems/${itemId}`)
+      .then(res => {
+        console.log(res);
+        return {
+          menu: itemId
+        };
+      })
+      .catch(err => console.log(err))
+  };
+}
