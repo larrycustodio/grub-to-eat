@@ -3,7 +3,7 @@ import MenuItems from './MenuItems';
 
 function mapStoreToProps(store) {
   return {
-    menuItem: store.MenuItems
+    menuItem: store.menuItems
   };
 }
 

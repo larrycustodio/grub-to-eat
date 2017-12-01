@@ -1,6 +1,6 @@
 import React from 'react';
 import TopNav from '../TopNav';
-import { postItem } from './MenuItemsAction';
+import { postItem, getItem } from './MenuItemsAction';
 // import { POST_ITEM } from './MenuItemsAction';
 export default class MenuItems extends React.Component {
   constructor(props) {
@@ -23,6 +23,10 @@ export default class MenuItems extends React.Component {
     this.renderMenu = this.renderMenu.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+  componentWillMount() {
+    this.props.dispatch(getItem());
+  }
+
   handleInputChange(key) {
     return e => this.setState({ [key]: e.target.value });
   }
@@ -71,11 +75,20 @@ export default class MenuItems extends React.Component {
     );
   }
   render() {
+    console.log(this.props.menuItem.menu);
+    const menuItem = this.props.menuItem.menu[0];
     return (
       <div>
         <TopNav />
         <h2>Edit Menu</h2>
-        <div className="menu">{this.props.menuItem}</div>
+        <div>here are items</div>
+        {!!menuItem ? (
+          menuItem.map(items => {
+            return <div key={items.id}> {items.name}</div>;
+          })
+        ) : (
+          <div>Loading</div>
+        )}
         <div className="menuItems">{this.renderItem()}</div>
         <div className="category-breakfast" />
       </div>

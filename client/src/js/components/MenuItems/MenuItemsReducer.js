@@ -11,7 +11,7 @@ export default function menuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          menu: payload.item
+          menu: payload.menu
         };
       }
     }
@@ -20,9 +20,10 @@ export default function menuItemsReducer(state = defaultState, action) {
     }
     case types.GET_ITEM + '_FULFILLED': {
       if (payload) {
+        console.log(payload);
         return {
           ...state,
-          menu: payload.item
+          menu: [...state.menu, payload]
         };
       }
     }
