@@ -7,6 +7,7 @@ import SearchResults from './components/SearchResults';
 import RestaurantMenu from './components/RestaurantMenu';
 import RestaurantProfile from './components/RestaurantProfile';
 import UserProfile from './components/UserProfile';
+import MenuItems from './components/MenuItems';
 import OrderCart from './components/OrderCart';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -17,17 +18,19 @@ class App extends React.Component {
   }
   render() {
     return (
-        <Router>
-          <div className="container">
-            <Route exact path="/" component={SearchDisplay} />
-            <Route path="/login" component={Login} />
-            <Route path="/results" component={SearchResults} />
-            <Route path="/menu/:restaurantId" component={RestaurantMenu} />
-            <Route path="/user" component={UserProfile} />
-            <Route path="/restaurant" component={RestaurantProfile} />
-            <Route path="/cart" component={OrderCart} />
-          </div>
-        </Router>
+      <Router>
+        <div className="container">
+          <Route exact path="/" component={SearchDisplay} />
+          <Route path="/login" component={Login} />
+          <Route path="/results" component={SearchResults} />
+          <Route path="/menu" component={RestaurantMenu} />
+          <Route path="/edit" component={MenuItems} />
+          <Route path="/menu/:restaurantId" component={RestaurantMenu} />
+          <Route path="/user" component={UserProfile} />
+          <Route path="/restaurant" component={RestaurantProfile} />
+          <Route path="/cart" component={OrderCart} />
+        </div>
+      </Router>
     );
   }
 }
