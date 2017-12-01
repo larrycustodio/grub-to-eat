@@ -21,6 +21,7 @@ export default class MenuItems extends React.Component {
     this.renderItem = this.renderItem.bind(this);
     this.renderMenu = this.renderMenu.bind(this);
     this.renderMenu = this.renderMenu.bind(this);
+    this.updateItem = this.updateItem.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentWillMount() {
@@ -34,6 +35,7 @@ export default class MenuItems extends React.Component {
     const item = { ...this.state };
     this.props.dispatch(postItem(item));
   }
+  updateItem() {}
   removeItem() {}
   renderMenu() {
     this.props.dispatch(getMenu());
