@@ -1,16 +1,18 @@
-import React, { Component } from "react";
-import TopNav from "../TopNav";
-import { getRestaurantInfo, getRestaurantMenu, getRestaurantMenuItems } from "./restaurantMenuActions";
-import axios from "axios";
+import React, { Component } from 'react';
+import TopNav from '../TopNav';
+import { getRestaurantInfo, getRestaurantMenu, getRestaurantMenuItems } from './restaurantMenuActions';
+import axios from 'axios';
 
 export default class RestaurantMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMenuItemToggled: false
+      isMenuItemToggled: false,
+      orderQuantity: 1
     }
     this.menuItemClickHandler = this.menuItemClickHandler.bind(this);
     this.menuItemOrder = this.menuItemOrder.bind(this);
+    this.modalCloseHandler = this.modalCloseHandler.bind(this);
   }
 
   componentWillMount() {
@@ -20,20 +22,26 @@ export default class RestaurantMenu extends Component {
   }
 
   // Called when a re-render is required, i.e. this.setState() to access props.restaurantMenu updates
-  componentWillUpdate(nextProps) {
-    // Dispatch get restaurant menu items once the menus are loaded to store
-    if (!!nextProps.restaurantMenu.isMenuLoaded && !!nextProps.restaurantMenu.menu.length > 0) {
-      nextProps.restaurantMenu.menu.forEach(menu => {
-        if (menu.items.length === 0) this.props.dispatch(getRestaurantMenuItems(menu.id));
-      });
+  componentWillUpdate(nextProps,nextState) {
+    // Dispatch to get restaurant menu items once the menus are loaded to store
+    if(this.props.restaurantMenu.menu !== nextProps.restaurantMenu.menu){
+      if (!!nextProps.restaurantMenu.menu.length) {
+        nextProps.restaurantMenu.menu.forEach(menu => {
+          if (menu.items.length === 0) this.props.dispatch(getRestaurantMenuItems(menu.id));
+        });
+      }
     }
   }
-  menuItemClickHandler(e) {
+  menuItemClickHandler() {
     this.setState({
       isMenuItemToggled: true
     });
   }
-
+  modalCloseHandler(){
+    this.setState({
+      isMenuItemToggled: false
+    });
+  }
   // Restaurant Header Container
   restaurantHeader(restaurantInfo) {
     return (<div className='bg-light p-3 text-dark'>
@@ -65,18 +73,30 @@ export default class RestaurantMenu extends Component {
           <div className='order-menu-item__gradient' />
           <div className='modal-dialog order-menu-item__modal'>
             <div className='modal-content'>
-              <div className="modal-header">
-                <h5 className="modal-title">Order Item</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+              <div className='modal-header'>
+                <h5 className='modal-title'>Order Item</h5>
+                <button type='button' 
+                className='close'
+                onClick={this.modalCloseHandler}>
+                  <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
-                <p>Modal body text goes here.</p>
+              <div className='modal-body'>
+                <strong>Order Up!</strong>
+                <p className='text-muted'>Name of Order</p>
+                <p className='text-success'>Price</p>
               </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-primary">Save changes</button>
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div className='modal-footer d-flex'>
+                  <div>
+                    <button type='button' 
+                    className='btn btn-outline-primary'>-</button>
+                    <span className='m-3'>{this.state.orderQuantity}</span>
+                    <button type='button' 
+                    className='btn btn-outline-primary'>+</button>
+                  </div>
+                  <div className='ml-auto'>
+                    <button className='btn btn-primary'>Add To Cart</button>
+                  </div>
               </div>
             </div>
           </div>
