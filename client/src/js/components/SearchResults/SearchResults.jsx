@@ -31,7 +31,7 @@ export default class SearchResults extends React.Component {
                 return (
                   <a 
                   key={restaurant.id}
-                  href={'#/results/' + restaurant.id}
+                  href={'#/menu/' + restaurant.id}
                   data-result-index={index}
                   className='grid'>
                   <img className='grid__image'

@@ -15,7 +15,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
       <Router>
@@ -23,8 +22,12 @@ class App extends React.Component {
           <Route exact path="/" component={SearchDisplay} />
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
+<<<<<<< HEAD
           <Route path="/menu" component={RestaurantMenu} />
           <Route path="/menu/edit" component={MenuItems} />
+=======
+          <Route path="/menu/:restaurantId" component={RestaurantMenu} />
+>>>>>>> 54b9f9e34d87b3709a60ae697f143466a5f4e8b9
           <Route path="/user" component={UserProfile} />
           <Route path="/restaurant" component={RestaurantProfile} />
         </div>
