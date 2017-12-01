@@ -184,4 +184,21 @@ Results Grid
   display: block;
   margin-top: 10px; }
 
+@keyframes hoverIn {
+  0% {
+    transform: translateY(100%); }
+  100% {
+    transform: translateY(0); } }
+
+.user-cart {
+  cursor: pointer;
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%); }
+
+.shopping-cart-container {
+  animation: hoverIn 0.3s ease forwards;
+  border: 1px solid black; }
+
 /*# sourceMappingURL=style.css.map*/
