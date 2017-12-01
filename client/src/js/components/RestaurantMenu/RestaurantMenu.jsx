@@ -11,8 +11,6 @@ export default class RestaurantMenu extends Component {
       orderQuantity: 1
     }
     this.menuItemClickHandler = this.menuItemClickHandler.bind(this);
-    this.menuItemOrder = this.menuItemOrder.bind(this);
-    this.modalCloseHandler = this.modalCloseHandler.bind(this);
   }
 
   componentWillMount() {
@@ -32,16 +30,10 @@ export default class RestaurantMenu extends Component {
       }
     }
   }
+  
   menuItemClickHandler() {
-    this.setState({
-      isMenuItemToggled: true
-    });
   }
-  modalCloseHandler(){
-    this.setState({
-      isMenuItemToggled: false
-    });
-  }
+
   // Restaurant Header Container
   restaurantHeader(restaurantInfo) {
     return (<div className='bg-light p-3 text-dark'>
@@ -52,57 +44,17 @@ export default class RestaurantMenu extends Component {
 
   // Menu item container
   menuItemContainer(menuItem) {
+    const isMenuItemSelected = false;
     return (<div key={menuItem.id}
       onClick={this.menuItemClickHandler}
-      className='col-12 col-md-6'>
-      <div className='card my-2'>
-        <div className='card-body'>
-          <h4 className='card-title'>{menuItem.name}</h4>
-          <p className='text-muted'>{menuItem.description}</p>
-          <h5 className='text-right text-success'>${menuItem.price}</h5>
+      className='col-sm-12 col-md-6'>
+      <div className='card my-1'>
+        <div className='card-body d-flex'>
+          <span className='text-dark'>{menuItem.name}</span>
+          <span className='ml-auto text-info'>{`$${menuItem.price}`}</span>
         </div>
       </div>
     </div>);
-  }
-
-  // Menu item order modal
-  menuItemOrder() {
-    if (this.state.isMenuItemToggled) {
-      return (
-        <div className='order-menu-item__container'>
-          <div className='order-menu-item__gradient' />
-          <div className='modal-dialog order-menu-item__modal'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h5 className='modal-title'>Order Item</h5>
-                <button type='button' 
-                className='close'
-                onClick={this.modalCloseHandler}>
-                  <span aria-hidden='true'>&times;</span>
-                </button>
-              </div>
-              <div className='modal-body'>
-                <strong>Order Up!</strong>
-                <p className='text-muted'>Name of Order</p>
-                <p className='text-success'>Price</p>
-              </div>
-                <div className='modal-footer d-flex'>
-                  <div>
-                    <button type='button' 
-                    className='btn btn-outline-primary'>-</button>
-                    <span className='m-3'>{this.state.orderQuantity}</span>
-                    <button type='button' 
-                    className='btn btn-outline-primary'>+</button>
-                  </div>
-                  <div className='ml-auto'>
-                    <button className='btn btn-primary'>Add To Cart</button>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    }
   }
 
   render() {
@@ -110,7 +62,6 @@ export default class RestaurantMenu extends Component {
     return (
       <div className='container-fluid'>
         <TopNav />
-        {this.menuItemOrder()}
         {// Determine if the restaurant name from getRestaurantInfo action is fulfilled
           menuInfo.isRestaurantLoaded ?
             (// Header to display restaurant name + description
