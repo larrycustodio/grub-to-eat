@@ -1,10 +1,10 @@
-import { types } from './menuActions';
+import { types } from './MenuItemsAction';
 
 const defaultState = {
   menu: []
 };
 
-export default function MenuItemsReducer(state = defaultState, action) {
+export default function menuItemsReducer(state = defaultState, action) {
   const { type, payload } = action;
   switch (type) {
     case types.POST_ITEM + '_FULFILLED': {
@@ -22,7 +22,7 @@ export default function MenuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          menuItem: payload.item
+          menu: payload.item
         };
       }
     }
@@ -34,7 +34,7 @@ export default function MenuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          user: payload.item
+          menu: payload.item
         };
       }
     }
@@ -46,7 +46,7 @@ export default function MenuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          user: payload.item
+          menu: payload.item
         };
       }
     }

@@ -4716,6 +4716,9 @@ function fetchCustomer(customerInfo) {
     }).then(res => {
       const { id, userId, ttl } = res.data;
       if (res.status === 200) {
+        document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = `token=${id}; max-age=${ttl}`;
         document.cookie = `customerID=${userId}; max-age=${ttl}`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userId}`).then(res => {
@@ -4757,6 +4760,9 @@ function fetchRestaurant(customerInfo) {
     }).then(res => {
       const { id, userId, ttl } = res.data;
       if (res.status === 200) {
+        document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = `token=${id}; max-age=${ttl}`;
         document.cookie = `restaurantID=${userId}; max-age=${ttl}`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userId}`).then(res => {
@@ -4953,8 +4959,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rootStore__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__scss_style_scss__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rootStore__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__scss_style_scss__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__scss_style_scss__);
 
 
@@ -24037,9 +24043,11 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_redux__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_axios__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_MenuItems__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_axios__);
+
 
 
 
@@ -24066,6 +24074,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/edit', component: __WEBPACK_IMPORTED_MODULE_8__components_MenuItems__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu/:restaurantId', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/user', component: __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/restaurant', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
@@ -24080,7 +24090,7 @@ function mapStoreToProps(store) {
   };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_8_react_redux__["b" /* connect */])(mapStoreToProps)(App));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_9_react_redux__["b" /* connect */])(mapStoreToProps)(App));
 
 /***/ }),
 /* 109 */
@@ -27738,44 +27748,58 @@ module.exports = function spread(callback) {
 
 
 class TopNav extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.logoutHandler = this.logoutHandler.bind(this);
+  }
+
+  logoutHandler() {
+    console.log('logging out');
+    document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.reload(true);
+  }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "nav",
-      { className: "navbar navbar-toggleable-md navbar-dark bg-dark fixed-top" },
+      'nav',
+      { className: 'navbar navbar-toggleable-md navbar-dark bg-dark fixed-top' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "brand-wrapper" },
+        'div',
+        { className: 'brand-wrapper' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "a",
-          { href: "#", className: "navbar-center text-white" },
-          "Grub To Eat"
+          'a',
+          { href: '#', className: 'navbar-center text-white' },
+          'Grub To Eat'
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "login" },
+        'div',
+        { className: 'login' },
         // Looks for login cookies to determine login user type
         !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
+          'div',
           null,
           document.cookie.indexOf("restaurantID") > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/restaurant", className: "mx-1 text-white" },
-            "Hello Owner"
+            'a',
+            { href: '#/restaurant', className: 'mx-1 text-white' },
+            'Hello Owner'
           ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/user", className: "mx-1 text-white" },
-            "Hi Person"
+            'a',
+            { href: '#/user', className: 'mx-1 text-white' },
+            'Hi Person'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/", className: "mx-1 text-white" },
-            "Logout"
+            'a',
+            { href: '#/',
+              onClick: this.logoutHandler,
+              className: 'mx-1 text-white' },
+            'Logout'
           )
         ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "a",
-          { href: "#/login", className: "mx-1 text-white" },
-          "Log In"
+          'a',
+          { href: '#/login', className: 'mx-1 text-white' },
+          'Log In'
         )
       )
     );
@@ -28872,9 +28896,145 @@ class UserProfile extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MenuItems__ = __webpack_require__(162);
+
+
+
+function mapStoreToProps(store) {
+  return {
+    menuItem: store.MenuItems
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__MenuItems__["a" /* default */]));
+
+/***/ }),
+/* 162 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MenuItemsAction__ = __webpack_require__(173);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+// import { POST_ITEM } from './MenuItemsAction';
+class MenuItems extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menus: {},
+      name: '',
+      description: '',
+      price: '',
+      prepTime: '',
+      category: '',
+      add: false,
+      remove: false,
+      done: false
+    };
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  handleInputChange(key) {
+    return e => this.setState({ [key]: e.target.value });
+  }
+  addItem() {
+    const item = _extends({}, this.state);
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsAction__["a" /* postItem */])(item));
+  }
+  removeItem() {}
+  renderMenu() {
+    this.props.dispatch(getMenu());
+  }
+  renderItem() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'form',
+      { className: 'item-wrapper' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-cat' }),
+      ' Menu Item Category',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+        id: 'item-cat',
+        className: 'item-cat',
+        onChange: this.handleInputChange('category')
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-name' }),
+      ' Menu Item Name',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+        id: 'item-name',
+        className: 'item-name',
+        onChange: this.handleInputChange('name')
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-price' }),
+      ' Price',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+        id: 'item-price',
+        className: 'item-price',
+        onChange: this.handleInputChange('price')
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-desc' }),
+      ' Menu Item Description',
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+        id: 'item-desc',
+        className: 'item-desc',
+        onChange: this.handleInputChange('description')
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { type: 'text', className: 'add', onClick: this.addItem },
+        'Add'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { type: 'text', className: 'remove', onClick: this.removeItem },
+        'Remove'
+      )
+    );
+  }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h2',
+        null,
+        'Edit Menu'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'menu' },
+        this.props.menuItem
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'menuItems' },
+        this.renderItem()
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'category-breakfast' })
+    );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MenuItems;
+
+
+/***/ }),
+/* 163 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rootReducer__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_promise_middleware__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rootReducer__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_promise_middleware__ = __webpack_require__(174);
 
 
 
@@ -28885,17 +29045,19 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 /* harmony default export */ __webpack_exports__["a"] = (rootStore);
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile_userProfileReducer__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile_userProfileReducer__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_MenuItems_MenuItemsReducer__ = __webpack_require__(172);
+
 
 
 
@@ -28908,6 +29070,7 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 const rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineReducers */])({
   login: __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__["a" /* default */],
   restaurantMenu: __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__["a" /* default */],
+  menuItems: __WEBPACK_IMPORTED_MODULE_7__components_MenuItems_MenuItemsReducer__["a" /* default */],
   searchDisplay: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__["a" /* default */],
   searchResults: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__["a" /* default */],
   restaurantProfile: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__["a" /* default */],
@@ -28917,7 +29080,7 @@ const rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineRed
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29000,12 +29163,12 @@ function LoginReducer(state = defaultState, action) {
 }
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = LoginReducer;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__ = __webpack_require__(167);
 
 
 const defaultState = {};
@@ -29015,7 +29178,7 @@ function LoginReducer(state = defaultState, action) {
 }
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29024,7 +29187,7 @@ const types = {};
 
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29056,7 +29219,7 @@ function searchDisplayReducer(state = defaultState, action) {
 }
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29095,7 +29258,7 @@ function searchResultsReducer(state = defaultState, action) {
 }
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29147,7 +29310,7 @@ function restaurantProfileReducer(state = defaultState, { type, payload }) {
 }
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29185,7 +29348,146 @@ function userProfileReducer(state = defaultState, { type, payload }) {
 }
 
 /***/ }),
-/* 170 */
+/* 172 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = menuItemsReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__ = __webpack_require__(173);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+const defaultState = {
+  menu: []
+};
+
+function menuItemsReducer(state = defaultState, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].POST_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menu: payload.item
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].POST_ITEM + '_PENDING':
+      {
+        return state;
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].GET_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menu: payload.item
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].GET_ITEM + '_PENDING':
+      {
+        return state;
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].PUT_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menu: payload.item
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].PUT_ITEM + '_PENDING':
+      {
+        return state;
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].DELETE_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menu: payload.item
+          });
+        }
+      }
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsAction__["b" /* types */].DELETE_ITEM + '_PENDING':
+      {
+        return state;
+      }
+  }
+
+  return defaultState;
+}
+
+/***/ }),
+/* 173 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = postItem;
+/* unused harmony export getItem */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+const types = {
+  POST_ITEM: 'POST_ITEM',
+  GET_ITEM: 'POST_ITEM',
+  PUT_ITEM: 'PUT_ITEM',
+  DELETE_ITEM: 'DELETE_ITEM'
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = types;
+
+
+function postItem(menu) {
+  const { name, description, price, prepTime, category } = menu;
+  const restId = document.cookie.substring(document.cookie.indexOf('restaurantID=') + 13);
+  const menuId = '5a2080cd7e6b9d000488d0a1';
+
+  console.log(restId);
+  return {
+    type: types.POST_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`, {
+      name,
+      description,
+      price,
+      prepTime,
+      category
+    }).then(res => {
+      return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`).then(response => {
+        return {
+          menu: response.data
+        };
+      });
+    }).catch(err => console.log(err))
+  };
+}
+function getItem(menu) {
+  const { name, description, price, prepTime, category } = menu;
+  const restId = document.cookie.substring(document.cookie.indexOf('restaurantID=') + 13);
+  const menuId = '5a2080cd7e6b9d000488d0a1';
+
+  console.log(restId);
+  return {
+    type: types.POST_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`, {
+      name,
+      description,
+      price,
+      prepTime,
+      category
+    }).then(res => {
+      return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`).then(response => {
+        return {
+          menu: response.data
+        };
+      });
+    }).catch(err => console.log(err))
+  };
+}
+
+/***/ }),
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29193,7 +29495,7 @@ function userProfileReducer(state = defaultState, { type, payload }) {
 /* unused harmony export FULFILLED */
 /* unused harmony export REJECTED */
 /* harmony export (immutable) */ __webpack_exports__["a"] = promiseMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isPromise_js__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isPromise_js__ = __webpack_require__(175);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -29391,7 +29693,7 @@ function promiseMiddleware() {
 }
 
 /***/ }),
-/* 171 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29407,7 +29709,7 @@ function isPromise(value) {
 }
 
 /***/ }),
-/* 172 */
+/* 176 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
