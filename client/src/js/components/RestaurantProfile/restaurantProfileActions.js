@@ -74,7 +74,9 @@ export const addMenu = (restaurantId, menuName) => {
         { name: menuName }
       )
       .then(res => {
-        console.log(res.data.id);
-      })
+        return {
+          newMenu: res.data.id
+        };
+        }).catch(console.error)
   };
 };
