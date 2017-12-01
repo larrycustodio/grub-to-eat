@@ -43,7 +43,7 @@ export default function RestaurantMenuReducer(state = defaultState, action) {
         }
         //Pushes menu items to the appropriate menu item
         case types.GET_MENU_ITEMS + '_FULFILLED': {
-            // Find in which menu will be menu items will be added  
+            // Find in which menu will be menu items will be added
             const menuListIndex = state.menu.findIndex(menuList => menuList.id == payload[0].menuId);
             if (menuListIndex == -1) return state;
             state.menu[menuListIndex].items = payload;
