@@ -11,7 +11,7 @@ export default class OrderCart extends Component {
             <div className='container-fluid'>
                 <TopNav />
                 <div className='shopping-cart-container'>
-                    <h1>My MOTHERFUCKING SHOPPING CART</h1>
+                    <h1>MY SHOPPING CART</h1>
                 </div>
             </div>
         )

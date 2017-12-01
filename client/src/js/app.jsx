@@ -23,7 +23,6 @@ class App extends React.Component {
           <Route exact path="/" component={SearchDisplay} />
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />
-          <Route path="/menu" component={RestaurantMenu} />
           <Route path="/edit" component={MenuItems} />
           <Route path="/menu/:restaurantId" component={RestaurantMenu} />
           <Route path="/user" component={UserProfile} />
