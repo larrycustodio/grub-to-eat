@@ -3,13 +3,13 @@ import { types } from "./restaurantMenuActions";
 const defaultState = {
     //Data structure for restaurant menu
     restaurantInfo : {
-        restaurantName: 'Loading...',
-        description: 'Loading...',
-        id: 'Loading...'
+        restaurantName: '',
+        description: '',
+        id: ''
     },
     menu: [
         {
-            name: 'Loading menu...',
+            name: '',
             items: []
         }
     ],

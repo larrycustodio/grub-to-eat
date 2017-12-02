@@ -1,15 +1,47 @@
 import axios from 'axios';
 export const types = {
+  VERIFY_RESTAURANT_ID: 'VERIFY_RESTAURANT_ID',
+  GET_MENU: 'GET_MENU',
   POST_ITEM: 'POST_ITEM',
   GET_ITEM: 'GET_ITEM',
   PUT_ITEM: 'PUT_ITEM',
   DELETE_ITEM: 'DELETE_ITEM'
 };
 
+// Checks if logged in user has valid restaurantID 
+export function checkRestaurantId(restaurantId){
+  const userID = restaurantId.substr(restaurantId.indexOf('restaurantID=')+13, 24);
+  return {
+    type: types.VERIFY_RESTAURANT_ID,
+    payload: axios
+    .get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`)
+    .then(res => {
+      return {
+        isValid: res.status == 200,
+        restaurantId: res.data.id
+      };
+    })
+    .catch(console.error)
+  }
+}
+
+// Updates current menu list for adding menu items
+export function getMenu(restaurantId){
+  return {
+    type: types.GET_MENU,
+    payload: axios
+    .get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`)
+    .then(res=>{
+      return res.data;
+    })
+    .catch(console.error)
+  }
+}
+
 export function postItem(menu) {
   const { name, description, price, prepTime, category } = menu;
-
   const menuId = '5a2080cd7e6b9d000488d0a1';
+
   return {
     type: types.POST_ITEM,
     payload: axios
