@@ -1,17 +1,15 @@
 import React from 'react';
 import TopNav from '../TopNav';
-import { postItem, getItem, deleteItem, updateItem } from './MenuItemsAction';
+import { checkRestaurantId, getMenu, postItem, getItem, deleteItem, updateItem } from './MenuItemsActions';
 // import { POST_ITEM } from './MenuItemsAction';
 export default class MenuItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       //was thinking of maybe utilizing this menu state for adding/deleting items?
-      menus: {},
       name: '',
       description: '',
       price: '',
-      prepTime: '',
       category: '',
       add: false,
       remove: false,
@@ -26,19 +24,36 @@ export default class MenuItems extends React.Component {
     this.updateItem = this.updateItem.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-  //loads list of items on load
   componentWillMount() {
-    this.props.dispatch(getItem());
+    //Determine if restaurantID exists & if user logged in is a restaurantOwner
+    this.props.dispatch(checkRestaurantId(document.cookie));
   }
-  //Method to handle the input field change states
-  handleInputChange(key) {
-    return e => this.setState({ [key]: e.target.value });
+
+  componentWillUpdate(nextProps, nextState) {
+    /* Dispatch a change if:
+     * Add menu form is visible (this.state.edit true 
+     * menuList is empty
+     * valid restaurantId
+     */
+    if (this.state.edit
+      && !this.props.menuItems.menuList.length
+      && this.props.menuItems.isRestaurantIdValid) {
+      this.props.dispatch(getMenu(this.props.menuItems.restaurantId));
+    };
   }
-  //Method to add items TODO:have it add without having to to refresh the page
-  addItem() {
-    const item = { ...this.state };
-    this.props.dispatch(postItem(item));
-    alert('Your item has been added succesfully!');
+
+  //Method to handle input changes on add menu item
+  handleInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  //Method to add items 
+  addItem(e) {
+    e.preventDefault();
+    const { name, price, description } = this.state;
+    //Ensure that menuId (via category) contains a value
+    let menuId = ! this.state.category ? document.querySelector('#menuSelect').value : this.state.category; 
+    this.props.dispatch(postItem({ name, menuId, price, description }));
   }
   //Method to update item TODO:get it to work
   updateItem(e) {
@@ -46,63 +61,74 @@ export default class MenuItems extends React.Component {
   }
   //Toggles between the input form and the actual list of items
   toggleEdit() {
-    if (this.state.edit) {
-      this.setState({ edit: false });
-    } else {
-      this.setState({ edit: true });
-    }
+    this.setState({ edit: !this.state.edit });
   }
-  //removes item TODO: figure out how to remove from list without/refresh
+
+  //removes item TODO
   removeItem(e) {
     this.props.dispatch(deleteItem(e.target.parentNode.id));
-
     console.log('remove');
   }
-  //renders the form to input items TODO:I will stye this later today
+
+  //renders the form to input items TODO
   renderForm() {
     return (
-      <form className="item-wrapper">
+      <form className="item-wrapper" onSubmit={this.addItem}>
         <div className="form-group">
-          <label htmlFor="username">Menu Item Category</label>
-          <input
-            id="item-cat"
-            className="item-cat form-control"
-            value={this.state.category}
-            onChange={this.handleInputChange('category')}
-          />
+          <label htmlFor="menuSelect">Menu Item Category</label>
+          {
+            !!this.props.menuItems.menuList.length ? (
+              <select id="menuSelect"
+                name="category"
+                className="form-control"
+                onChange={this.handleInputChange}
+                defaultValue={this.props.menuItems.menuList[0].id}>
+                {this.props.menuItems.menuList.map(menuItem => (
+                  <option key={menuItem.id} value={menuItem.id}>{menuItem.name}</option>
+                ))}
+              </select>
+            ) : (
+                <select id="menuSelect" className="form-control" disabled>
+                  <option>Finding restaurant menu(s)...</option>
+                </select>
+              )}
+          <small className="form-text text-muted">
+            You can add/edit your active menu <a href="#/restaurant">here</a>
+          </small>
         </div>
         <div className="form-group">
           <label htmlFor="item-name" /> Menu Item Name
           <input
             id="item-name"
+            name="name"
             className="item-name form-control"
             value={this.state.name}
-            onChange={this.handleInputChange('name')}
-          />
+            onChange={this.handleInputChange}
+            required/>
         </div>
         <div className="form-group">
           <label htmlFor="item-price" /> Price
           <input
+            type="number"
             id="item-price"
+            name="price"
             className="item-price form-control"
             value={this.state.price}
-            onChange={this.handleInputChange('price')}
-          />
+            onChange={this.handleInputChange}
+            required/>
         </div>
         <div className="form-group">
           <label htmlFor="item-desc" /> Menu Item Description
           <textarea
             id="item-desc"
+            name="description"
             className="item-desc form-control"
             value={this.state.description}
-            onChange={this.handleInputChange('description')}
-          />
+            onChange={this.handleInputChange}/>
         </div>
         <button
           type="text"
-          className="add btn btn-primary btn-block"
-          onClick={this.addItem}
-        >
+          className="add btn btn-primary btn-block">
           Add
         </button>
       </form>
@@ -111,9 +137,9 @@ export default class MenuItems extends React.Component {
   //renders the list of items, maybe I should rename this method?
   renderEdit() {
     let counter = 0;
-    const menuItem = this.props.menuItem.menu[0];
-
+    const menuItem = this.props.menuItems.menuItemList;
     return (
+      // Current list of restaurant menu items
       <div>
         <div id="accordion" role="tablist">
           {!!menuItem ? (
@@ -128,56 +154,61 @@ export default class MenuItems extends React.Component {
                     <div className="card-text w-100">
                       <div className="item-name w-25" />Item Name: {items.name}
                     </div>
-                    <div className="item-name w-25">Price: ${items.price}</div>
+                    <div className="item-name w-25">Price: ${items.price.toFixed(2)}</div>
                     <div className="item-name w-25">
                       Prep Time: {items.prepTime}min
-                    </div>
-                    <div className="item-name w-100">
-                      Description: {items.description}
                     </div>
                   </div>
                   <button
                     type="button"
                     className="btn btn-primary "
-                    onClick={this.removeItem}
-                  >
+                    onClick={this.removeItem}>
                     Delete
                   </button>
                   <button
                     type="button"
                     className="btn btn-primary "
-                    onClick={this.updateItem}
-                  >
+                    onClick={this.updateItem}>
                     Edit
                   </button>
                 </div>
               );
             })
           ) : (
-            <div>Loading</div>
-          )}
+              //Return if restaurant's menu items are empty
+              <div className='lead'>
+                To add a menu item, click on 'Add to Menu' button!
+              </div>
+            )
+          }
         </div>
       </div>
     );
   }
   render() {
-    const menuItem = this.props.menuItem.menu[0];
-
-    return (
-      <div>
-        <TopNav />
-        <div className="container" />
-        <div className="menuItems">
-          <button className="btn btn-primary mr-3" onClick={this.toggleEdit}>
-            <h2 className="d-inline">Edit Menu</h2>
-          </button>
-          <button className="btn btn-primary " onClick={this.toggleEdit}>
-            <h2 className="d-inline">Add to Menu</h2>
-          </button>
-          {this.state.edit ? this.renderEdit() : this.renderForm()}
+    return this.props.menuItems.isRestaurantIdValid ?
+      (
+        <div>
+          <TopNav />
+          <div className="container" />
+          <div className="menuItems">
+            <button className="btn btn-primary mr-3" onClick={this.toggleEdit}>
+              <h2 className="d-inline">Edit Menu</h2>
+            </button>
+            <button className="btn btn-primary " onClick={this.toggleEdit}>
+              <h2 className="d-inline">Add to Menu</h2>
+            </button>
+            {this.state.edit ? this.renderEdit() : this.renderForm()}
+          </div>
+          <div className="category-breakfast" />
         </div>
-        <div className="category-breakfast" />
-      </div>
-    );
+      ) : (
+        <div className="container">
+          <TopNav />
+          <div className="lead">
+            <p>Verifying restaurant information...</p>
+          </div>
+        </div>
+      )
   }
 }

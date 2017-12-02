@@ -1,36 +1,63 @@
-import { types } from './MenuItemsAction';
+import { types } from './MenuItemsActions';
 
 const defaultState = {
-  menu: []
+  menuList: [],
+  menuItemList: [
+    {id: '12123', category: 'Drinks', name: 'Juice', price: 3.40, prepTime: '30'},    
+  ],
+  isRestaurantIdValid: false,
+
 };
 
 export default function menuItemsReducer(state = defaultState, action) {
   const { type, payload } = action;
   switch (type) {
+
+    case types.VERIFY_RESTAURANT_ID + '_FULFILLED': {
+      return {
+        ...state,
+        isRestaurantIdValid: payload.isValid,
+        restaurantId: payload.restaurantId
+      }
+    }
+
+    case types.GET_MENU + '_FULFILLED': {
+      return {
+        ...state,
+        menuList: payload
+      }
+    }
+
+    case types.POST_ITEM + '_PENDING': {
+      return state;
+    }
+    
     case types.POST_ITEM + '_FULFILLED': {
       if (payload) {
         return {
           ...state,
-          menu: payload.menu
+          menuItemList: [...state.menuItemList, payload]
         };
       }
     }
-    case types.POST_ITEM + '_PENDING': {
+   
+    case types.GET_ITEM + '_PENDING': {
       return state;
     }
+    
     case types.GET_ITEM + '_FULFILLED': {
       if (payload) {
-        console.log(payload);
         return {
           ...state,
           menu: [...state.menu, payload]
         };
       }
     }
-    case types.GET_ITEM + '_PENDING': {
+   
+    case types.PUT_ITEM + '_PENDING': {
       return state;
     }
-
+    
     case types.PUT_ITEM + '_FULFILLED': {
       if (payload) {
         return {
@@ -39,10 +66,7 @@ export default function menuItemsReducer(state = defaultState, action) {
         };
       }
     }
-    case types.PUT_ITEM + '_PENDING': {
-      return state;
-    }
-
+    
     case types.DELETE_ITEM + '_FULFILLED': {
       if (payload) {
         return {
@@ -51,7 +75,8 @@ export default function menuItemsReducer(state = defaultState, action) {
         };
       }
     }
-    case types.DELETE_ITEM + '_PENDING': {
+    
+    default: {
       return state;
     }
   }
