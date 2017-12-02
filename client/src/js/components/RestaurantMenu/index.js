@@ -3,6 +3,7 @@ import RestaurantMenu from "./RestaurantMenu";
 
 function mapStoreToProps(store) {
   return {
+    restaurantMenu: store.restaurantMenu
   };
 }
 
