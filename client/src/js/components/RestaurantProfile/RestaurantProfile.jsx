@@ -43,6 +43,7 @@ export default class restaurantProfile extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.addMenu = this.addMenu.bind(this);
     this.removeMenu = this.removeMenu.bind(this);
+    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -51,10 +52,9 @@ export default class restaurantProfile extends React.Component {
         document.cookie.indexOf("restaurantID=") + 13,
         24
       );
-      this.props.dispatch(getRestaurantInformation(cookieToken));    
+      this.props.dispatch(getRestaurantInformation(cookieToken));
     }
   }
-
   onInputChange(e) {
     this.setState({
       formValues: {
@@ -77,12 +77,23 @@ export default class restaurantProfile extends React.Component {
     e.preventDefault();
     this.setState({ fireRedirect: true });
   }
+  handleRemoveMenuToggle(id) {
+    this.state.toggleRemoveMenu
+      ? this.setState({ toggleRemoveMenu: false })
+      : this.setState({ toggleRemoveMenu: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleProfile: false
+    });
+    if (typeof this.props.restaurantProfile.id !== "undefined") {
+      this.props.dispatch(getMenus(this.props.restaurantProfile.id));
+    }
+  }
   handleToggle(e) {
     e.preventDefault();
     console.log(e.target);
     let current = e.target;
     if (current.id === "profileButton") {
-      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
       this.state.toggleProfile
         ? this.setState({
             toggleProfile: false
@@ -90,26 +101,9 @@ export default class restaurantProfile extends React.Component {
         : this.setState({
             toggleProfile: true
           });
-    }
-    if (current.id === "removeButton") {
-      // let rest = this.props.restaurantProfile;
-      this.setState({ toggleProfile: false, toggleAddMenu: false , toggleRemoveMenu: true });
-      // console.log(rest.menus);
-      // if (typeof rest.menus === "undefined") {
-      //   this.props.dispatch(getMenus(rest.id));
-      // } else {
-      //   this.state.toggleRemoveMenu
-      //     ? this.setState({
-      //         toggleRemoveMenu: false
-      //       })
-      //     : this.setState({
-      //         toggleRemoveMenu: true
-      //       });
-      // }
+      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
     }
     if (current.id === "addButton") {
-      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
-
       this.state.toggleAddMenu
         ? this.setState({
             toggleAddMenu: false
@@ -117,18 +111,14 @@ export default class restaurantProfile extends React.Component {
         : this.setState({
             toggleAddMenu: true
           });
+      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
     }
   }
   addMenu(e) {
     e.preventDefault();
     let menuName = document.getElementById("menuNameInput").value;
     this.props.dispatch(addMenu(this.props.restaurantProfile.id, menuName));
-    this.props.dispatch(getMenus(this.props.restaurantProfile.id));
-    this.setState({
-      toggleRemoveMenu: true,
-      toggleAddMenu: false,
-      toggleProfile: false
-    });
+    this.handleRemoveMenuToggle(this.props.restaurantProfile.id)
   }
   removeMenu(e) {
     e.preventDefault();
@@ -154,7 +144,7 @@ export default class restaurantProfile extends React.Component {
               <button
                 id="removeButton"
                 name="removeInput"
-                onClick={this.handleToggle}
+                onClick={this.handleRemoveMenuToggle}
               >
                 Remove Menu
               </button>
@@ -265,13 +255,14 @@ export default class restaurantProfile extends React.Component {
       );
     }
     if (this.state.toggleAddMenu === true) {
+      {this.handleRemoveMenuToggle}
       return (
         <div className="container-fluid">
           {profileButtonContainer}
           <div>
             <h2>Add Menu</h2>
             <p>Fill in the forms and click add to submit your new menu!</p>
-            <form onSubmit={this.addMenu}>
+            <form>
               <div className="form-group row">
                 <label htmlFor="menuName">Menu Name</label>
                 <div className="col-sm-8 col-md-6">
@@ -285,7 +276,11 @@ export default class restaurantProfile extends React.Component {
                 </div>
               </div>
               <div className="form-group row justify-content-center">
-                <button type="submit" className="btn btn-primary mx-1">
+                <button
+                  onClick={this.addMenu}
+                  type="submit"
+                  className="btn btn-primary mx-1"
+                >
                   Add Menu
                 </button>
                 <button

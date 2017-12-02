@@ -10,7 +10,7 @@
     "start": "webpack && nodemon server/server.js",
     "server-test": "nodemon server/test-server",
     "posttest": "npm run lint && nsp check",
-    "build":"webpack -w"
+    "build": "webpack -w"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -21,21 +21,17 @@
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
-    "concurrently": "^3.5.1",
     "compression": "^1.0.3",
+    "concurrently": "^3.5.1",
     "cors": "^2.5.2",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
     "helmet": "^1.3.0",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^4.0.0",
     "loopback-connector-mongodb": "^1.18.1",
     "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^2.0.0",
-    "style-loader": "^0.19.0",
-    "extract-text-webpack-plugin": "^3.0.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
@@ -44,6 +40,10 @@
     "redux-devtools": "^3.4.1",
     "redux-promise-middleware": "^5.0.0",
     "sass": "^1.0.0-beta.3",
+    "sass-loader": "^6.0.6",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^2.0.0",
+    "style-loader": "^0.19.0",
     "webpack": "^3.8.1"
   },
   "devDependencies": {

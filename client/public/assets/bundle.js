@@ -4882,15 +4882,34 @@ const getMenus = restaurantId => {
 const addMenu = (restaurantId, menuName) => {
   return {
     type: types.ADD_MENU,
-    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`, { name: menuName }).then(res => {
-      return {
-        newMenu: res.data.id
-      };
-    }).catch(console.error)
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`, { name: menuName }).then(response => {
+      return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`).then(response => {
+        return {
+          menus: response.data
+        };
+      }).catch(console.error);
+    })
   };
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = addMenu;
 
+
+// .then(response => {
+//   return {
+//     axios
+//     .get(
+//       `https://grubtoeat.herokuapp.com/api/Restaurants/${
+//         restaurantId
+//       }/menus`
+//     )
+//     .then(res => {
+//       return {
+//         menus: res.data
+//       };
+//     })
+//     .catch(console.error);
+//   }
+// )
 
 /***/ }),
 /* 68 */
@@ -28223,6 +28242,7 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     this.handleToggle = this.handleToggle.bind(this);
     this.addMenu = this.addMenu.bind(this);
     this.removeMenu = this.removeMenu.bind(this);
+    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -28231,7 +28251,6 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* getRestaurantInformation */])(cookieToken));
     }
   }
-
   onInputChange(e) {
     this.setState({
       formValues: _extends({}, this.state.formValues, {
@@ -28248,54 +28267,42 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     e.preventDefault();
     this.setState({ fireRedirect: true });
   }
+  handleRemoveMenuToggle(id) {
+    this.state.toggleRemoveMenu ? this.setState({ toggleRemoveMenu: false }) : this.setState({ toggleRemoveMenu: true });
+    this.setState({
+      toggleAddMenu: false,
+      toggleProfile: false
+    });
+    if (typeof this.props.restaurantProfile.id !== "undefined") {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantProfile.id));
+    }
+  }
   handleToggle(e) {
     e.preventDefault();
     console.log(e.target);
     let current = e.target;
     if (current.id === "profileButton") {
-      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
       this.state.toggleProfile ? this.setState({
         toggleProfile: false
       }) : this.setState({
         toggleProfile: true
       });
-    }
-    if (current.id === "removeButton") {
-      // let rest = this.props.restaurantProfile;
-      this.setState({ toggleProfile: false, toggleAddMenu: false, toggleRemoveMenu: true });
-      // console.log(rest.menus);
-      // if (typeof rest.menus === "undefined") {
-      //   this.props.dispatch(getMenus(rest.id));
-      // } else {
-      //   this.state.toggleRemoveMenu
-      //     ? this.setState({
-      //         toggleRemoveMenu: false
-      //       })
-      //     : this.setState({
-      //         toggleRemoveMenu: true
-      //       });
-      // }
+      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
     }
     if (current.id === "addButton") {
-      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
-
       this.state.toggleAddMenu ? this.setState({
         toggleAddMenu: false
       }) : this.setState({
         toggleAddMenu: true
       });
+      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
     }
   }
   addMenu(e) {
     e.preventDefault();
     let menuName = document.getElementById("menuNameInput").value;
     this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* addMenu */])(this.props.restaurantProfile.id, menuName));
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantProfile.id));
-    this.setState({
-      toggleRemoveMenu: true,
-      toggleAddMenu: false,
-      toggleProfile: false
-    });
+    this.handleRemoveMenuToggle(this.props.restaurantProfile.id);
   }
   removeMenu(e) {
     e.preventDefault();
@@ -28334,7 +28341,7 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               {
                 id: "removeButton",
                 name: "removeInput",
-                onClick: this.handleToggle
+                onClick: this.handleRemoveMenuToggle
               },
               "Remove Menu"
             ),
@@ -28482,6 +28489,9 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       );
     }
     if (this.state.toggleAddMenu === true) {
+      {
+        this.handleRemoveMenuToggle;
+      }
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
@@ -28501,7 +28511,7 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "form",
-            { onSubmit: this.addMenu },
+            null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
               { className: "form-group row" },
@@ -28527,7 +28537,11 @@ class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
               { className: "form-group row justify-content-center" },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "button",
-                { type: "submit", className: "btn btn-primary mx-1" },
+                {
+                  onClick: this.addMenu,
+                  type: "submit",
+                  className: "btn btn-primary mx-1"
+                },
                 "Add Menu"
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -29005,7 +29019,7 @@ function restaurantProfileReducer(state = defaultState, { type, payload }) {
       });
     case __WEBPACK_IMPORTED_MODULE_0__restaurantProfileActions__["e" /* types */].ADD_MENU + "_FULFILLED":
       return _extends({}, state, {
-        menus: payload.newMenus
+        menus: payload.menus
       });
     default:
       return state;
