@@ -36,7 +36,7 @@ export default function menuItemsReducer(state = defaultState, action) {
       if (payload) {
         return {
           ...state,
-          menu: payload.menu
+          menuItemList: [...state.menuItemList, payload]
         };
       }
     }

@@ -38,10 +38,9 @@ export function getMenu(restaurantId){
   }
 }
 
-export function postItem(menu) {
-  const { name, description, price, prepTime, category } = menu;
-  const menuId = '5a2080cd7e6b9d000488d0a1';
-
+//Add a menu item to the restaurant menu
+export function postItem(menuObj) {
+  const { name, description, price, menuId } = menuObj;
   return {
     type: types.POST_ITEM,
     payload: axios
@@ -49,15 +48,12 @@ export function postItem(menu) {
         name,
         description,
         price,
-        prepTime,
-        category
+        prepTime: 30
       })
       .then(res => {
-        {
-          menu: res.data;
-        }
+        return res.data;
       })
-      .catch(err => console.log(err))
+      .catch(console.error)
   };
 }
 export function getItem() {

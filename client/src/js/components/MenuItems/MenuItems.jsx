@@ -7,11 +7,9 @@ export default class MenuItems extends React.Component {
     super(props);
     this.state = {
       //was thinking of maybe utilizing this menu state for adding/deleting items?
-      menus: {},
       name: '',
       description: '',
       price: '',
-      prepTime: '',
       category: '',
       add: false,
       remove: false,
@@ -37,23 +35,25 @@ export default class MenuItems extends React.Component {
      * menuList is empty
      * valid restaurantId
      */
-    if(this.state.edit 
-      && !this.props.menuItems.menuList.length 
-      && this.props.menuItems.isRestaurantIdValid){
+    if (this.state.edit
+      && !this.props.menuItems.menuList.length
+      && this.props.menuItems.isRestaurantIdValid) {
       this.props.dispatch(getMenu(this.props.menuItems.restaurantId));
     };
-    //nextProps.menuItems.isRestaurantIdValid ;
   }
 
-  //Method to handle the input field change states
-  handleInputChange(key) {
-    return e => this.setState({ [key]: e.target.value });
+  //Method to handle input changes on add menu item
+  handleInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
-  //Method to add items TODO:have it add without having to to refresh the page
-  addItem() {
-    const item = { ...this.state };
-    this.props.dispatch(postItem(item));
-    alert('Your item has been added succesfully!');
+
+  //Method to add items 
+  addItem(e) {
+    e.preventDefault();
+    const { name, price, description } = this.state;
+    //Ensure that menuId (via category) contains a value
+    let menuId = ! this.state.category ? document.querySelector('#menuSelect').value : this.state.category; 
+    this.props.dispatch(postItem({ name, menuId, price, description }));
   }
   //Method to update item TODO:get it to work
   updateItem(e) {
@@ -73,59 +73,62 @@ export default class MenuItems extends React.Component {
   //renders the form to input items TODO
   renderForm() {
     return (
-      <form className="item-wrapper">
+      <form className="item-wrapper" onSubmit={this.addItem}>
         <div className="form-group">
           <label htmlFor="menuSelect">Menu Item Category</label>
           {
             !!this.props.menuItems.menuList.length ? (
               <select id="menuSelect"
-                className="form-control">
-                { this.props.menuItems.menuList.map(menuItem =>(
-                  <option value={menuItem.id}>{menuItem.name}</option>
-                )) }
+                name="category"
+                className="form-control"
+                onChange={this.handleInputChange}
+                defaultValue={this.props.menuItems.menuList[0].id}>
+                {this.props.menuItems.menuList.map(menuItem => (
+                  <option key={menuItem.id} value={menuItem.id}>{menuItem.name}</option>
+                ))}
               </select>
             ) : (
-            <select id="menuSelect"
-            className="form-control"
-            disabled>
-            <option>Finding restaurant menu(s)...</option>
-            </select>
-          )}
+                <select id="menuSelect" className="form-control" disabled>
+                  <option>Finding restaurant menu(s)...</option>
+                </select>
+              )}
           <small className="form-text text-muted">
-            You can edit your menu <a href="#/restaurant">here</a>
+            You can add/edit your active menu <a href="#/restaurant">here</a>
           </small>
         </div>
         <div className="form-group">
           <label htmlFor="item-name" /> Menu Item Name
           <input
             id="item-name"
+            name="name"
             className="item-name form-control"
             value={this.state.name}
-            onChange={this.handleInputChange('name')}
-          />
+            onChange={this.handleInputChange}
+            required/>
         </div>
         <div className="form-group">
           <label htmlFor="item-price" /> Price
           <input
+            type="number"
             id="item-price"
+            name="price"
             className="item-price form-control"
             value={this.state.price}
-            onChange={this.handleInputChange('price')}
-          />
+            onChange={this.handleInputChange}
+            required/>
         </div>
         <div className="form-group">
           <label htmlFor="item-desc" /> Menu Item Description
           <textarea
             id="item-desc"
+            name="description"
             className="item-desc form-control"
             value={this.state.description}
-            onChange={this.handleInputChange('description')}
-          />
+            onChange={this.handleInputChange}/>
         </div>
         <button
           type="text"
-          className="add btn btn-primary btn-block"
-          onClick={this.addItem}>
+          className="add btn btn-primary btn-block">
           Add
         </button>
       </form>
@@ -151,7 +154,7 @@ export default class MenuItems extends React.Component {
                     <div className="card-text w-100">
                       <div className="item-name w-25" />Item Name: {items.name}
                     </div>
-                    <div className="item-name w-25">Price: ${items.price}</div>
+                    <div className="item-name w-25">Price: ${items.price.toFixed(2)}</div>
                     <div className="item-name w-25">
                       Prep Time: {items.prepTime}min
                     </div>
@@ -159,15 +162,13 @@ export default class MenuItems extends React.Component {
                   <button
                     type="button"
                     className="btn btn-primary "
-                    onClick={this.removeItem}
-                  >
+                    onClick={this.removeItem}>
                     Delete
                   </button>
                   <button
                     type="button"
                     className="btn btn-primary "
-                    onClick={this.updateItem}
-                  >
+                    onClick={this.updateItem}>
                     Edit
                   </button>
                 </div>
