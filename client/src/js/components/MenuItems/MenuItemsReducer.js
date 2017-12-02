@@ -2,9 +2,7 @@ import { types } from './MenuItemsActions';
 
 const defaultState = {
   menuList: [],
-  menuItemList: [
-    {id: '12123', category: 'Drinks', name: 'Juice', price: 3.40, prepTime: '30'},    
-  ],
+  menuItemList: [],
   isRestaurantIdValid: false,
 
 };
@@ -28,10 +26,6 @@ export default function menuItemsReducer(state = defaultState, action) {
       }
     }
 
-    case types.POST_ITEM + '_PENDING': {
-      return state;
-    }
-    
     case types.POST_ITEM + '_FULFILLED': {
       if (payload) {
         return {
@@ -40,16 +34,12 @@ export default function menuItemsReducer(state = defaultState, action) {
         };
       }
     }
-   
-    case types.GET_ITEM + '_PENDING': {
-      return state;
-    }
-    
+
     case types.GET_ITEM + '_FULFILLED': {
       if (payload) {
         return {
           ...state,
-          menu: [...state.menu, payload]
+          menuItemList: [...state.menuItemList, ...payload]
         };
       }
     }
@@ -68,10 +58,11 @@ export default function menuItemsReducer(state = defaultState, action) {
     }
     
     case types.DELETE_ITEM + '_FULFILLED': {
-      if (payload) {
+      console.log(payload);
+      if (payload.count == 1) {
         return {
           ...state,
-          menus: state.menu.filter(menu => menu.id !== payload.menuId)
+          menuItemList: state.menuItemList.filter(menuItem => menuItem.id !== payload.id)
         };
       }
     }

@@ -8,7 +8,7 @@ export const types = {
   DELETE_ITEM: 'DELETE_ITEM'
 };
 
-// Checks if logged in user has valid restaurantID 
+//Checks (via GET) if logged in user has valid restaurantID 
 export function checkRestaurantId(restaurantId){
   const userID = restaurantId.substr(restaurantId.indexOf('restaurantID=')+13, 24);
   return {
@@ -25,7 +25,7 @@ export function checkRestaurantId(restaurantId){
   }
 }
 
-// Updates current menu list for adding menu items
+//Gets the restaurant's menu list via restaurantID
 export function getMenu(restaurantId){
   return {
     type: types.GET_MENU,
@@ -38,7 +38,7 @@ export function getMenu(restaurantId){
   }
 }
 
-//Add a menu item to the restaurant menu
+//Creates a menu item to the restaurant's menu
 export function postItem(menuObj) {
   const { name, description, price, menuId } = menuObj;
   return {
@@ -56,9 +56,9 @@ export function postItem(menuObj) {
       .catch(console.error)
   };
 }
-export function getItem() {
-  const menuId = '5a2080cd7e6b9d000488d0a1';
 
+//Gets the restaurant's menu items via menuID
+export function getItem(menuId) {
   return {
     type: types.GET_ITEM,
     payload: axios
@@ -69,6 +69,7 @@ export function getItem() {
       .catch(err => console.log(err))
   };
 }
+//Updates the restaurant menu items via menu list ID's
 export function updateItem(itemId, updatedState) {
   const updateURL = encodeURI(
     `https://grubtoeat.herokuapp.com/api/MenuItems/update?where={"id":"${
@@ -83,15 +84,16 @@ export function updateItem(itemId, updatedState) {
       .catch(err => console.log(err))
   };
 }
+//Deletes selected menu item from the restaurant's menu(s)
 export function deleteItem(itemId) {
   return {
     type: types.DELETE_ITEM,
     payload: axios
       .delete(`https://grubtoeat.herokuapp.com/api/MenuItems/${itemId}`)
       .then(res => {
-        console.log(res);
         return {
-          menu: itemId
+          ...res.data,
+          id: itemId
         };
       })
       .catch(err => console.log(err))

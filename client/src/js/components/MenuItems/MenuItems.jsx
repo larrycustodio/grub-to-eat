@@ -11,16 +11,15 @@ export default class MenuItems extends React.Component {
       description: '',
       price: '',
       category: '',
-      add: false,
-      remove: false,
-      edit: true,
+      addFormEnabled: false,
+      edit: false,
       done: false
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.renderForm = this.renderForm.bind(this);
-    this.renderEdit = this.renderEdit.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
+    this.renderMenuItems = this.renderMenuItems.bind(this);
+    this.toggleAddMenuItem = this.toggleAddMenuItem.bind(this);
     this.updateItem = this.updateItem.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -31,15 +30,19 @@ export default class MenuItems extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     /* Dispatch a change if:
-     * Add menu form is visible (this.state.edit true 
      * menuList is empty
      * valid restaurantId
      */
-    if (this.state.edit
-      && !this.props.menuItems.menuList.length
-      && this.props.menuItems.isRestaurantIdValid) {
-      this.props.dispatch(getMenu(this.props.menuItems.restaurantId));
+    if (!this.props.menuItems.menuList.length
+      && nextProps.menuItems.isRestaurantIdValid) {
+      this.props.dispatch(getMenu(nextProps.menuItems.restaurantId));
     };
+    if (!this.props.menuItems.menuList.length
+      && !!nextProps.menuItems.menuList.length) {
+      for (let menuList of nextProps.menuItems.menuList) {
+        this.props.dispatch(getItem(menuList.id));
+      }
+    }
   }
 
   //Method to handle input changes on add menu item
@@ -47,27 +50,27 @@ export default class MenuItems extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  //Toggles between the input form and the actual list of items
+  toggleAddMenuItem() {
+    this.setState({ addFormEnabled: !this.state.addFormEnabled });
+  }
+
   //Method to add items 
   addItem(e) {
     e.preventDefault();
     const { name, price, description } = this.state;
     //Ensure that menuId (via category) contains a value
-    let menuId = ! this.state.category ? document.querySelector('#menuSelect').value : this.state.category; 
+    let menuId = !this.state.category ? document.querySelector('#menuSelect').value : this.state.category;
     this.props.dispatch(postItem({ name, menuId, price, description }));
   }
   //Method to update item TODO:get it to work
   updateItem(e) {
     this.props.dispatch(updateItem(e.target.parentNode.id, { ...state }));
   }
-  //Toggles between the input form and the actual list of items
-  toggleEdit() {
-    this.setState({ edit: !this.state.edit });
-  }
 
   //removes item TODO
   removeItem(e) {
-    this.props.dispatch(deleteItem(e.target.parentNode.id));
-    console.log('remove');
+    this.props.dispatch(deleteItem(e.target.dataset.refId));
   }
 
   //renders the form to input items TODO
@@ -104,7 +107,7 @@ export default class MenuItems extends React.Component {
             className="item-name form-control"
             value={this.state.name}
             onChange={this.handleInputChange}
-            required/>
+            required />
         </div>
         <div className="form-group">
           <label htmlFor="item-price" /> Price
@@ -115,7 +118,7 @@ export default class MenuItems extends React.Component {
             className="item-price form-control"
             value={this.state.price}
             onChange={this.handleInputChange}
-            required/>
+            required />
         </div>
         <div className="form-group">
           <label htmlFor="item-desc" /> Menu Item Description
@@ -124,7 +127,7 @@ export default class MenuItems extends React.Component {
             name="description"
             className="item-desc form-control"
             value={this.state.description}
-            onChange={this.handleInputChange}/>
+            onChange={this.handleInputChange} />
         </div>
         <button
           type="text"
@@ -134,54 +137,43 @@ export default class MenuItems extends React.Component {
       </form>
     );
   }
-  //renders the list of items, maybe I should rename this method?
-  renderEdit() {
-    let counter = 0;
-    const menuItem = this.props.menuItems.menuItemList;
+  //renders the list of menu items
+  renderMenuItems() {
     return (
       // Current list of restaurant menu items
-      <div>
-        <div id="accordion" role="tablist">
-          {!!menuItem ? (
-            menuItem.map(items => {
-              counter++;
-              return (
-                <div key={items.id} id={items.id} className="card">
-                  <div className="card-body">
-                    <div className="card-title">
-                      <h5>Category: {items.category}</h5>
+      <div className="row">
+        {!!this.props.menuItems.menuItemList.length ? (
+          this.props.menuItems.menuItemList.map((menuItem,menuItemIndex) => {
+            const menuIndex = this.props.menuItems.menuList.findIndex(menuList => menuList.id == menuItem.menuId);
+            return (
+              <div key={menuItem.id}
+                className="col-sm-12 col-md-6 my-2">
+                <div className="card">
+                  <div className="card-body d-flex">
+                    <div className="card-text">
+                      <h3 className="text-dark">{menuItem.name}</h3>
+                      <small>{menuIndex > -1 ? this.props.menuItems.menuList[menuIndex].name.toUpperCase() : 'MISC'}</small>
                     </div>
-                    <div className="card-text w-100">
-                      <div className="item-name w-25" />Item Name: {items.name}
-                    </div>
-                    <div className="item-name w-25">Price: ${items.price.toFixed(2)}</div>
-                    <div className="item-name w-25">
-                      Prep Time: {items.prepTime}min
-                    </div>
+                    <div className="ml-auto">Price: ${menuItem.price.toFixed(2)}</div>
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.removeItem}
+                      data-ref-id={menuItem.id}>
+                      Delete
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="btn btn-primary "
-                    onClick={this.removeItem}>
-                    Delete
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary "
-                    onClick={this.updateItem}>
-                    Edit
-                  </button>
                 </div>
-              );
-            })
-          ) : (
-              //Return if restaurant's menu items are empty
-              <div className='lead'>
-                To add a menu item, click on 'Add to Menu' button!
               </div>
-            )
-          }
-        </div>
+            );
+          })
+        ) : (
+            //Return if restaurant's menu items are empty
+            <div className='lead'>
+              <p>It looks like you got an empty menu!</p>
+              <p>To add a menu item, click on 'Add to Menu' button!</p>
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -192,13 +184,12 @@ export default class MenuItems extends React.Component {
           <TopNav />
           <div className="container" />
           <div className="menuItems">
-            <button className="btn btn-primary mr-3" onClick={this.toggleEdit}>
-              <h2 className="d-inline">Edit Menu</h2>
+            <div className="display-4 text-center">Edit Menu</div>
+            <button className="btn btn-primary " onClick={this.toggleAddMenuItem}>
+              Add to Menu
             </button>
-            <button className="btn btn-primary " onClick={this.toggleEdit}>
-              <h2 className="d-inline">Add to Menu</h2>
-            </button>
-            {this.state.edit ? this.renderEdit() : this.renderForm()}
+            {this.renderMenuItems()}
+            {this.state.addFormEnabled ? this.renderForm() : <div />}
           </div>
           <div className="category-breakfast" />
         </div>
