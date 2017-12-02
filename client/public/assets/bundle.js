@@ -28182,7 +28182,7 @@ class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 function mapStoreToProps(store) {
   return {
-    restaurantInfo: store.restaurantProfile
+    restaurantProfile: store.restaurantProfile
   };
 }
 
@@ -28205,7 +28205,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+class restaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
 
@@ -28231,6 +28231,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["c" /* getRestaurantInformation */])(cookieToken));
     }
   }
+
   onInputChange(e) {
     this.setState({
       formValues: _extends({}, this.state.formValues, {
@@ -28240,7 +28241,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["f" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantInfo.id));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["f" /* updateRestaurantInformation */])(this.state.formValues, this.props.restaurantProfile.id));
     this.setState({ fireRedirect: true });
   }
   handleCancel(e) {
@@ -28248,164 +28249,120 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     this.setState({ fireRedirect: true });
   }
   handleToggle(e) {
+    e.preventDefault();
     console.log(e.target);
     let current = e.target;
-    if (current.id === "profileRadio") {
-      if (current.checked === true) {
-        current.checked = false;
-      } else {
-        current.checked = true;
-      }
-      this.state.toggleProfile ? this.setState({ toggleProfile: false }) : this.setState({ toggleProfile: true });
+    if (current.id === "profileButton") {
+      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
+      this.state.toggleProfile ? this.setState({
+        toggleProfile: false
+      }) : this.setState({
+        toggleProfile: true
+      });
     }
+    if (current.id === "removeButton") {
+      // let rest = this.props.restaurantProfile;
+      this.setState({ toggleProfile: false, toggleAddMenu: false, toggleRemoveMenu: true });
+      // console.log(rest.menus);
+      // if (typeof rest.menus === "undefined") {
+      //   this.props.dispatch(getMenus(rest.id));
+      // } else {
+      //   this.state.toggleRemoveMenu
+      //     ? this.setState({
+      //         toggleRemoveMenu: false
+      //       })
+      //     : this.setState({
+      //         toggleRemoveMenu: true
+      //       });
+      // }
+    }
+    if (current.id === "addButton") {
+      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
 
-    // if (currentId === "profileRadio") {
-    //   console.log(current);
-    //   current = currentId;
-    //   this.state.toggleProfile
-    //     ? this.setState({ toggleProfile: false })
-    //     : this.setState({ toggleProfile: true });
-    //   this.setState({
-    //     toggleAddMenu: false,
-    //     toggleRemoveMenu: false
-    //   });
-    // }
-
-    // if (currentId === "removeRadio") {
-    //   current = currentId;
-    //   this.state.toggleRemoveMenu
-    //     ? this.setState({ toggleRemoveMenu: false })
-    //     : this.setState({ toggleRemoveMenu: true });
-    //   this.setState({
-    //     toggleProfile: false,
-    //     toggleAddMenu: false
-    //   });
-    // }
-    // if (currentId === "addRadio") {
-    //   current = currentId;
-    //   this.state.toggleAddMenu
-    //     ? this.setState({ toggleAddMenu: false })
-    //     : this.setState({ toggleAddMenu: true });
-    //   this.setState({
-    //     toggleProfile: false,
-    //     toggleRemoveMenu: false
-    //   });
-    // }
-    // // handleToggle
-    // this.state.toggleProfile
-    //   ? this.setState({ toggleProfile: false })
-    //   : this.setState({ toggleProfile: true });
-    // this.setState({
-    //   toggleAddMenu: false,
-    //   toggleRemoveMenu: false
-    // });
-    // // handleAddToggle
-    // this.state.toggleAddMenu
-    //   ? this.setState({ toggleAddMenu: false })
-    //   : this.setState({ toggleAddMenu: true });
-    // this.setState({
-    //   toggleRemoveMenu: false,
-    //   toggleProfile: false
-    // });
-    // // handleRemoveToggle
-    // this.state.toggleRemoveMenu
-    //   ? this.setState({ toggleRemoveMenu: false })
-    //   : this.setState({ toggleRemoveMenu: true });
-    // this.setState({
-    //   toggleAddMenu: false,
-    //   toggleProfile: false
-    // });
-    // if (typeof this.props.restaurantInfo.id !== "undefined") {
-    //   this.props.dispatch(getMenus(this.props.restaurantInfo.id));
-    // }
+      this.state.toggleAddMenu ? this.setState({
+        toggleAddMenu: false
+      }) : this.setState({
+        toggleAddMenu: true
+      });
+    }
   }
   addMenu(e) {
     e.preventDefault();
     let menuName = document.getElementById("menuNameInput").value;
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* addMenu */])(this.props.restaurantInfo.id, menuName));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["a" /* addMenu */])(this.props.restaurantProfile.id, menuName));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantProfile.id));
     this.setState({
       toggleRemoveMenu: true,
       toggleAddMenu: false,
       toggleProfile: false
     });
-    if (typeof this.props.restaurantInfo.id !== "undefined") {
-      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["b" /* getMenus */])(this.props.restaurantInfo.id));
-    }
   }
   removeMenu(e) {
-    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["d" /* removeMenu */])(e.target.id, this.props.restaurantInfo.id));
+    e.preventDefault();
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_3__restaurantProfileActions__["d" /* removeMenu */])(e.target.id, this.props.restaurantProfile.id));
   }
   render() {
+    let profileButtonContainer = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "button-container" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "h1",
+        { className: "display-4 text-center'" },
+        "Restaurant"
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "form",
+        { role: "form" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "row" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "col-sm-3 text-center" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                id: "profileButton",
+                name: "profileInput",
+                onClick: this.handleToggle
+              },
+              "Profile"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                id: "removeButton",
+                name: "removeInput",
+                onClick: this.handleToggle
+              },
+              "Remove Menu"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                id: "addButton",
+                name: "addInput",
+                onClick: this.handleToggle
+              },
+              "Add Menu"
+            )
+          )
+        )
+      )
+    );
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
       return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "h1",
-          { className: "display-4 text-center'" },
-          "Restaurant"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "row" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "col-sm-12" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "form",
-              { role: "form" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "row" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "col-sm-3 text-center" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { htmlFor: "profile" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                      type: "radio",
-                      id: "profileRadio",
-                      name: "profileInput",
-                      onClick: this.handleToggle
-                    }),
-                    "profile"
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { htmlFor: "remove" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                      type: "radio",
-                      id: "removeRadio",
-                      name: "removeInput",
-                      onClick: this.handleToggle
-                    }),
-                    "remove menu"
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "label",
-                    { htmlFor: "add" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                      type: "radio",
-                      id: "addRadio",
-                      name: "addInput",
-                      onChange: this.handleToggle
-                    }),
-                    "add menu"
-                  )
-                )
-              )
-            )
-          )
-        ),
+        profileButtonContainer,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "form",
           { onSubmit: this.onSubmit },
           // Creates form inputs for each entry in this.state.formFields
-          // Prefills the input values with the restaurantInfo store retrieved
+          // Prefills the input values with the restaurantProfile store retrieved
           this.state.formFields.map(formField => {
             const { name, label, inputType } = formField;
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -28424,7 +28381,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
                   id: name,
                   name: "profileInput",
                   className: "form-control",
-                  placeholder: this.props.restaurantInfo[name],
+                  placeholder: this.props.restaurantProfile[name],
                   onChange: this.onInputChange
                 })
               )
@@ -28469,61 +28426,11 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
         )
       );
     }
-    if (this.state.toggleRemoveMenu === true && typeof this.props.restaurantInfo.menus !== "undefined") {
+    if (this.state.toggleRemoveMenu === true && typeof this.props.restaurantProfile.menus !== "undefined") {
       return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "h1",
-          { className: "display-4 text-center'" },
-          "Restaurant"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "form",
-          { role: "form" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "row" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "col-sm-3 text-center" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "profile" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "profileRadio",
-                  name: "profileInput",
-                  onClick: this.handleToggle
-                }),
-                "profile"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "remove" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "removeRadio",
-                  name: "removeInput",
-                  onClick: this.handleToggle
-                }),
-                "remove menu"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "add" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "addRadio",
-                  name: "addInput",
-                  onChange: this.handleToggle
-                }),
-                "add menu"
-              )
-            )
-          )
-        ),
+        profileButtonContainer,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           null,
@@ -28537,7 +28444,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
             null,
             "Check a menu to remove it or click the add menu button to add a new one!"
           ),
-          this.props.restaurantInfo.menus.map(menu => {
+          this.props.restaurantProfile.menus.map(menu => {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               "div",
               { className: "row", key: menu.id },
@@ -28578,57 +28485,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { className: "container-fluid" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "h1",
-          { className: "display-4 text-center'" },
-          "Restaurant"
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "form",
-          { role: "form" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "row" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "col-sm-3 text-center" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "profile" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "profileRadio",
-                  name: "profileInput",
-                  onClick: this.handleToggle
-                }),
-                "profile"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "remove" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "removeRadio",
-                  name: "removeInput",
-                  onClick: this.handleToggle
-                }),
-                "remove menu"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { htmlFor: "add" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                  type: "radio",
-                  id: "addRadio",
-                  name: "addInput",
-                  onChange: this.handleToggle
-                }),
-                "add menu"
-              )
-            )
-          )
-        ),
+        profileButtonContainer,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           null,
@@ -28688,61 +28545,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
         )
       );
     }
-    return !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      { className: "container-fluid" },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TopNav__["a" /* default */], null),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "h1",
-        { className: "display-4 text-center'" },
-        "Restaurant"
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "form",
-        { role: "form" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "row" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "col-sm-3 text-center" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "label",
-              { htmlFor: "profile" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                type: "radio",
-                id: "profileRadio",
-                name: "profileInput",
-                onClick: this.handleToggle
-              }),
-              "profile"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "label",
-              { htmlFor: "remove" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                type: "radio",
-                id: "removeRadio",
-                name: "removeInput",
-                onClick: this.handleToggle
-              }),
-              "remove menu"
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "label",
-              { htmlFor: "add" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                type: "radio",
-                id: "addRadio",
-                name: "addInput",
-                onChange: this.handleToggle
-              }),
-              "add menu"
-            )
-          )
-        )
-      )
-    ) :
+    return !!document.cookie ? profileButtonContainer :
     // Returns a redirect link for restaurant log in if no log in is detected
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
@@ -28762,7 +28565,7 @@ class RestaurantProfile extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Co
     );
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantProfile;
+/* harmony export (immutable) */ __webpack_exports__["a"] = restaurantProfile;
 
 
 /***/ }),
