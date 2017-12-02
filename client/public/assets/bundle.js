@@ -4716,6 +4716,9 @@ function fetchCustomer(customerInfo) {
     }).then(res => {
       const { id, userId, ttl } = res.data;
       if (res.status === 200) {
+        document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = `token=${id}; max-age=${ttl}`;
         document.cookie = `customerID=${userId}; max-age=${ttl}`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Customers/${userId}`).then(res => {
@@ -4757,6 +4760,9 @@ function fetchRestaurant(customerInfo) {
     }).then(res => {
       const { id, userId, ttl } = res.data;
       if (res.status === 200) {
+        document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = `token=${id}; max-age=${ttl}`;
         document.cookie = `restaurantID=${userId}; max-age=${ttl}`;
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userId}`).then(res => {
@@ -4822,11 +4828,11 @@ const getRestaurantList = searchParams => {
 
 
 const types = {
-  GET_RESTAURANT_INFORMATION: "GET_RESTAURANT_INFORMATION",
-  UPDATE_RESTAURANT_INFORMATION: "UPDATE_RESTAURANT_INFORMATION",
-  GET_MENUS: "GET_MENUS",
-  REMOVE_MENU: "REMOVE_MENU",
-  ADD_MENU: "ADD_MENU"
+  GET_RESTAURANT_INFORMATION: 'GET_RESTAURANT_INFORMATION',
+  UPDATE_RESTAURANT_INFORMATION: 'UPDATE_RESTAURANT_INFORMATION',
+  GET_MENUS: 'GET_MENUS',
+  REMOVE_MENU: 'REMOVE_MENU',
+  ADD_MENU: 'ADD_MENU'
 };
 /* harmony export (immutable) */ __webpack_exports__["e"] = types;
 
@@ -4843,12 +4849,12 @@ const getRestaurantInformation = restaurantId => {
 
 // Sets payload to return edited restaurant information
 const updateRestaurantInformation = (inputBody, restaurantId) => {
-  const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Restaurants/update?where={"id":"${restaurantId}"}`).replace(/%22:/g, "%22%3A");
+  const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/Restaurants/update?where={"id":"${restaurantId}"}`).replace(/%22:/g, '%22%3A');
   return {
     type: types.UPDATE_RESTAURANT_INFORMATION,
     payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(updateURL, inputBody).then(res => {
       if (res.status == 200) getRestaurantInformation(restaurantId);
-      alert("Restaurant information saved!");
+      alert('Restaurant information saved!');
     }).catch(console.error)
   };
 };
@@ -4857,11 +4863,11 @@ const updateRestaurantInformation = (inputBody, restaurantId) => {
 const removeMenu = id => {
   return {
     type: types.REMOVE_MENU,
-    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete("https://grubtoeat.herokuapp.com/api/Menus/" + id).then(res => {
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('https://grubtoeat.herokuapp.com/api/Menus/' + id).then(res => {
       return {
         menuId: id
       };
-      console.log("Removed the menu!", res);
+      console.log('Removed the menu!', res);
     })
   };
 };
@@ -4893,23 +4899,6 @@ const addMenu = (restaurantId, menuName) => {
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = addMenu;
 
-
-// .then(response => {
-//   return {
-//     axios
-//     .get(
-//       `https://grubtoeat.herokuapp.com/api/Restaurants/${
-//         restaurantId
-//       }/menus`
-//     )
-//     .then(res => {
-//       return {
-//         menus: res.data
-//       };
-//     })
-//     .catch(console.error);
-//   }
-// )
 
 /***/ }),
 /* 68 */
@@ -24058,9 +24047,13 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_redux__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_axios__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_MenuItems__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_OrderCart__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_axios__);
+
+
 
 
 
@@ -24087,9 +24080,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Login__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/results', component: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/edit', component: __WEBPACK_IMPORTED_MODULE_8__components_MenuItems__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/menu/:restaurantId', component: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantMenu__["a" /* default */] }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/user', component: __WEBPACK_IMPORTED_MODULE_7__components_UserProfile__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/restaurant', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/restaurant', component: __WEBPACK_IMPORTED_MODULE_6__components_RestaurantProfile__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/cart', component: __WEBPACK_IMPORTED_MODULE_9__components_OrderCart__["a" /* default */] })
       )
     );
   }
@@ -24101,7 +24096,7 @@ function mapStoreToProps(store) {
   };
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_8_react_redux__["b" /* connect */])(mapStoreToProps)(App));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_10_react_redux__["b" /* connect */])(mapStoreToProps)(App));
 
 /***/ }),
 /* 109 */
@@ -27759,45 +27754,64 @@ module.exports = function spread(callback) {
 
 
 class TopNav extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.logoutHandler = this.logoutHandler.bind(this);
+  }
+
+  logoutHandler() {
+    console.log('logging out');
+    document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'customerID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.reload(true);
+  }
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "nav",
-      { className: "navbar navbar-toggleable-md navbar-dark bg-dark fixed-top" },
+      'nav',
+      { className: 'navbar navbar-toggleable-md navbar-dark bg-dark fixed-top' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "brand-wrapper" },
+        'div',
+        { className: 'brand-wrapper' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "a",
-          { href: "#", className: "navbar-center text-white" },
-          "Grub To Eat"
+          'a',
+          { href: '#', className: 'navbar-center text-white' },
+          'Grub To Eat'
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        { className: "login" },
+        'div',
+        { className: 'login' },
         // Looks for login cookies to determine login user type
         !!document.cookie ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
+          'span',
           null,
           document.cookie.indexOf("restaurantID") > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/restaurant", className: "mx-1 text-white" },
-            "Hello Owner"
+            'a',
+            { href: '#/restaurant', className: 'mx-1 text-white' },
+            'Hello Owner'
           ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/user", className: "mx-1 text-white" },
-            "Hi Person"
+            'a',
+            { href: '#/user', className: 'mx-1 text-white' },
+            'Hi Person'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "a",
-            { href: "#/", className: "mx-1 text-white" },
-            "Logout"
+            'a',
+            { href: '#/',
+              onClick: this.logoutHandler,
+              className: 'mx-1 text-white' },
+            'Logout'
           )
         ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "a",
-          { href: "#/login", className: "mx-1 text-white" },
-          "Log In"
+          'a',
+          { href: '#/login', className: 'mx-1 text-white' },
+          'Log In'
         )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { href: '#/cart', className: 'user-cart text-white' },
+        'MY CART(0)'
       )
     );
   }
@@ -28049,7 +28063,9 @@ const LoadingSearch = props => __WEBPACK_IMPORTED_MODULE_0_react___default.a.cre
 
 
 function mapStoreToProps(store) {
-  return {};
+  return {
+    restaurantMenu: store.restaurantMenu
+  };
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__RestaurantMenu__["a" /* default */]));
@@ -28062,9 +28078,9 @@ function mapStoreToProps(store) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__restaurantMenuActions__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_axios__);
 
 
 
@@ -28073,114 +28089,127 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 class RestaurantMenu extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(props) {
     super(props);
-
     this.state = {
-      menu: [],
-      menuItems: [],
-      isRestaurantLoaded: false,
-      isMenuLoaded: false
+      isMenuItemToggled: false,
+      orderQuantity: 1
     };
+    this.menuItemClickHandler = this.menuItemClickHandler.bind(this);
   }
 
   componentWillMount() {
     const restaurantId = this.props.match.params.restaurantId;
-    const url = 'https://grubtoeat.herokuapp.com/api';
-    __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Restaurants/${restaurantId}`).then(res => {
-      this.setState(_extends({}, res.data, {
-        isRestaurantLoaded: true
-      }));
-      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Restaurants/${restaurantId}/menus`).then(menuSuccess => {
-        this.setState(_extends({}, this.state, {
-          menu: menuSuccess.data,
-          isMenuLoaded: true
-        }));
-        menuSuccess.data.forEach(menuCategory => {
-          console.log('finding menu item');
-          __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(`${url}/Menus/${menuCategory.id}/menuItems`).then(menuItemSuccess => {
-            this.setState(_extends({}, this.state, {
-              menuItems: [...this.state.menuItems, menuItemSuccess.data]
-            }));
-          }).catch(console.error);
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__restaurantMenuActions__["a" /* getRestaurantInfo */])(restaurantId));
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__restaurantMenuActions__["b" /* getRestaurantMenu */])(restaurantId));
+  }
+
+  // Called when a re-render is required, i.e. this.setState() to access props.restaurantMenu updates
+  componentWillUpdate(nextProps, nextState) {
+    // Dispatch to get restaurant menu items once the menus are loaded to store
+    if (this.props.restaurantMenu.menu !== nextProps.restaurantMenu.menu) {
+      if (!!nextProps.restaurantMenu.menu.length) {
+        nextProps.restaurantMenu.menu.forEach(menu => {
+          if (menu.items.length === 0) this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__restaurantMenuActions__["c" /* getRestaurantMenuItems */])(menu.id));
         });
-      }).catch(console.error);
-    }).catch(console.error);
+      }
+    }
+  }
+
+  menuItemClickHandler() {}
+
+  // Restaurant Header Container
+  restaurantHeader(restaurantInfo) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'bg-light p-3 text-dark' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h1',
+        { className: 'order-menu__restaurant-name' },
+        restaurantInfo.restaurantName
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        { className: 'order-menu__restaurant-tagline' },
+        restaurantInfo.description
+      )
+    );
+  }
+
+  // Menu item container
+  menuItemContainer(menuItem) {
+    const isMenuItemSelected = false;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { key: menuItem.id,
+        onClick: this.menuItemClickHandler,
+        className: 'col-sm-12 col-md-6' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'card my-1' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'card-body d-flex' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            { className: 'text-dark' },
+            menuItem.name
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            { className: 'ml-auto text-info' },
+            `$${menuItem.price}`
+          )
+        )
+      )
+    );
   }
 
   render() {
-    console.log(this.state);
+    const menuInfo = this.props.restaurantMenu;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      { className: "container-fluid" },
+      'div',
+      { className: 'container-fluid' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
-      this.state.isRestaurantLoaded ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "main",
-        { className: "main" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "jumbotron" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "h1",
-            { className: "display-4" },
-            this.state.restaurantName
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "div",
-          { className: "container" },
-          this.state.menu.map((menuCategory, menuIndex) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { key: menuCategory.id },
+      // Determine if the restaurant name from getRestaurantInfo action is fulfilled
+      menuInfo.isRestaurantLoaded ? // Header to display restaurant name + description
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'main',
+        { className: 'main' },
+        this.restaurantHeader(menuInfo.restaurantInfo),
+        menuInfo.isMenuLoaded && menuInfo.menu.length > 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'order-menu__restaurant-menu' },
+          menuInfo.menu.map((menu, index) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { key: menu.name,
+              className: 'menu-item' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "h1",
-              { className: "my-2" },
-              menuCategory.category
+              'h3',
+              { className: 'order-menu__restaurant-menu-name m-2' },
+              menu.name
             ),
-            this.state.menu.length == this.state.menuItems.length ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "row justify-content-left" },
-              this.state.menuItems[menuIndex].map(menuItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                {
-                  key: menuItem.id,
-                  className: "col-12 col-md-6 my-2" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "card" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "div",
-                    { className: "card-body" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "h3",
-                      null,
-                      menuItem.name
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "p",
-                      { className: "text-muted" },
-                      menuItem.description || ''
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "h5",
-                      { className: "text-right" },
-                      `$${menuItem.price.toFixed(2)}`
-                    )
-                  )
-                )
-              ))
-            ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              null,
-              "Looking for menu items..."
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'row' },
+              menu.items.map(menuItem => this.menuItemContainer(menuItem))
             )
           ))
+        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'row' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'h3',
+            null,
+            'Finding menu...'
+          )
         )
-      ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "main",
-        { className: "main" },
+      ) : // Loading restaurant information
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'main',
+        { className: 'main' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "p",
-          { className: "display-4" },
-          "Finding menu..."
+          'h2',
+          null,
+          'Finding restaurant data...'
         )
       )
     );
@@ -28773,6 +28802,8 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_UserProfile_userProfileReducer__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_MenuItems_MenuItemsReducer__ = __webpack_require__(182);
+
 
 
 
@@ -28785,6 +28816,7 @@ const rootStore = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* createStore 
 const rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineReducers */])({
   login: __WEBPACK_IMPORTED_MODULE_1__components_Login_loginReducer__["a" /* default */],
   restaurantMenu: __WEBPACK_IMPORTED_MODULE_2__components_RestaurantMenu_restaurantMenuReducer__["a" /* default */],
+  menuItems: __WEBPACK_IMPORTED_MODULE_7__components_MenuItems_MenuItemsReducer__["a" /* default */],
   searchDisplay: __WEBPACK_IMPORTED_MODULE_3__components_SearchDisplay_searchDisplayReducer__["a" /* default */],
   searchResults: __WEBPACK_IMPORTED_MODULE_4__components_SearchResults_searchResultsReducer__["a" /* default */],
   restaurantProfile: __WEBPACK_IMPORTED_MODULE_5__components_RestaurantProfile_restaurantProfileReducer__["a" /* default */],
@@ -28881,14 +28913,67 @@ function LoginReducer(state = defaultState, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = LoginReducer;
+/* harmony export (immutable) */ __webpack_exports__["a"] = RestaurantMenuReducer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__ = __webpack_require__(165);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
-const defaultState = {};
 
-function LoginReducer(state = defaultState, action) {
-  return defaultState;
+const defaultState = {
+    //Data structure for restaurant menu
+    restaurantInfo: {
+        restaurantName: '',
+        description: '',
+        id: ''
+    },
+    menu: [{
+        name: '',
+        items: []
+    }],
+    isRestaurantLoaded: false,
+    isMenuLoaded: false
+};
+
+function RestaurantMenuReducer(state = defaultState, action) {
+    const { type, payload } = action;
+    switch (type) {
+        // Getting restaurant profile metadata fulfilled
+        case __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__["d" /* types */].GET_RESTAURANT_INFO + '_FULFILLED':
+            {
+                return _extends({}, state, {
+                    restaurantInfo: payload,
+                    isRestaurantLoaded: true
+                });
+            }
+        //Getting restaurant menu metadata fulfilled
+        case __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__["d" /* types */].GET_RESTAURANT_MENU + '_FULFILLED':
+            {
+                // Modifies menu reducer 
+                const modifiedPayload = payload.map(menu => {
+                    const { name, id } = menu;
+                    return { name, id, items: [] };
+                });
+                return _extends({}, state, {
+                    menu: modifiedPayload,
+                    isMenuLoaded: true
+                });
+            }
+        //Pushes menu items to the appropriate menu item
+        case __WEBPACK_IMPORTED_MODULE_0__restaurantMenuActions__["d" /* types */].GET_MENU_ITEMS + '_FULFILLED':
+            {
+                // Find in which menu will be menu items will be added
+                const menuListIndex = state.menu.findIndex(menuList => menuList.id == payload[0].menuId);
+                if (menuListIndex == -1) return state;
+                state.menu[menuListIndex].items = payload;
+                return _extends({}, state);
+            }
+        //On default
+        default:
+            {
+                return state;
+            }
+    }
+    return defaultState;
 }
 
 /***/ }),
@@ -28896,8 +28981,54 @@ function LoginReducer(state = defaultState, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const types = {};
-/* unused harmony export types */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+const types = {
+    GET_RESTAURANT_INFO: "GET_RESTAURANT_INFO",
+    GET_RESTAURANT_MENU: "GET_RESTAURANT_MENU",
+    GET_MENU_ITEMS: "GET_MENU_ITEMS"
+};
+/* harmony export (immutable) */ __webpack_exports__["d"] = types;
+
+
+// Sets payload to up-to-date restaurant information
+const getRestaurantInfo = restaurantId => {
+    return {
+        type: types.GET_RESTAURANT_INFO,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}`).then(res => {
+            const { restaurantName, id, description, featuredImage } = res.data;
+            return { restaurantName, id, description, featuredImage };
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = getRestaurantInfo;
+
+
+// Sets payload to get menu information
+const getRestaurantMenu = restaurantId => {
+    return {
+        type: types.GET_RESTAURANT_MENU,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/Menus`).then(res => {
+            // Dispatch the action for grabbing the menu items for each menu category
+            return res.data;
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = getRestaurantMenu;
+
+
+//Sets payload to get menu items
+const getRestaurantMenuItems = menuId => {
+    return {
+        type: types.GET_MENU_ITEMS,
+        payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`).then(res => {
+            return res.data;
+        }).catch(console.error)
+    };
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = getRestaurantMenuItems;
 
 
 /***/ }),
@@ -29292,6 +29423,552 @@ function isPromise(value) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = checkRestaurantId;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getMenu;
+/* harmony export (immutable) */ __webpack_exports__["e"] = postItem;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getItem;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateItem;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteItem;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+const types = {
+  VERIFY_RESTAURANT_ID: 'VERIFY_RESTAURANT_ID',
+  GET_MENU: 'GET_MENU',
+  POST_ITEM: 'POST_ITEM',
+  GET_ITEM: 'GET_ITEM',
+  PUT_ITEM: 'PUT_ITEM',
+  DELETE_ITEM: 'DELETE_ITEM'
+};
+/* harmony export (immutable) */ __webpack_exports__["f"] = types;
+
+
+//Checks (via GET) if logged in user has valid restaurantID 
+function checkRestaurantId(restaurantId) {
+  const userID = restaurantId.substr(restaurantId.indexOf('restaurantID=') + 13, 24);
+  return {
+    type: types.VERIFY_RESTAURANT_ID,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${userID}`).then(res => {
+      return {
+        isValid: res.status == 200,
+        restaurantId: res.data.id
+      };
+    }).catch(console.error)
+  };
+}
+
+//Gets the restaurant's menu list via restaurantID
+function getMenu(restaurantId) {
+  return {
+    type: types.GET_MENU,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`).then(res => {
+      return res.data;
+    }).catch(console.error)
+  };
+}
+
+//Creates a menu item to the restaurant's menu
+function postItem(menuObj) {
+  const { name, description, price, menuId } = menuObj;
+  return {
+    type: types.POST_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`, {
+      name,
+      description,
+      price,
+      prepTime: 30
+    }).then(res => {
+      return res.data;
+    }).catch(console.error)
+  };
+}
+
+//Gets the restaurant's menu items via menuID
+function getItem(menuId) {
+  return {
+    type: types.GET_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(`https://grubtoeat.herokuapp.com/api/Menus/${menuId}/menuItems`).then(res => {
+      return res.data;
+    }).catch(err => console.log(err))
+  };
+}
+//Updates the restaurant menu items via menu list ID's
+function updateItem(itemId, updatedState) {
+  const updateURL = encodeURI(`https://grubtoeat.herokuapp.com/api/MenuItems/update?where={"id":"${itemId}"}`).replace(/%22:/g, '%22%3A');
+  return {
+    type: types.PUT_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put(updateURL, updatedState).then(res.status === 200 ? getItem(itemId) : null).catch(err => console.log(err))
+  };
+}
+//Deletes selected menu item from the restaurant's menu(s)
+function deleteItem(itemId) {
+  return {
+    type: types.DELETE_ITEM,
+    payload: __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete(`https://grubtoeat.herokuapp.com/api/MenuItems/${itemId}`).then(res => {
+      return _extends({}, res.data, {
+        id: itemId
+      });
+    }).catch(err => console.log(err))
+  };
+}
+
+/***/ }),
+/* 178 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MenuItems__ = __webpack_require__(179);
+
+
+
+function mapStoreToProps(store) {
+  return {
+    menuItems: store.menuItems
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__MenuItems__["a" /* default */]));
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__ = __webpack_require__(177);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+// import { POST_ITEM } from './MenuItemsAction';
+class MenuItems extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //was thinking of maybe utilizing this menu state for adding/deleting items?
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      addFormEnabled: false,
+      edit: false,
+      done: false
+    };
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.renderForm = this.renderForm.bind(this);
+    this.renderMenuItems = this.renderMenuItems.bind(this);
+    this.toggleAddMenuItem = this.toggleAddMenuItem.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  componentWillMount() {
+    //Determine if restaurantID exists & if user logged in is a restaurantOwner
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["a" /* checkRestaurantId */])(document.cookie));
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    /* Dispatch a change if:
+     * menuList is empty
+     * valid restaurantId
+     */
+    if (!this.props.menuItems.menuList.length && nextProps.menuItems.isRestaurantIdValid) {
+      this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["d" /* getMenu */])(nextProps.menuItems.restaurantId));
+    };
+    if (!this.props.menuItems.menuList.length && !!nextProps.menuItems.menuList.length) {
+      for (let menuList of nextProps.menuItems.menuList) {
+        this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["c" /* getItem */])(menuList.id));
+      }
+    }
+  }
+
+  //Method to handle input changes on add menu item
+  handleInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  //Toggles between the input form and the actual list of items
+  toggleAddMenuItem() {
+    this.setState({ addFormEnabled: !this.state.addFormEnabled });
+  }
+
+  //Method to add items 
+  addItem(e) {
+    e.preventDefault();
+    const { name, price, description } = this.state;
+    //Ensure that menuId (via category) contains a value
+    let menuId = !this.state.category ? document.querySelector('#menuSelect').value : this.state.category;
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["e" /* postItem */])({ name, menuId, price, description }));
+  }
+  //Method to update item TODO:get it to work
+  updateItem(e) {
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["g" /* updateItem */])(e.target.parentNode.id, _extends({}, state)));
+  }
+
+  //removes item TODO
+  removeItem(e) {
+    this.props.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__MenuItemsActions__["b" /* deleteItem */])(e.target.dataset.refId));
+  }
+
+  //renders the form to input items TODO
+  renderForm() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'form',
+      { className: 'item-wrapper', onSubmit: this.addItem },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'form-group' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'label',
+          { htmlFor: 'menuSelect' },
+          'Menu Item Category'
+        ),
+        !!this.props.menuItems.menuList.length ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'select',
+          { id: 'menuSelect',
+            name: 'category',
+            className: 'form-control',
+            onChange: this.handleInputChange,
+            defaultValue: this.props.menuItems.menuList[0].id },
+          this.props.menuItems.menuList.map(menuItem => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'option',
+            { key: menuItem.id, value: menuItem.id },
+            menuItem.name
+          ))
+        ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'select',
+          { id: 'menuSelect', className: 'form-control', disabled: true },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'option',
+            null,
+            'Finding restaurant menu(s)...'
+          )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'small',
+          { className: 'form-text text-muted' },
+          'You can add/edit your active menu ',
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'a',
+            { href: '#/restaurant' },
+            'here'
+          )
+        )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'form-group' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-name' }),
+        ' Menu Item Name',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          id: 'item-name',
+          name: 'name',
+          className: 'item-name form-control',
+          value: this.state.name,
+          onChange: this.handleInputChange,
+          required: true })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'form-group' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-price' }),
+        ' Price',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          type: 'number',
+          id: 'item-price',
+          name: 'price',
+          className: 'item-price form-control',
+          value: this.state.price,
+          onChange: this.handleInputChange,
+          required: true })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'form-group' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('label', { htmlFor: 'item-desc' }),
+        ' Menu Item Description',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+          id: 'item-desc',
+          name: 'description',
+          className: 'item-desc form-control',
+          value: this.state.description,
+          onChange: this.handleInputChange })
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        {
+          type: 'text',
+          className: 'add btn btn-primary btn-block' },
+        'Add'
+      )
+    );
+  }
+  //renders the list of menu items
+  renderMenuItems() {
+    return (
+      // Current list of restaurant menu items
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'row' },
+        !!this.props.menuItems.menuItemList.length ? this.props.menuItems.menuItemList.map((menuItem, menuItemIndex) => {
+          const menuIndex = this.props.menuItems.menuList.findIndex(menuList => menuList.id == menuItem.menuId);
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { key: menuItem.id,
+              className: 'col-sm-12 col-md-6 my-2' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'div',
+              { className: 'card' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'card-body d-flex' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'card-text' },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h3',
+                    { className: 'text-dark' },
+                    menuItem.name
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'small',
+                    null,
+                    menuIndex > -1 ? this.props.menuItems.menuList[menuIndex].name.toUpperCase() : 'MISC'
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'div',
+                  { className: 'ml-auto' },
+                  'Price: $',
+                  menuItem.price.toFixed(2)
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'button',
+                  {
+                    className: 'btn btn-primary',
+                    onClick: this.removeItem,
+                    'data-ref-id': menuItem.id },
+                  'Delete'
+                )
+              )
+            )
+          );
+        }) :
+        //Return if restaurant's menu items are empty
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'lead' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'p',
+            null,
+            'It looks like you got an empty menu!'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'p',
+            null,
+            'To add a menu item, click on \'Add to Menu\' button!'
+          )
+        )
+      )
+    );
+  }
+  render() {
+    return this.props.menuItems.isRestaurantIdValid ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'container' }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'menuItems' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'display-4 text-center' },
+          'Edit Menu'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          { className: 'btn btn-primary ', onClick: this.toggleAddMenuItem },
+          'Add to Menu'
+        ),
+        this.renderMenuItems(),
+        this.state.addFormEnabled ? this.renderForm() : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null)
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'category-breakfast' })
+    ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'container' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'lead' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          null,
+          'Verifying restaurant information...'
+        )
+      )
+    );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MenuItems;
+
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__OrderCart__ = __webpack_require__(181);
+
+
+
+function mapStoreToProps(store) {
+  return {};
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_react_redux__["b" /* connect */])(mapStoreToProps)(__WEBPACK_IMPORTED_MODULE_1__OrderCart__["a" /* default */]));
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TopNav__ = __webpack_require__(9);
+
+
+
+class OrderCart extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'container-fluid' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TopNav__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'shopping-cart-container' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'MY SHOPPING CART'
+                )
+            )
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = OrderCart;
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = menuItemsReducer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__ = __webpack_require__(177);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+const defaultState = {
+  menuList: [],
+  menuItemList: [],
+  isRestaurantIdValid: false
+
+};
+
+function menuItemsReducer(state = defaultState, action) {
+  const { type, payload } = action;
+  switch (type) {
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].VERIFY_RESTAURANT_ID + '_FULFILLED':
+      {
+        return _extends({}, state, {
+          isRestaurantIdValid: payload.isValid,
+          restaurantId: payload.restaurantId
+        });
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].GET_MENU + '_FULFILLED':
+      {
+        return _extends({}, state, {
+          menuList: payload
+        });
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].POST_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menuItemList: [...state.menuItemList, payload]
+          });
+        }
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].GET_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menuItemList: [...state.menuItemList, ...payload]
+          });
+        }
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].PUT_ITEM + '_PENDING':
+      {
+        return state;
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].PUT_ITEM + '_FULFILLED':
+      {
+        if (payload) {
+          return _extends({}, state, {
+            menu: payload.item
+          });
+        }
+      }
+
+    case __WEBPACK_IMPORTED_MODULE_0__MenuItemsActions__["f" /* types */].DELETE_ITEM + '_FULFILLED':
+      {
+        console.log(payload);
+        if (payload.count == 1) {
+          return _extends({}, state, {
+            menuItemList: state.menuItemList.filter(menuItem => menuItem.id !== payload.id)
+          });
+        }
+      }
+
+    default:
+      {
+        return state;
+      }
+  }
+
+  return defaultState;
+}
 
 /***/ })
 /******/ ]);
