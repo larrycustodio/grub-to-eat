@@ -43,6 +43,11 @@ export default function restaurantProfileReducer(
         ...state,
         menus: payload.menus
       };
+    case types.ADD_MENU + "_FULFILLED":
+      return {
+        ...state,
+        menus: payload.menus
+      }
     default:
       return state;
   }

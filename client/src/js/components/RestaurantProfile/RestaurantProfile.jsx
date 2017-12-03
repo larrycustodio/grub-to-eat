@@ -9,7 +9,7 @@ import {
   addMenu
 } from "./restaurantProfileActions";
 
-export default class RestaurantProfile extends React.Component {
+export default class restaurantProfile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -40,11 +40,10 @@ export default class RestaurantProfile extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleProfileToggle = this.handleProfileToggle.bind(this);
-    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
-    this.handleAddMenuToggle = this.handleAddMenuToggle.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.addMenu = this.addMenu.bind(this);
     this.removeMenu = this.removeMenu.bind(this);
+    this.handleRemoveMenuToggle = this.handleRemoveMenuToggle.bind(this);
   }
   componentDidMount() {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
@@ -69,7 +68,7 @@ export default class RestaurantProfile extends React.Component {
     this.props.dispatch(
       updateRestaurantInformation(
         this.state.formValues,
-        this.props.restaurantInfo.id
+        this.props.restaurantProfile.id
       )
     );
     this.setState({ fireRedirect: true });
@@ -77,15 +76,6 @@ export default class RestaurantProfile extends React.Component {
   handleCancel(e) {
     e.preventDefault();
     this.setState({ fireRedirect: true });
-  }
-  handleProfileToggle(e) {
-    this.state.toggleProfile
-      ? this.setState({ toggleProfile: false })
-      : this.setState({ toggleProfile: true });
-    this.setState({
-      toggleAddMenu: false,
-      toggleRemoveMenu: false
-    });
   }
   handleRemoveMenuToggle(id) {
     this.state.toggleRemoveMenu
@@ -95,80 +85,90 @@ export default class RestaurantProfile extends React.Component {
       toggleAddMenu: false,
       toggleProfile: false
     });
-    if (typeof this.props.restaurantInfo.id !== "undefined") {
-      this.props.dispatch(getMenus(this.props.restaurantInfo.id));
+    if (typeof this.props.restaurantProfile.id !== "undefined") {
+      this.props.dispatch(getMenus(this.props.restaurantProfile.id));
     }
   }
-  handleAddMenuToggle(id) {
-    this.state.toggleAddMenu
-      ? this.setState({ toggleAddMenu: false })
-      : this.setState({ toggleAddMenu: true });
-    this.setState({
-      toggleRemoveMenu: false,
-      toggleProfile: false
-    });
+  handleToggle(e) {
+    e.preventDefault();
+    console.log(e.target);
+    let current = e.target;
+    if (current.id === "profileButton") {
+      this.state.toggleProfile
+        ? this.setState({
+            toggleProfile: false
+          })
+        : this.setState({
+            toggleProfile: true
+          });
+      this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
+    }
+    if (current.id === "addButton") {
+      this.state.toggleAddMenu
+        ? this.setState({
+            toggleAddMenu: false
+          })
+        : this.setState({
+            toggleAddMenu: true
+          });
+      this.setState({ toggleRemoveMenu: false, toggleProfile: false });
+    }
   }
   addMenu(e) {
     e.preventDefault();
     let menuName = document.getElementById("menuNameInput").value;
-    this.props.dispatch(addMenu(this.props.restaurantInfo.id, menuName));
-    this.setState({ toggleRemoveMenu: true });
-    let profileCheckBox = document.getElementById('profileCheckBox');
-    let menuCheckBox= document.getElementById('menuCheckBox');
-    let addMenuCheckbox = document.getElementById('addMenuCheckbox')
-    profileCheckBox.checked = false;
-    menuCheckBox.checked = true;
-    if (typeof this.props.restaurantInfo.id !== "undefined") {
-      this.props.dispatch(getMenus(this.props.restaurantInfo.id));
-    }
+    this.props.dispatch(addMenu(this.props.restaurantProfile.id, menuName));
+    this.handleRemoveMenuToggle(this.props.restaurantProfile.id)
   }
   removeMenu(e) {
-    this.props.dispatch(removeMenu(e.target.id, this.props.restaurantInfo.id));
+    e.preventDefault();
+    this.props.dispatch(
+      removeMenu(e.target.id, this.props.restaurantProfile.id)
+    );
   }
   render() {
+    let profileButtonContainer = (
+      <div className="button-container">
+        <TopNav />
+        <h1 className="display-4 text-center'">Restaurant</h1>
+        <form role="form">
+          <div className="row">
+            <div className="col-sm-3 text-center">
+              <button
+                id="profileButton"
+                name="profileInput"
+                onClick={this.handleToggle}
+              >
+                Profile
+              </button>
+              <button
+                id="removeButton"
+                name="removeInput"
+                onClick={this.handleRemoveMenuToggle}
+              >
+                Remove Menu
+              </button>
+              <button
+                id="addButton"
+                name="addInput"
+                onClick={this.handleToggle}
+              >
+                Add Menu
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
     const { from } = this.props.location.state || "/";
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
       return !!document.cookie ? (
         <div className="container-fluid">
-          <TopNav />
-          <h1 className="display-4 text-center'">Restaurant</h1>
-          <form role="form">
-            <div className="row">
-              <div className="col-sm-3 text-center">
-                <label htmlFor="profileCheckBox">
-                  <input
-                    type="radio"
-                    id="profileCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleProfileToggle}
-                  />
-                  profile
-                </label>
-                <label htmlFor="menuCheckBox">
-                  <input
-                    type="radio"
-                    id="menuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleRemoveMenuToggle}
-                  />
-                  view/remove menu
-                </label>
-                <label htmlFor="addMenuCheckBox">
-                  <input
-                    type="radio"
-                    id="addMenuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleAddMenuToggle}
-                  />
-                  add menu
-                </label>
-              </div>
-            </div>
-          </form>
+          {profileButtonContainer}
           <form onSubmit={this.onSubmit}>
             {// Creates form inputs for each entry in this.state.formFields
-            // Prefills the input values with the restaurantInfo store retrieved
+            // Prefills the input values with the restaurantProfile store retrieved
             this.state.formFields.map(formField => {
               const { name, label, inputType } = formField;
               return (
@@ -180,10 +180,10 @@ export default class RestaurantProfile extends React.Component {
                     <input
                       type={formField.inputType}
                       id={name}
-                      name="profileCheckBoxes"
+                      name="profileInput"
                       className="form-control"
-                      placeholder={this.props.restaurantInfo[name]}
-                      onClick={this.onInputChange}
+                      placeholder={this.props.restaurantProfile[name]}
+                      onChange={this.onInputChange}
                     />
                   </div>
                 </div>
@@ -195,7 +195,7 @@ export default class RestaurantProfile extends React.Component {
               </button>
               <button
                 type="reset"
-                onClick={this.handleCancel}
+                onChange={this.handleCancel}
                 className="btn btn-secondary mx-1"
               >
                 Cancel
@@ -216,56 +216,27 @@ export default class RestaurantProfile extends React.Component {
     }
     if (
       this.state.toggleRemoveMenu === true &&
-      typeof this.props.restaurantInfo.menus !== "undefined"
+      typeof this.props.restaurantProfile.menus !== "undefined"
     ) {
       return !!document.cookie ? (
         <div className="container-fluid">
-          <TopNav />
-          <h1 className="display-4 text-center'">Restaurant</h1>
-          <form role="form">
-            <div className="row">
-              <div className="col-sm-3 text-center">
-                <label htmlFor="profileCheckBox">
-                  <input
-                    type="radio"
-                    id="profileCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleProfileToggle}
-                  />
-                  profile
-                </label>
-                <label htmlFor="menuCheckBox">
-                  <input
-                    type="radio"
-                    id="menuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleRemoveMenuToggle}
-                  />
-                  view/remove menu
-                </label>
-                <label htmlFor="addMenuCheckBox">
-                  <input
-                    type="radio"
-                    id="addMenuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleAddMenuToggle}
-                  />
-                  add menu
-                </label>
-              </div>
-            </div>
-          </form>
+          {profileButtonContainer}
           <div>
             <h2>Your Menus</h2>
             <p>
               Check a menu to remove it or click the add menu button to add a
               new one!
             </p>
-            {this.props.restaurantInfo.menus.map(menu => {
+            {this.props.restaurantProfile.menus.map(menu => {
               return (
                 <div className="row" key={menu.id}>
-                  <label htmlFor="menuCheckbox">
-                    <input type="radio" onClick={this.removeMenu} name="profileCheckBoxes" id={menu.id} />
+                  <label htmlFor="remove">
+                    <input
+                      type="radio"
+                      onChange={this.removeMenu}
+                      name="profileInput"
+                      id={menu.id}
+                    />
                     {menu.name}
                   </label>
                 </div>
@@ -284,47 +255,14 @@ export default class RestaurantProfile extends React.Component {
       );
     }
     if (this.state.toggleAddMenu === true) {
+      {this.handleRemoveMenuToggle}
       return (
         <div className="container-fluid">
-          <TopNav />
-          <h1 className="display-4 text-center'">Restaurant</h1>
-          <form role="form">
-            <div className="row">
-              <div className="col-sm-3 text-center">
-                <label htmlFor="profileCheckBox">
-                  <input
-                    type="radio"
-                    id="profileCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleProfileToggle}
-                  />
-                  profile
-                </label>
-                <label htmlFor="menuCheckBox">
-                  <input
-                    type="radio"
-                    id="menuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleRemoveMenuToggle}
-                  />
-                  view/remove menu
-                </label>
-                <label htmlFor="addMenuCheckBox">
-                  <input
-                    type="radio"
-                    id="addMenuCheckBox"
-                    name="profileCheckBoxes"
-                    onClick={this.handleAddMenuToggle}
-                  />
-                  add menu
-                </label>
-              </div>
-            </div>
-          </form>
+          {profileButtonContainer}
           <div>
             <h2>Add Menu</h2>
             <p>Fill in the forms and click add to submit your new menu!</p>
-            <form onSubmit={this.addMenu}>
+            <form>
               <div className="form-group row">
                 <label htmlFor="menuName">Menu Name</label>
                 <div className="col-sm-8 col-md-6">
@@ -338,7 +276,11 @@ export default class RestaurantProfile extends React.Component {
                 </div>
               </div>
               <div className="form-group row justify-content-center">
-                <button type="submit" className="btn btn-primary mx-1">
+                <button
+                  onClick={this.addMenu}
+                  type="submit"
+                  className="btn btn-primary mx-1"
+                >
                   Add Menu
                 </button>
                 <button
@@ -356,43 +298,7 @@ export default class RestaurantProfile extends React.Component {
       );
     }
     return !!document.cookie ? (
-      <div className="container-fluid">
-        <TopNav />
-        <h1 className="display-4 text-center'">Restaurant</h1>
-        <form role="form">
-          <div className="row">
-            <div className="col-sm-3 text-center">
-              <label htmlFor="profileCheckBox">
-                <input
-                  type="radio"
-                  id="profileCheckBox"
-                  name="profileCheckBoxes"
-                  onClick={this.handleProfileToggle}
-                />
-                profile
-              </label>
-              <label htmlFor="menuCheckBox">
-                <input
-                  type="radio"
-                  id="menuCheckBox"
-                  name="profileCheckBoxes"
-                  onClick={this.handleRemoveMenuToggle}
-                />
-                view/remove menu
-              </label>
-              <label htmlFor="addMenuCheckBox">
-                <input
-                  type="radio"
-                  id="addMenuCheckBox"
-                  name="profileCheckBoxes"
-                  onClick={this.handleAddMenuToggle}
-                />
-                add menu
-              </label>
-            </div>
-          </div>
-        </form>
-      </div>
+      profileButtonContainer
     ) : (
       // Returns a redirect link for restaurant log in if no log in is detected
       <div className="container-fluid">
