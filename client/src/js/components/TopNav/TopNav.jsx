@@ -13,6 +13,7 @@ export default class TopNav extends React.Component {
     document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     window.location.reload(true);
   }
+
   render() {
     return (
       <nav className="navbar navbar-toggleable-md navbar-dark bg-dark fixed-top">
@@ -49,11 +50,11 @@ export default class TopNav extends React.Component {
             <a href="#/login" className="mx-1 text-white">
               Log In
             </a>
-          )}
-        </div>
-        <a href="#/cart" className="user-cart text-white">
-          MY CART(0)
-        </a>
+            )}
+      </div>
+      <a href="#/checkout" className='user-cart text-white'>
+          MY CART ({this.props.orderCart.activeOrder.menuItems.length})
+      </a>
       </nav>
     );
   }

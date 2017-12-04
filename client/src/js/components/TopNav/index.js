@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 function mapStoreToProps(store) {
   return {
-    userProfile: store.userProfile,
-    restaurantProfile: store.restaurantProfile
+    orderCart: store.orderCart
   };
 }
 

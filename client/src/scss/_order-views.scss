@@ -1,0 +1,21 @@
+/* * * * *
+Order Selection Modal
+* * * * * */
+.menu-item-selection {
+    align-items: center;
+    background: rgba(55,55,55,0.5);
+    display: flex;
+    flex-flow: row wrap;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 2;
+}
+
+.selection-modal {
+    background: white;
+    padding: 1%;
+}

@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const types = {
-
+  ADD_MENU_ITEM_TO_CART: 'ADD_MENU_ITEM_TO_CART'
 };
 
-// Sets payload to up-to-date restaurant information
-export const getSomething = someId => {
+export const addItemToCart = menuItem => {
   return {
-    type: 'SCAFFOLD',
-    payload: {}
-}
+    type: types.ADD_MENU_ITEM_TO_CART,
+    payload: menuItem
+  };
+};
