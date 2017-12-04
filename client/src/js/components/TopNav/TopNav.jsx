@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default class TopNav extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export default class TopNav extends React.Component {
     document.cookie = 'restaurantID=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     window.location.reload(true);
   }
+
   render() {
     return (
       <nav className="navbar navbar-toggleable-md navbar-dark bg-dark fixed-top">
@@ -21,33 +22,38 @@ export default class TopNav extends React.Component {
             Grub To Eat
           </a>
         </div>
-      <div className="login">
-        {// Looks for login cookies to determine login user type
+        <div className="login">
+          {// Looks for login cookies to determine login user type
           !!document.cookie ? (
             <span>
-              {document.cookie.indexOf("restaurantID") > 0 ? (
-                <a href="#/restaurant" className="mx-1 text-white">
+              {document.cookie.indexOf('restaurantID') > 0 ? (
+                <a
+                  href="#/restaurant"
+                  className="mx-1 user-logged-in text-white"
+                >
                   Hello Owner
                 </a>
               ) : (
-                  <a href="#/user" className="mx-1 text-white">
-                    Hi Person
+                <a href="#/user" className="mx-1 user-logged-in  text-white">
+                  Hi Person
                 </a>
-                )}
-              <a href="#/"
+              )}
+              <a
+                href="#/"
                 onClick={this.logoutHandler}
-                className="mx-1 text-white">
+                className="mx-1 text-white"
+              >
                 Logout
               </a>
             </span>
           ) : (
-              <a href="#/login" className="mx-1 text-white">
-                Log In
+            <a href="#/login" className="mx-1 text-white">
+              Log In
             </a>
             )}
       </div>
-      <a href="#/cart" className='user-cart text-white'>
-          MY CART(0)
+      <a href="#/checkout" className='user-cart text-white'>
+          MY CART ({this.props.orderCart.activeOrder.menuItems.length})
       </a>
       </nav>
     );

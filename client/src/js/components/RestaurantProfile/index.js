@@ -3,7 +3,7 @@ import RestaurantProfile from './RestaurantProfile';
 
 function mapStoreToProps(store) {
   return {
-    restaurantInfo: store.restaurantProfile
+    restaurantProfile: store.restaurantProfile
   };
 }
 

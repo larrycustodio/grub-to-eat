@@ -1,14 +1,15 @@
-
-.navbar{
- justify-content: initial;
-
- .login{
-  position:absolute;
-  right:1em;
-  }
-  .brand-wrapper{
-   width:100%;
-   text-align:center;
-  }
-  
+.navbar {
+    justify-content: initial;
+    .login {
+        position: absolute;
+        right: 1em;
+    }
+    .brand-wrapper {
+        width: 100%;
+        text-align: center;
+    }
+    .user-cart {
+      position: absolute;
+      left: 1em;
+    }
 }

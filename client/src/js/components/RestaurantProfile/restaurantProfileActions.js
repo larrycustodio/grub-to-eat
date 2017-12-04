@@ -73,8 +73,18 @@ export const addMenu = (restaurantId, menuName) => {
         `https://grubtoeat.herokuapp.com/api/Restaurants/${restaurantId}/menus`,
         { name: menuName }
       )
-      .then(res => {
-        return res.data;
+      .then(response => {
+        return axios
+          .get(
+            `https://grubtoeat.herokuapp.com/api/Restaurants/${
+              restaurantId
+            }/menus`
+          )
+          .then(response => {
+            return {
+              menus: response.data
+            };
+          }).catch(console.error);
       })
   };
 };

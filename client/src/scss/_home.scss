@@ -1,0 +1,39 @@
+.page-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background: url('../images/breakfast-image.jpg') no-repeat center center;
+  background: url('http://cookingtheglobe.com/wp-content/uploads/2016/04/brazilian-breakfast-11.jpg')
+    no-repeat center center;
+
+  background-size: cover;
+  color: #fff;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .content-wrapper {
+    width: 70vw;
+    z-index: 1;
+    #searchLocationField {
+      background-color: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      border: 1px solid #007bff;
+      border-radius: 5px 0 0 5px;
+    }
+    button {
+      background-color: #007bff;
+      border: none;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+}

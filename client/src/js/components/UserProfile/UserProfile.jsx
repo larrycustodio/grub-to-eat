@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router";
-import TopNav from "../TopNav";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router';
+import TopNav from '../TopNav';
 import {
   updateUserInformation,
   getUserInformation
-} from "./userProfileActions";
+} from './userProfileActions';
 
 export default class UserProfile extends Component {
   constructor(props) {
@@ -13,16 +13,16 @@ export default class UserProfile extends Component {
     this.state = {
       // Expected form fields in User Profile Page as this.state.formFields
       formFields: [
-        { name: "username", label: "Username", inputType: "text" },
-        { name: "firstName", label: "First Name", inputType: "text" },
-        { name: "lastName", label: "Last Name", inputType: "text" },
-        { name: "email", label: "Email", inputType: "email" },
-        { name: "phone", label: "Phone #", inputType: "phone" },
-        { name: "address1", label: "Address 1", inputType: "text" },
-        { name: "address2", label: "Address 2", inputType: "text" },
-        { name: "city", label: "City", inputType: "text" },
-        { name: "state", label: "State", inputType: "text" },
-        { name: "zipcode", label: "Zip Code", inputType: "text" }
+        { name: 'username', label: 'Username', inputType: 'text' },
+        { name: 'firstName', label: 'First Name', inputType: 'text' },
+        { name: 'lastName', label: 'Last Name', inputType: 'text' },
+        { name: 'email', label: 'Email', inputType: 'email' },
+        { name: 'phone', label: 'Phone #', inputType: 'phone' },
+        { name: 'address1', label: 'Address 1', inputType: 'text' },
+        { name: 'address2', label: 'Address 2', inputType: 'text' },
+        { name: 'city', label: 'City', inputType: 'text' },
+        { name: 'state', label: 'State', inputType: 'text' },
+        { name: 'zipcode', label: 'Zip Code', inputType: 'text' }
       ],
       formValues: {},
       fireRedirect: false
@@ -36,7 +36,7 @@ export default class UserProfile extends Component {
     // Retrieves the logged in user's information via getUserInformation action
     if (!!document.cookie) {
       const cookieToken = document.cookie.substr(
-        document.cookie.indexOf("customerID=") + 11,
+        document.cookie.indexOf('customerID=') + 11,
         24
       );
       this.props.dispatch(getUserInformation(cookieToken));
@@ -55,7 +55,7 @@ export default class UserProfile extends Component {
   onSubmit(e) {
     e.preventDefault();
     const cookieToken = document.cookie.substr(
-      document.cookie.indexOf("customerID=") + 11,
+      document.cookie.indexOf('customerID=') + 11,
       24
     );
     this.props.dispatch(
@@ -68,10 +68,10 @@ export default class UserProfile extends Component {
     this.setState({ fireRedirect: true });
   }
   render() {
-    const { from } = this.props.location.state || "/";
+    const { from } = this.props.location.state || '/';
     const { fireRedirect } = this.state;
-    return !!document.cookie && document.cookie.indexOf("customerID=") > 0 ? (
-      <div className="container-fluid">
+    return !!document.cookie && document.cookie.indexOf('customerID=') > 0 ? (
+      <div className="container">
         <TopNav />
         <h1 className="display-4 text-center">User Profile</h1>
         <form onSubmit={this.onSubmit}>
@@ -88,7 +88,7 @@ export default class UserProfile extends Component {
                   {label}
                 </label>
                 <div className="col sm-8 col-md-6">
-                  {name == "username" ? (
+                  {name == 'username' ? (
                     <div id={name}>{this.props.userInfo[name]}</div>
                   ) : (
                     <input
@@ -107,12 +107,16 @@ export default class UserProfile extends Component {
             <button type="submit" className="btn btn-primary mx-1">
               Save Changes
             </button>
-            <button type="reset" onClick={this.handleCancel} className="btn btn-secondary mx-1">
+            <button
+              type="reset"
+              onClick={this.handleCancel}
+              className="btn btn-secondary mx-1"
+            >
               Cancel
             </button>
           </div>
         </form>
-        {fireRedirect && <Redirect to={from || "/#"} />}
+        {fireRedirect && <Redirect to={from || '/#'} />}
       </div>
     ) : (
       // Returns a redirect link for user log In if no log in is detected
