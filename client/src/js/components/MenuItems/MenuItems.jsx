@@ -6,14 +6,11 @@ export default class MenuItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //was thinking of maybe utilizing this menu state for adding/deleting items?
       name: '',
       description: '',
       price: '',
-      category: '',
-      addFormEnabled: false,
-      edit: false,
-      done: false
+      category: '', 
+      addFormEnabled: false
     };
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -143,6 +140,7 @@ export default class MenuItems extends React.Component {
       // Current list of restaurant menu items
       <div className="row">
         {!!this.props.menuItems.menuItemList.length ? (
+          //Return if getItem action successfully finds menu items
           this.props.menuItems.menuItemList.map((menuItem,menuItemIndex) => {
             const menuIndex = this.props.menuItems.menuList.findIndex(menuList => menuList.id == menuItem.menuId);
             return (
@@ -177,6 +175,7 @@ export default class MenuItems extends React.Component {
       </div>
     );
   }
+  // Main page render
   render() {
     return this.props.menuItems.isRestaurantIdValid ?
       (

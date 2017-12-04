@@ -27,7 +27,7 @@ class App extends React.Component {
           <Route path="/menu/:restaurantId" component={RestaurantMenu} />
           <Route path="/user" component={UserProfile} />
           <Route path="/restaurant" component={RestaurantProfile} />
-          <Route path="/cart" component={OrderCart} />
+          <Route path="/checkout" component={OrderCart} />
         </div>
       </Router>
     );
