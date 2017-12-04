@@ -1,14 +1,19 @@
+.navbar {
+  justify-content: initial;
 
-.navbar{
- justify-content: initial;
-
- .login{
-  position:absolute;
-  right:1em;
+  .login {
+    position: absolute;
+    right: 1em;
   }
-  .brand-wrapper{
-   width:100%;
-   text-align:center;
+  .user-cart {
+    cursor: pointer;
+    position: absolute;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  
+  .brand-wrapper {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -1,8 +1,8 @@
-.container {
-  margin-top: 75px;
-}
-
+@import 'home';
 @import 'navbar';
 @import 'results-grid';
 @import 'login';
 @import 'order-cart';
+@import 'restaurantProfile';
+
+@import 'shame';
