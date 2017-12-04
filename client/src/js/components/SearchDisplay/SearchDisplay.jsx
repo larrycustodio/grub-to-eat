@@ -14,7 +14,8 @@ export default class SearchDisplay extends React.Component {
   }
   handleClick(e) {
     const { dispatch } = this.props;
-    var input = document.getElementById("searchLocationField").value;
+    var input = document.getElementById('searchLocationField').value;
+    input = input.replace(/,|\s/g,"");
     dispatch(updateSearchLocation(input));
   }
   render() {
