@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <div className="container-fluid no-padding-container">
           <Route exact path="/" component={SearchDisplay} />
           <Route path="/login" component={Login} />
           <Route path="/results" component={SearchResults} />

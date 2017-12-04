@@ -1,13 +1,13 @@
-import React from "react";
-import { Redirect } from "react-router";
-import TopNav from "../TopNav";
+import React from 'react';
+import { Redirect } from 'react-router';
+import TopNav from '../TopNav';
 import {
   updateRestaurantInformation,
   getRestaurantInformation,
   getMenus,
   removeMenu,
   addMenu
-} from "./restaurantProfileActions";
+} from './restaurantProfileActions';
 
 export default class restaurantProfile extends React.Component {
   constructor(props) {
@@ -15,21 +15,21 @@ export default class restaurantProfile extends React.Component {
 
     this.state = {
       formFields: [
-        { name: "email", label: "Email", inputType: "email" },
-        { name: "firstName", label: "First Name", inputType: "text" },
-        { name: "lastName", label: "Last Name", inputType: "text" },
-        { name: "restaurantName", label: "Restaurant Name", inputType: "text" },
-        { name: "address1", label: "Address1", inputType: "text" },
-        { name: "address2", label: "Address2", inputType: "text" },
-        { name: "state", label: "State", inputType: "text" },
-        { name: "zipcode", label: "Zip Code", inputType: "text" },
-        { name: "city", label: "City", inputType: "text" },
-        { name: "phone", label: "Phone", inputType: "phone" },
-        { name: "featuredImage", label: "Featured Image", inputType: "text" },
-        { name: "description", label: "Description", inputType: "text" },
-        { name: "category", label: "Category", inputType: "text" },
-        { name: "hours", label: "Hours", inputType: "text" },
-        { name: "username", label: "Username", inputType: "text" }
+        { name: 'email', label: 'Email', inputType: 'email' },
+        { name: 'firstName', label: 'First Name', inputType: 'text' },
+        { name: 'lastName', label: 'Last Name', inputType: 'text' },
+        { name: 'restaurantName', label: 'Restaurant Name', inputType: 'text' },
+        { name: 'address1', label: 'Address1', inputType: 'text' },
+        { name: 'address2', label: 'Address2', inputType: 'text' },
+        { name: 'state', label: 'State', inputType: 'text' },
+        { name: 'zipcode', label: 'Zip Code', inputType: 'text' },
+        { name: 'city', label: 'City', inputType: 'text' },
+        { name: 'phone', label: 'Phone', inputType: 'phone' },
+        { name: 'featuredImage', label: 'Featured Image', inputType: 'text' },
+        { name: 'description', label: 'Description', inputType: 'text' },
+        { name: 'category', label: 'Category', inputType: 'text' },
+        { name: 'hours', label: 'Hours', inputType: 'text' },
+        { name: 'username', label: 'Username', inputType: 'text' }
       ],
       formValues: {},
       fireRedirect: false,
@@ -49,7 +49,7 @@ export default class restaurantProfile extends React.Component {
     // Retrieves the logged in restaurant's information via getRestaurantInformation action
     if (!!document.cookie) {
       const cookieToken = document.cookie.substr(
-        document.cookie.indexOf("restaurantID=") + 13,
+        document.cookie.indexOf('restaurantID=') + 13,
         24
       );
       this.props.dispatch(getRestaurantInformation(cookieToken));
@@ -85,7 +85,7 @@ export default class restaurantProfile extends React.Component {
       toggleAddMenu: false,
       toggleProfile: false
     });
-    if (typeof this.props.restaurantProfile.id !== "undefined") {
+    if (typeof this.props.restaurantProfile.id !== 'undefined') {
       this.props.dispatch(getMenus(this.props.restaurantProfile.id));
     }
   }
@@ -93,7 +93,7 @@ export default class restaurantProfile extends React.Component {
     e.preventDefault();
     console.log(e.target);
     let current = e.target;
-    if (current.id === "profileButton") {
+    if (current.id === 'profileButton') {
       this.state.toggleProfile
         ? this.setState({
             toggleProfile: false
@@ -103,7 +103,7 @@ export default class restaurantProfile extends React.Component {
           });
       this.setState({ toggleRemoveMenu: false, toggleAddMenu: false });
     }
-    if (current.id === "addButton") {
+    if (current.id === 'addButton') {
       this.state.toggleAddMenu
         ? this.setState({
             toggleAddMenu: false
@@ -116,9 +116,9 @@ export default class restaurantProfile extends React.Component {
   }
   addMenu(e) {
     e.preventDefault();
-    let menuName = document.getElementById("menuNameInput").value;
+    let menuName = document.getElementById('menuNameInput').value;
     this.props.dispatch(addMenu(this.props.restaurantProfile.id, menuName));
-    this.handleRemoveMenuToggle(this.props.restaurantProfile.id)
+    this.handleRemoveMenuToggle(this.props.restaurantProfile.id);
   }
   removeMenu(e) {
     e.preventDefault();
@@ -128,15 +128,16 @@ export default class restaurantProfile extends React.Component {
   }
   render() {
     let profileButtonContainer = (
-      <div className="button-container">
+      <div className="button-container container">
         <TopNav />
         <h1 className="display-4 text-center'">Restaurant</h1>
         <form role="form">
           <div className="row">
-            <div className="col-sm-3 text-center">
+            <div className="col-sm-4 text-center">
               <button
                 id="profileButton"
                 name="profileInput"
+                className="btn btn-primary"
                 onClick={this.handleToggle}
               >
                 Profile
@@ -144,6 +145,7 @@ export default class restaurantProfile extends React.Component {
               <button
                 id="removeButton"
                 name="removeInput"
+                className="btn btn-primary"
                 onClick={this.handleRemoveMenuToggle}
               >
                 Remove Menu
@@ -151,6 +153,7 @@ export default class restaurantProfile extends React.Component {
               <button
                 id="addButton"
                 name="addInput"
+                className="btn btn-primary"
                 onClick={this.handleToggle}
               >
                 Add Menu
@@ -160,11 +163,11 @@ export default class restaurantProfile extends React.Component {
         </form>
       </div>
     );
-    const { from } = this.props.location.state || "/";
+    const { from } = this.props.location.state || '/';
     const { fireRedirect } = this.state;
     if (this.state.toggleProfile === true) {
       return !!document.cookie ? (
-        <div className="container-fluid">
+        <div className="container">
           {profileButtonContainer}
           <form onSubmit={this.onSubmit}>
             {// Creates form inputs for each entry in this.state.formFields
@@ -202,11 +205,11 @@ export default class restaurantProfile extends React.Component {
               </button>
             </div>
           </form>
-          {fireRedirect && <Redirect to={from || "/#"} />}
+          {fireRedirect && <Redirect to={from || '/#'} />}
         </div>
       ) : (
         // Returns a redirect link for restaurant log in if no log in is detected
-        <div className="container-fluid">
+        <div className="container">
           <TopNav />
           <p className="lead">
             Please <a href="#/login">Log In</a> to continue
@@ -216,12 +219,12 @@ export default class restaurantProfile extends React.Component {
     }
     if (
       this.state.toggleRemoveMenu === true &&
-      typeof this.props.restaurantProfile.menus !== "undefined"
+      typeof this.props.restaurantProfile.menus !== 'undefined'
     ) {
       return !!document.cookie ? (
-        <div className="container-fluid">
+        <div className="container">
           {profileButtonContainer}
-          <div>
+          <div className="menus">
             <h2>Your Menus</h2>
             <p>
               Check a menu to remove it or click the add menu button to add a
@@ -230,15 +233,17 @@ export default class restaurantProfile extends React.Component {
             {this.props.restaurantProfile.menus.map(menu => {
               return (
                 <div className="row" key={menu.id}>
-                  <label htmlFor="remove">
-                    <input
-                      type="radio"
-                      onChange={this.removeMenu}
-                      name="profileInput"
-                      id={menu.id}
-                    />
-                    {menu.name}
-                  </label>
+                  <div className="card">
+                    <label htmlFor="remove">
+                      <input
+                        type="radio"
+                        onChange={this.removeMenu}
+                        name="profileInput"
+                        id={menu.id}
+                      />
+                      {menu.name}
+                    </label>
+                  </div>
                 </div>
               );
             })}
@@ -255,9 +260,11 @@ export default class restaurantProfile extends React.Component {
       );
     }
     if (this.state.toggleAddMenu === true) {
-      {this.handleRemoveMenuToggle}
+      {
+        this.handleRemoveMenuToggle;
+      }
       return (
-        <div className="container-fluid">
+        <div className="container">
           {profileButtonContainer}
           <div>
             <h2>Add Menu</h2>
@@ -292,7 +299,7 @@ export default class restaurantProfile extends React.Component {
                 </button>
               </div>
             </form>
-            {fireRedirect && <Redirect to={from || "/#"} />}
+            {fireRedirect && <Redirect to={from || '/#'} />}
           </div>
         </div>
       );
@@ -301,7 +308,7 @@ export default class restaurantProfile extends React.Component {
       profileButtonContainer
     ) : (
       // Returns a redirect link for restaurant log in if no log in is detected
-      <div className="container-fluid">
+      <div className="container">
         <TopNav />
         <p className="lead">
           Please <a href="#/login">Log In</a> to continue
