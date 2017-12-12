@@ -1,4 +1,4 @@
-import { types } from "./RestaurantMenuActions";
+import { types } from "./restaurantMenuActions";
 
 const defaultState = {
     //Data structure for restaurant menu

@@ -7,7 +7,7 @@ import {
   getItem,
   deleteItem,
   updateItem
-} from './MenuItemsActions';
+} from './menuItemsActions';
 // import { POST_ITEM } from './MenuItemsAction';
 export default class MenuItems extends React.Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-import { types } from './MenuItemsActions';
+import { types } from './menuItemsActions';
 
 const defaultState = {
   menuList: [],

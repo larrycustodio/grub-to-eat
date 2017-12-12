@@ -8,7 +8,7 @@ module.exports = [
     entry: {
       main: ['./js/index']
     },
-  
+    
     devtool: 'source-maps',
   
     output: {

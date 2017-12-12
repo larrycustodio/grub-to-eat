@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addItemToCart } from '../OrderCart/OrderCartActions';
+import { addItemToCart } from '../OrderCart/orderCartActions';
 
 /* Passed down from RestaurantMenu compoennt:
  * this.props.itemID, this.props.menuIndex, props.isActive 

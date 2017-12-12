@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TopNav from '../TopNav';
-import { getRestaurantInfo, getRestaurantMenu, getRestaurantMenuItems } from './RestaurantMenuActions';
+import { getRestaurantInfo, getRestaurantMenu, getRestaurantMenuItems } from './restaurantMenuActions';
 import axios from 'axios';
 import MenuOrderSelection from '../MenuOrderSelection';
 
