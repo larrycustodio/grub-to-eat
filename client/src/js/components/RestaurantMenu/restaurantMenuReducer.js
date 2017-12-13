@@ -17,7 +17,7 @@ const defaultState = {
     isMenuLoaded: false
 };
 
-export default function RestaurantMenuReducer(state = defaultState, action) {
+export default function restaurantMenuReducer(state = defaultState, action) {
     const { type, payload } = action;
     switch(type){
         // Getting restaurant profile metadata fulfilled

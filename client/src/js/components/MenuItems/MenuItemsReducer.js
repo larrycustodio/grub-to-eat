@@ -71,6 +71,4 @@ export default function menuItemsReducer(state = defaultState, action) {
       return state;
     }
   }
-
-  return defaultState;
 }

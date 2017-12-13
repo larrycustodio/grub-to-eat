@@ -5,7 +5,7 @@ const defaultState = {
   user: ''
 };
 
-export default function LoginReducer(state = defaultState, action) {
+export default function loginReducer(state = defaultState, action) {
   const { type, payload } = action;
   switch (type) {
     case types.POST_CUSTOMER + '_FULFILLED': {
