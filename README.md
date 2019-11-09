@@ -31,18 +31,6 @@ Instructions to deploy this app TBD
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Authors
-
-* [Chris Bremmer](https://github.com/chrisbremmer)
-* [Jonathan Lancaster](https://github.com/jcast90)
-* [Larry Custodio](https://github.com/larrycustodio)
-
-See list of [contributors here](https://github.com/larrycustodio/grub-to-eat/graphs/contributors).
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-This is a collaboration project at [Origin Code Academy](http://www.origincodeacademy.com/)
